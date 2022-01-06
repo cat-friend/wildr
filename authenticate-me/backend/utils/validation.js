@@ -1,4 +1,4 @@
-import { validationResult } from "express-validator"
+const { validationResult } = require("express-validator");
 const handleValidationErrors = (req, _res, next) => {
     const validationErrors = validationResult(req);
 
