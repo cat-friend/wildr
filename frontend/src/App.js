@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import LoginFormPage from "./components/LoginFormPage";
+import Navigation from "./components/Navigation";
 import { SignUpFormPage } from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 
@@ -13,7 +14,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div>{
+    <div><Navigation isRestored={isRestored}/>{
       isRestored ?
         (< Switch >
           <Route path="/signup">
@@ -23,7 +24,7 @@ function App() {
             <LoginFormPage />
           </Route>
         </Switch>)
-        : "hello"
+        : "NOT RESTORED"
     } </div>)
 }
 

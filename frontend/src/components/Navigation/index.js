@@ -2,17 +2,13 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
+import * as sessionActions from "../../store/session";
 
-const Navigation = () => {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(sessionActions.sessionRestore()).then(() => setIsRestored(true));
-    }, [dispatch]);
-    const sessionUser = useSelector(state => state.session.user);
+const Navigation = ({isRestored}) => {
     return (<>
         <ul>
             <li><NavLink to="/">Homepage</NavLink></li>
-            {sessionUser ?
+            {isRestored ?
                 <>
                     <ProfileButton />
                     <li key="logout">
