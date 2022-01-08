@@ -1,21 +1,33 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
 import { NavLink } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import LoginFormModal from '../LoginFormModal';
 import ProfileButton from "./ProfileButton";
-import * as sessionActions from "../../store/session";
+import './Navigation.css'
 
-const Navigation = ({isRestored}) => {
-    return (<>
+const Navigation = ({ isRestored }) => {
+    const sessionUser = useSelector(state => state.session.user);
+
+    let sessionLinks;
+    if (sessionUser) {
+        sessionLinks = (
+            <ProfileButton user={sessionUser} />
+        )
+    }
+    else {
+        sessionLinks = (
+            <>
+                <LoginFormModal />
+                <NavLink to="/signup">Sign Up</NavLink>
+            </>
+        );
+    }
+    return (
         <ul>
             <li><NavLink to="/">Homepage</NavLink></li>
             {isRestored ?
                 <>
-                    <ProfileButton />
-                    <li key="logout">
-                        <button onclick="/logout" type="button">
-                            Logout
-                        </button>
-                    </li>
+                    {sessionLinks}
                 </>
                 :
                 <>
@@ -31,7 +43,7 @@ const Navigation = ({isRestored}) => {
                     </li>
                 </>}
         </ul>
-    </>)
+    );
 }
 
 
