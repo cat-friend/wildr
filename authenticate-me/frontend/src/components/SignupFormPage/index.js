@@ -13,14 +13,15 @@ export const SignUpFormPage = () => {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
 
+    if (sessionUser) return (
+        <Redirect to="/" />
+    );
+
     const onSubmit = (e) => {
 
-        if (sessionUser) return (
-            <Redirect to="/" />
-        );
         e.preventDefault();
-        const payload = { username, email, confirmPw, password };
         setErrors([]);
+        const payload = { username, email, confirmPw, password };
         if (confirmPw !== password) {
             errors.push("Password and confirm password must match.");
             return;
@@ -59,14 +60,14 @@ export const SignUpFormPage = () => {
             <input
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                plassholder="Password"
+                placeholder="Password"
                 required
                 type="password">
             </input>
             <input
                 value={confirmPw}
                 onChange={(e) => setConfirmPw(e.target.value)}
-                plassholder="Confirm password"
+                placeholder="Confirm password"
                 required
                 type="password">
             </input>

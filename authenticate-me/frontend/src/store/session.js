@@ -27,7 +27,7 @@ export const login = (payload) => async (dispatch) => {
     })
     if (response.ok) {
         const user = await response.json();
-        dispatch(setLogin(user));
+        dispatch(setLogin(user.user));
         return user;
     }
 }
@@ -58,8 +58,8 @@ export const signup = (payload) => async (dispatch) => {
         });
     if (response.ok) {
         const user = await response.json();
-        dispatch(setLogin(user));
-        return user;
+        dispatch(setLogin(user.user));
+        return response;
     }
 
 }
