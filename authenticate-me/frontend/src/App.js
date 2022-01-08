@@ -12,16 +12,19 @@ function App() {
     dispatch(sessionActions.sessionRestore()).then(() => setIsRestored(true));
   }, [dispatch]);
 
-  return isRestored && (
-    <Switch>
-      <Route path="/signup">
-        <SignUpFormPage />
-      </Route>
-      <Route path="/login">
-        <LoginFormPage />
-      </Route>
-    </Switch>
-  );
+  return (
+    <div>{
+      isRestored ?
+        (< Switch >
+          <Route path="/signup">
+            <SignUpFormPage />
+          </Route>
+          <Route path="/login">
+            <LoginFormPage />
+          </Route>
+        </Switch>)
+        : "hello"
+    } </div>)
 }
 
 export default App;
