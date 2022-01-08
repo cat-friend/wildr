@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import LoginFormPage from "./components/LoginFormPage";
+import { SignUpFormPage } from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 
 function App() {
@@ -13,6 +14,9 @@ function App() {
 
   return isRestored && (
     <Switch>
+      <Route path="/signup">
+        <SignUpFormPage />
+      </Route>
       <Route path="/login">
         <LoginFormPage />
       </Route>

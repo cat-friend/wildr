@@ -11,13 +11,14 @@ const LoginFormPage = () => {
 
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-
+    console.log("sessionUser", sessionUser);
     if (sessionUser) return (
         <Redirect to="/" />
     );
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        console.log("onSubmit");
         const payload = { credential, password };
         setErrors([]);
         return dispatch(sessionActions.login(payload))

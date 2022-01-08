@@ -45,8 +45,8 @@ export const logout = () => async (dispatch) => {
 export const sessionRestore = () => async (dispatch) => {
     const response = await csrfFetch('/api/session');
     const user = await response.json();
-    dispatch(setLogin(user))
-    return user;
+    dispatch(setLogin(user.user))
+    return response;
 }
 
 export const signup = (payload) => async (dispatch) => {
@@ -66,7 +66,7 @@ export const signup = (payload) => async (dispatch) => {
 
 const initialState = { user: null };
 
-const sessionReducer = (state = initialState, action) => {
+const sessionReducer = (state=initialState, action) => {
     switch (action.type) {
         case LOGIN_USER: {
             const newState = Object.assign({}, state);
