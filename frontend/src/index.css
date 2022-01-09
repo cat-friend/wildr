@@ -19,13 +19,18 @@ body {
     font-weight: 300;
     font-style: normal;
     color: var(--body-font-color);
-    margin: 5%;
+    margin: 0 5% 5% 5%;
 }
 
 h1, h2, h3, h4 {
     font-family: circe-slab-a, serif;
     font-weight: 700;
     font-style: normal;
+}
+
+div.navbar > h1 {
+    font-size: 40px;
+    margin: 0;
 }
 
 a {
