@@ -13,8 +13,9 @@ function App() {
     dispatch(sessionActions.sessionRestore()).then(() => setIsRestored(true));
   }, [dispatch]);
 
-  return (
-    <div><Navigation isRestored={isRestored} />
+  return (<>
+    <nav><Navigation isRestored={isRestored} /></nav>
+    <div>
       {
         isRestored ?
           (< Switch >
@@ -26,7 +27,8 @@ function App() {
             </Route>
           </Switch>) : null
       }
-    </div>)
+    </div>
+  </>)
 }
 
 export default App;

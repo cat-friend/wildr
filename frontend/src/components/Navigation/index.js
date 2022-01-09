@@ -11,38 +11,40 @@ const Navigation = ({ isRestored }) => {
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
-            <ProfileButton user={sessionUser} />
+            <div>
+                <ProfileButton user={sessionUser} />
+            </div>
         )
     }
     else {
         sessionLinks = (
             <>
-                <LoginFormModal />
-                <NavLink to="/signup">Sign Up</NavLink>
+                <div><LoginFormModal /></div>
+                <div><NavLink to="/signup" className="nav-items">Sign Up</NavLink></div>
             </>
         );
     }
     return (
-        <ul>
-            <li><NavLink to="/">Homepage</NavLink></li>
+        <div className='navbar'>
+            <div><NavLink to="/" className="nav-items">Homepage</NavLink></div>
             {isRestored ?
                 <>
                     {sessionLinks}
                 </>
-                :
-                <>
-                    <li key="signup">
-                        <NavLink to="/signup">
+                : <>
+                    <div>
+                        <NavLink to="/signup" className="nav-items">
                             Sign Up!
                         </NavLink>
-                    </li>
-                    <li key="login">
-                        <NavLink to="/login">
+                    </div>
+                    <div>
+                        <NavLink to="/login" className="nav-items">
                             Log in
                         </NavLink>
-                    </li>
-                </>}
-        </ul>
+                    </div>
+                </>
+            }
+        </div >
     );
 }
 

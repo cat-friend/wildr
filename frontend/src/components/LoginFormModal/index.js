@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
+import { Link } from 'react-router-dom';
 import LoginForm from './LoginForm';
 
 function LoginFormModal() {
@@ -7,7 +8,7 @@ function LoginFormModal() {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Log In</button>
+      <Link onClick={() => setShowModal(true)}>Log In</Link>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <LoginForm />
