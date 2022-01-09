@@ -33,10 +33,11 @@ export const SignUpFormPage = () => {
     }
 
     return (<div className="body-div">
-        <form onSubmit={onSubmit}>
-            <ul>
-                {errors.map((error, i) => <li key={i}>{error}</li>)}
-            </ul>
+        <ul className="error-list">
+            {errors.map((error, i) => <li key={i} className="errors">{error}</li>)}
+        </ul>
+        <form onSubmit={onSubmit} className="login-form">
+
             <input
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -67,7 +68,7 @@ export const SignUpFormPage = () => {
                 required
                 type="password">
             </input>
-            <button type="submit">Sign up!</button>
+            <button type="submit" class="light-button">Sign up!</button>
         </form>
     </div>)
 }
