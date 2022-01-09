@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as sessionActions from '../../store/session'
 import { Redirect } from "react-router-dom";
@@ -18,25 +18,21 @@ export const SignUpFormPage = () => {
     );
 
     const onSubmit = (e) => {
-
         e.preventDefault();
         setErrors([]);
         const payload = { username, email, confirmPw, password };
-        if (confirmPw !== password) {
-            errors.push("Password and confirm password must match.");
-            return;
-        }
-        return dispatch(sessionActions.login(payload))
-            .catch(async (response) => {
-                const data = await response.json();
-                if (data && data.errors) data.errors.forEach(error => {
-                    errors.push(error);
-                });;
-            });
+        if (confirmPw === password) {
+            setErrors([]);
+            return dispatch(sessionActions.signup(payload))
+                .catch(async (response) => {
+                    const data = await response.json();
+                    if (data && data.errors) setErrors(data.errors)
+                });
+        };
+        return setErrors(['Confirm Password and Password fields must match.'])
     }
 
-
-    return (<>
+    return (<div className="body-div">
         <form onSubmit={onSubmit}>
             <ul>
                 {errors.map((error, i) => <li key={i}>{error}</li>)}
@@ -71,7 +67,7 @@ export const SignUpFormPage = () => {
                 required
                 type="password">
             </input>
-            <button type="submit">Log In</button>
+            <button type="submit">Sign up!</button>
         </form>
-    </>)
+    </div>)
 }

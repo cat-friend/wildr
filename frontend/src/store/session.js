@@ -61,12 +61,11 @@ export const signup = (payload) => async (dispatch) => {
         dispatch(setLogin(user.user));
         return response;
     }
-
 }
 
 const initialState = { user: null };
 
-const sessionReducer = (state=initialState, action) => {
+const sessionReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOGIN_USER: {
             const newState = Object.assign({}, state);

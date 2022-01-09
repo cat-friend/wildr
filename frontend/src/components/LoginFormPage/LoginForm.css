@@ -1,0 +1,33 @@
+div.login-form {
+    /* margin: 0, auto, 0, auto; */
+    width: fit-content;
+    box-sizing: border-box;
+    border: var(--button-border-dark) 2px solid;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.login-form {
+    display: block;
+}
+
+ul.error-list {
+    list-style-type: none;
+}
+
+.errors {
+    border: 2px solid darkred;
+}
+
+button.light-button {
+    background-color: white;
+    border: var(--button-border-light) 2px solid;
+    width: 100%;
+    margin-top: 20px;
+}
+
+input {
+    border-radius: 5px;
+    background-color: white;
+    width: 100%;
+}
