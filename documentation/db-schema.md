@@ -36,9 +36,9 @@ DB diagram link: [here]
 | url         | string    | not null              |
 | description | text      |                       |
 | userId      | integer   |                       |
-| albumId     | integer   |                       |
-| createdAt     | datetime  | not null                       |
-| updatedAt     | datetime  | not null                       |
+| albumId     | integer   | unique                |
+| createdAt   | datetime  | not null              |
+| updatedAt   | datetime  | not null              |
 
 * userId references `users` table
 * albumId references `albums` table
