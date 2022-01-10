@@ -18,7 +18,7 @@ DB diagram link: [here]
 | id            | integer   | not null, primary key          |
 | userId        | integer   | not null, unique               |
 | imageId       | integer   | not null, random default       |
-| description   | text      | not null                       |
+| description   | text      | not null, standard default     |
 
 * userId references `users` table
 * imageId references `images` table
@@ -29,6 +29,7 @@ DB diagram link: [here]
 |-------------|-----------|-----------------------|
 | id          | integer   | not null, primary key |
 | url         | string    | not null              |
+| description | text      |                       |
 | userId      | integer   |                       |
 
 * userId references `users` table
