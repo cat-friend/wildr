@@ -47,7 +47,7 @@ const LoginFormPage = () => {
                     required
                     type="password">
                 </input>
-                <button type="submit" class="light-button">Log In</button>
+                <button type="submit" className="light-button">Log In</button>
             </form>
         </>)
 }

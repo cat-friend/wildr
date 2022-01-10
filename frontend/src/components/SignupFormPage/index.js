@@ -68,7 +68,7 @@ export const SignUpFormPage = () => {
                 required
                 type="password">
             </input>
-            <button type="submit" class="light-button">Sign up!</button>
+            <button type="submit" className="light-button">Sign up!</button>
         </form>
     </div>)
 }

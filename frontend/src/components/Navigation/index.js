@@ -26,7 +26,10 @@ const Navigation = ({ isRestored }) => {
     }
     return (
         <div className='navbar'>
-            <h1>Wildr</h1>
+            <div className='logo'>
+                <img src='./logo.png' alt="logo for Wildr" />
+                <h1>Wildr</h1>
+            </div>
             <div><NavLink to="/" className="nav-items">Homepage</NavLink></div>
             {isRestored ?
                 <>
