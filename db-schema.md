@@ -17,7 +17,7 @@ DB diagram link: [here]
 |---------------|-----------|--------------------------------|
 | id            | integer   | not null, primary key          |
 | userId        | integer   | not null, unique               |
-| imageId       | integer   |                                |
+| imageId       | integer   | not null, random default       |
 | description   | text      | not null                       |
 
 * userId references `users` table
@@ -30,6 +30,7 @@ DB diagram link: [here]
 | id          | integer   | not null, primary key |
 | url         | string    | not null              |
 | userId      | integer   |                       |
+
 * userId references `users` table
 
 ## `tags`
@@ -65,7 +66,5 @@ DB diagram link: [here]
 
 * imageId references `images` table
 * album references `albums` table
-
-
 
 [here]: https://dbdiagram.io/d/61dc4803f8370f0a2eed67a6
