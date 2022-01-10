@@ -30,7 +30,7 @@ Routes that return an HTML page that the user can interact with
 
 <!-- [Feature List]: https://github.com/MeiMeiYS/group-9-best-group/wiki/MVP-Feature-List -->
 
-[User Stories and Acceptance Criteria]: https://github.com/MeiMeiYS/group-9-best-group/wiki/User-Stories
+[User Stories and Acceptance Criteria]: https://github.com/cat-friend/wildr/wiki/User-Stories-&-Features-Acceptance-Criteria
 
 [Database Schema]: https://github.com/cat-friend/wildr/wiki/Database-Schema
 
