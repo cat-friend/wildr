@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   }, {});
+  Profile.beforeCreate(profile => {
+    profile.userIconId = Math.ceil(Math.random() * 15);
+  });
   Profile.associate = function (models) {
     Profile.belongsTo(models.User, { foreignKey: 'userId' });
     Profile.belongsTo(models.UserIcon, { foreignKey: 'userIconId' });
