@@ -1,26 +1,24 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Users', {
+    return queryInterface.createTable('Profiles', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
-        type: Sequelize.STRING(30),
+      userId: {
         allowNull: false,
-        unique: true,
+        type: Sequelize.INTEGER
       },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
+      imageId: {
+        type: Sequelize.INTEGER
       },
-      hashedPassword: {
-        type: Sequelize.STRING.BINARY,
+      description: {
         allowNull: false,
+        type: Sequelize.STRING(350),
+        defaultValue: "Hello! I'm new to Wildr!"
       },
       createdAt: {
         allowNull: false,
@@ -35,6 +33,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Users');
+    return queryInterface.dropTable('Profiles');
   }
 };
