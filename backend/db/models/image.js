@@ -39,7 +39,13 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     userId: DataTypes.INTEGER,
-    albumsId: DataTypes.INTEGER
+    albumsId: {
+      type: DataTypes.INTEGER,
+      unique: {
+        args: false,
+        msg: "Image already belongs to an album."
+      }
+    },
   }, {});
   Image.associate = function (models) {
     Image.belongsTo(models.User, { foreignKey: 'userId' });

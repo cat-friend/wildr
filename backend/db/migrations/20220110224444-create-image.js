@@ -23,7 +23,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      albumsId: {
+      albumId: {
         type: Sequelize.INTEGER,
         unique: true
       },
