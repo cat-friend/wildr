@@ -2,19 +2,155 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-      return queryInterface.bulkInsert('People', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
+    return queryInterface.bulkInsert('Images', [
+      {
+        title: "Fireweed in Unalaska, AK",
+        url: "https://www.denisepli.com/images/01.jpg",
+        description: "Taken with a Canon point and shoot",
+        userId: 1
+      },
+      {
+        title: "Fox",
+        url: "https://www.denisepli.com/images/02.jpg",
+        description: "Fox in Unalaska, AK",
+        userId: 2
+      },
+      {
+        title: "Sea snail",
+        url: "https://www.denisepli.com/images/03.jpg",
+        description: "Sea snail in Olympic National Park, WA USA",
+        userId: 3
+      },
+      {
+        title: "Mushrooms in ferns",
+        url: "https://www.denisepli.com/images/04.jpg",
+        description: "Mushrooms in ferns, taken in Olympic National Park, WA USA",
+        userId: 1
+      },
+      {
+        title: "Bald Eagle Eating Salmon",
+        url: "https://www.denisepli.com/images/05.jpg",
+        description: "Bald Eagle Eating Salmon. Unalaska, AK",
+        userId: 2
+      },
+      {
+        title: "Salmon shark",
+        url: "https://www.denisepli.com/images/06.jpg",
+        description: "Salmon shark, Bering Sea, AK USA",
+        userId: 3
+      },
+      {
+        title: "Giraffe",
+        url: "https://www.denisepli.com/images/07.jpg",
+        description: "Giraffe on a camera trap at a waterhole, Kalahari Desert, Botswana",
+        userId: 1
+      },
+      {
+        title: "Juvenile Lions at Waterhole",
+        url: "https://www.denisepli.com/images/08.jpg",
+        description: "Waterhole camera trap, Kalahari Desert, Botswana",
+        userId: 2
+      },
+      {
+        title: "Ostrich",
+        url: "https://www.denisepli.com/images/09.jpg",
+        description: "Ostrich at a dry waterhole. Kalahari Desert, Botswana",
+        userId: 3
+      },
+      {
+        title: "Pack of wild dogs",
+        url: "https://www.denisepli.com/images/10.jpg",
+        description: "Camera trap photo. Kalahari Desert, Botswana",
+        userId: 1
+      },
+      {
+        title: "Eland at night",
+        url: "https://www.denisepli.com/images/11.jpg",
+        description: "Camera trap photo. Kalahari Desert, Botswana",
+        userId: 2
+      },
+      {
+        title: "Vultures",
+        url: "https://www.denisepli.com/images/12.jpg",
+        description: "Endangered lappet-faced vultures. Kalahari Desert, Botswana",
+        userId: 3
+      },
+      {
+        title: "Pack of wild dogs, hunting",
+        url: "https://www.denisepli.com/images/13.jpg",
+        description: "Pack of wild dogs hunting a kudu at a waterhole. Kalahari Desert, Botswana",
+        userId: 1
+      },
+      {
+        title: "Ostrich",
+        url: "https://www.denisepli.com/images/14.jpg",
+        description: "Ostrich at a waterhole. Kalahari Desert, Botswana",
+        userId: 2
+      },
+      {
+        title: "Kudu drinking",
+        url: "https://www.denisepli.com/images/15.jpg",
+        description: "Kudu drinking at a waterhole. Kalahari Desert, Botswana",
+        userId: 3
+      },
+      {
+        title: "Juvenile lioness",
+        url: "https://www.denisepli.com/images/16.jpg",
+        description: "Camera trap photo. Kalahari Desert, Botswana",
+        userId: 1
+      },
+      {
+        title: "Gazelle",
+        url: "https://www.denisepli.com/images/17.jpg",
+        description: "Gazelles drinking at a waterhole",
+        userId: 2
+      },
+      {
+        title: "Gazelles",
+        url: "https://www.denisepli.com/images/18.jpg",
+        description: "Gazelles drinking at a waterhole. Kalahari Desert, Botswana",
+        userId: 3
+      },
+      {
+        title: "Gemsbok at night",
+        url: "https://www.denisepli.com/images/19.jpg",
+        description: "Camera trap photo of gemsbok (oryx) at night",
+        userId: 1
+      },
+      {
+        title: "Gemsbok, daytime",
+        url: "https://www.denisepli.com/images/20.jpg",
+        description: "Camera trap photo of gemsbok during the day. Kalahari Desert, Botswana",
+        userId: 2
+      },
+      {
+        title: "Serrated tortoise",
+        url: "https://www.denisepli.com/images/21.jpg",
+        description: "Serrated tortoise. Kalahari Desert, Botswana",
+        userId: 3
+      },
+      {
+        title: "Gemsbok",
+        url: "https://www.denisepli.com/images/22.jpg",
+        description: "Gemsbok at a waterhole.",
+        userId: 1
+      },
+      {
+        title: "Wildebeest",
+        url: "https://www.denisepli.com/images/23.jpg",
+        description: "Endangered wildebeest in the Kalahari.",
+        userId: 2
+      },
+      {
+        title: "Sunrise on the pan",
+        url: "https://www.denisepli.com/images/24.jpg",
+        description: "Sunrise in Khutse, Kalahari Desert, Botswana.",
+        userId: 3
+      }
+    ], {});
   },
 
   down: (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('People', null, {});
-    */
+    return queryInterface.bulkDelete('Images', null, {});
   }
 };
