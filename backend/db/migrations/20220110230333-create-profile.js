@@ -17,7 +17,7 @@ module.exports = {
       },
       description: {
         allowNull: false,
-        type: Sequelize.STRING(350),
+        type: Sequelize.STRING,
         defaultValue: "Hello! I'm new to Wildr!"
       },
       createdAt: {

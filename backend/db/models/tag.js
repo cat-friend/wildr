@@ -1,9 +1,17 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Tag = sequelize.define('Tag', {
-    name: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      notNull: {
+        msg: "Please enter a tag name."
+      },
+      validate: {
+        len: [3, 100]
+      }
+    }
   }, {});
-  Tag.associate = function(models) {
+  Tag.associate = function (models) {
     const imageTagsMapping = {
       through: 'ImagesTags',
       otherKey: 'imagesId',

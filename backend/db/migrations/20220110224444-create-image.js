@@ -8,12 +8,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      title: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       url: {
         allowNull: false,
         type: Sequelize.STRING
       },
       description: {
-        type: Sequelize.STRING(350)
+        type: Sequelize.STRING
       },
       userId: {
         allowNull: false,
