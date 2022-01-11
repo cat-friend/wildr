@@ -32,5 +32,12 @@ nav > div {
 }
 
 div.logo {
+    display: flex;
+    align-items: center;
+}
+
+div.logo > h1 {
+    font-size: 40px;
+    margin: 0;
     display: inline;
 }

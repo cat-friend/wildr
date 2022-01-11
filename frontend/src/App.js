@@ -16,16 +16,14 @@ function App() {
   return (<>
     <nav><Navigation isRestored={isRestored} /></nav>
     <div>
-      {
-        isRestored ?
-          (< Switch >
-            <Route path="/signup">
-              <SignUpFormPage />
-            </Route>
-            <Route path="/login">
-              <LoginFormPage />
-            </Route>
-          </Switch>) : null
+      {isRestored && (< Switch >
+        <Route path="/signup">
+          <SignUpFormPage />
+        </Route>
+        <Route path="/login">
+          <LoginFormPage />
+        </Route>
+      </Switch>)
       }
     </div>
   </>)

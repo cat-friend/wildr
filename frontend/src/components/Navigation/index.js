@@ -7,7 +7,7 @@ import './Navigation.css'
 
 const Navigation = ({ isRestored }) => {
     const sessionUser = useSelector(state => state.session.user);
-
+    console.log("isRestored", isRestored);
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
@@ -31,23 +31,7 @@ const Navigation = ({ isRestored }) => {
                 <h1>Wildr</h1>
             </div>
             <div><NavLink to="/" className="nav-items">Homepage</NavLink></div>
-            {isRestored ?
-                <>
-                    {sessionLinks}
-                </>
-                : <>
-                    <div>
-                        <NavLink to="/signup" className="nav-items">
-                            Sign Up!
-                        </NavLink>
-                    </div>
-                    <div>
-                        <NavLink to="/login" className="nav-items">
-                            Log in
-                        </NavLink>
-                    </div>
-                </>
-            }
+            {isRestored && sessionLinks}
         </div >
     );
 }
