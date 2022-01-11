@@ -12,8 +12,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      imageId: {
-        type: Sequelize.INTEGER
+      userIconId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: defaultIcon()
       },
       description: {
         allowNull: false,
@@ -36,3 +38,7 @@ module.exports = {
     return queryInterface.dropTable('Profiles');
   }
 };
+
+const defaultIcon = () => {
+const iconNum = Math.ceil(Math.random() * 15);
+}

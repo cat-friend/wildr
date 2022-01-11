@@ -43,7 +43,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Image.associate = function (models) {
     Image.belongsTo(models.User, { foreignKey: 'userId' });
-    Image.hasMany(models.Profile, { foreignKey: 'imageId' });
     Image.hasOne(models.Album, { foreignKey: 'albumId' });
     const imageTagsMapping = {
       through: 'ImagesTags',

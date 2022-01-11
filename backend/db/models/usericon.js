@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     url: DataTypes.STRING
   }, {});
   UserIcon.associate = function(models) {
-    // associations can be defined here
+    UserIcon.hasMany(models.Profile, { foreignKey: 'userIconId' });
   };
   return UserIcon;
 };

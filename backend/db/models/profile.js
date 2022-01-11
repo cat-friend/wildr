@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Profile = sequelize.define('Profile', {
     userId: DataTypes.INTEGER,
-    imageId: DataTypes.INTEGER,
+    userIconId: DataTypes.INTEGER,
     description: {
       type: DataTypes.STRING,
       defaultValue: "Hello! I'm new to Wildr!",
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Profile.associate = function (models) {
     Profile.belongsTo(models.User, { foreignKey: 'userId' });
-    Profile.belongsTo(models.Image, { foreignKey: 'imageId' });
+    Profile.belongsTo(models.UserIcon, { foreignKey: 'userIconId' });
 
   };
   return Profile;
