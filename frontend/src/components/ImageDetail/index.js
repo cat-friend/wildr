@@ -1,20 +1,23 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Redirect } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { NavLink, Redirect, } from "react-router-dom";
 import * as imageActions from "../../store/images";
+import * as userActions from "../../store/images";
 
 const ImageDetailPage = () => {
     const { imageId } = useParams();
     const dispatch = useDispatch();
-    const image = useSelector(state => state.images[imageId]);
     const sessionUser = useSelector(state => state.session.user);
     const [showEditButton, setShowEditButton] = useState(false);
-    useEffect(() => ) // set useEffect to listen to sessionuser (since ppl can log in with a modal)
-
-
+    const [showDeleteButton, setShowDeleteButton] = useState(false);
     useEffect(() => {
         dispatch(imageActions.getOneImage(imageId));
+        // consider moving if et al to return expression
+
     }, [imageId, dispatch]);
+
+    const image = useSelector(state => state.images[imageId]);
 
     if (!image) {
         return (
@@ -24,4 +27,32 @@ const ImageDetailPage = () => {
         )
     }
 
+    const userId = image.userId;
+    if (userId && sessionUser.id === userId) {
+        // setShowEditButton(true);
+        // setShowDeleteButton(true);
+    }
+
+    // ideal - get userId from image, then find user - grab username, display username
+    // set useEffect to listen to sessionuser (since ppl can log in with a modal)
+    // if (sessionUser && sessionUser.id = userId of image) display edit button
+    // get userId for imageId; if userId === sessionUser.id then show delete buttton
+
+
+    return (
+        <>
+            <div className="image-details-container">
+                <div className="image">
+                    <img src={image.url}/>
+                </div>
+                <div className="details">
+                    <h2>{image.title}</h2>
+                    <p>{image.description}</p>
+                </div>
+            </div>
+        </>
+    );
+
 }
+
+export default ImageDetailPage;

@@ -13,20 +13,20 @@ const addOneImage = image => ({
     image
 });
 
-export const getImages = (id) => async (dispatch) => {
-    const response = await csrfFetch(`/api/images/${id}`);
-    if (response.ok) {
-        const image = await response.json();
-        dispatch(addOneImage(image));
-    }
-}
-
-export const getOneImage = () => async (dispatch) => {
+export const getImages = () => async (dispatch) => {
     const response = await csrfFetch('/api/images');
-    console.log("response", response)
     if (response.ok) {
         const list = await response.json();
         dispatch(load(list));
+    }
+}
+
+export const getOneImage = (id) => async (dispatch) => {
+    const response = await csrfFetch(`/api/images/${id}`);
+    console.log("hit the getOneImage function");
+    if (response.ok) {
+        const image = await response.json();
+        dispatch(addOneImage(image));
     }
 }
 
@@ -41,6 +41,11 @@ const imageReducer = (state = {}, action) => {
                 ...allImages,
                 ...state
             }
+        }
+        case ADD_IMAGE: {
+            const newImage = {};
+            newImage[action.image.id] = action.image;
+            return { ...newImage, ...state };
         }
         default: return state;
     }

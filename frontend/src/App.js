@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 import LoginFormPage from "./components/LoginFormPage";
 import { SignUpFormPage } from "./components/SignupFormPage";
 import ImageBrowser from "./components/ImageBrowser";
+import ImageDetailPage from "./components/ImageDetail";
 
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
         <Route path="/login">
           <LoginFormPage />
         </Route>
-        <Route path="/images/:imageId"><h1>Hello!</h1></Route>
+        <Route path="/images/:imageId"><ImageDetailPage /></Route>
         <Route path="/images"><ImageBrowser /></Route>
       </Switch>)
       }

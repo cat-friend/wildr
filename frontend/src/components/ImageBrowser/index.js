@@ -12,7 +12,6 @@ const ImageBrowser = () => {
 
     const images = useSelector(state => {
         return Object.values(state.images);
-
     });
 
     return (
@@ -20,7 +19,7 @@ const ImageBrowser = () => {
             <div className='image-browser'>
                 {images.map((image) => {
                     return (
-                        <img src={image.url} key={image.id} />
+                        <img src={image.url} key={image.id} alt={image.title}/>
                     )
                 })}
             </div>
