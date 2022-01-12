@@ -12,10 +12,9 @@ const { handleValidationErrors } = require('../../utils/validation');
 const validateImage = [
 
 ]
-
+// getting one image
 router.get('/:imageId', asyncHandler(async (req, res, next) => {
-    console.log(req.params.imageId);
-    const image = await Image.findByPk(1)
+    const image = await Image.findByPk(req.params.imageId)
     return res.json(image);
 }));
 
@@ -27,6 +26,15 @@ router.get('/', asyncHandler(async (req, res, next) => {
     return res.json(images);
 }));
 
+// updating an image
+router.put('/:imageId(\\d+)', validateImage, asyncHandler(async (req, res, next) => {
+    const { id, title, url, description, userId, albumId } = req.body;
+    const currImage = await Image.findByPk(id);
+    if (!currImage) throw new Error('Cannot find image.');
+    const updatedImage = currImage.update({ title, url, description, userId, albumId });
+    return res.json({ updatedImage });
+}));
+
 
 // // Posting an image
 // router.post('/', validateImage, asyncHandler(async (req, res, next) => {
@@ -36,13 +44,7 @@ router.get('/', asyncHandler(async (req, res, next) => {
 // }));
 
 // // editing an image
-// router.put('/:imageId(\\d+)', validateImage, asyncHandler(async (req, res, next) => {
-//     const { id, title, url, description, userId, albumId } = req.body;
-//     const currImage = await Image.findByPk(id);
-//     if (!currImage) throw new Error('Cannot find image.');
-//     const updatedImage = currImage.update({ title, url, description, userId, albumId });
-//     return res.json({ updatedImage });
-// }));
+
 
 // // deleting an image
 // router.delete('/:imageId(\\d+)', asyncHandler(async (req, res, next) => {
