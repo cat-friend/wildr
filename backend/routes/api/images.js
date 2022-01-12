@@ -22,28 +22,28 @@ router.get('/', asyncHandler(async (req, res, next) => {
 }));
 
 
-// Posting an image
-router.post('/', validateImage, asyncHandler(async (req, res, next) => {
-    const { title, url, description, userId, albumId } = req.body;
-    const image = await Image.create({ title, url, description, userId, albumId });
-    return res.json({ image });
-}));
+// // Posting an image
+// router.post('/', validateImage, asyncHandler(async (req, res, next) => {
+//     const { title, url, description, userId, albumId } = req.body;
+//     const image = await Image.create({ title, url, description, userId, albumId });
+//     return res.json({ image });
+// }));
 
-// editing an image
-router.put('/:imageId(\\d+)', validateImage, asyncHandler(async (req, res, next) => {
-    const { id, title, url, description, userId, albumId } = req.body;
-    const currImage = await Image.findByPk(id);
-    if (!currImage) throw new Error('Cannot find image.');
-    const updatedImage = currImage.update({ title, url, description, userId, albumId });
-    return res.json({ updatedImage });
-}));
+// // editing an image
+// router.put('/:imageId(\\d+)', validateImage, asyncHandler(async (req, res, next) => {
+//     const { id, title, url, description, userId, albumId } = req.body;
+//     const currImage = await Image.findByPk(id);
+//     if (!currImage) throw new Error('Cannot find image.');
+//     const updatedImage = currImage.update({ title, url, description, userId, albumId });
+//     return res.json({ updatedImage });
+// }));
 
-// deleting an image
-router.delete('/:imageId(\\d+)', asyncHandler(async (req, res, next) => {
-    const id = req.params.imageId;
-    const currImage = await Image.findByPk(id);
-    if (!currImage) throw new Error('Cannot find image.');
-    const delImage = await Image.destroy({where: id});
-    return id;
-}))
+// // deleting an image
+// router.delete('/:imageId(\\d+)', asyncHandler(async (req, res, next) => {
+//     const id = req.params.imageId;
+//     const currImage = await Image.findByPk(id);
+//     if (!currImage) throw new Error('Cannot find image.');
+//     const delImage = await Image.destroy({where: id});
+//     return id;
+// }))
 module.exports = router;
