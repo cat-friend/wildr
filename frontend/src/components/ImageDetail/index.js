@@ -28,6 +28,10 @@ const ImageDetailPage = () => {
     }
 
     const userId = image?.userId;
+    const modalData = {
+        crudAction: "edit/delete",
+        imageId
+    }
 
     // onClick edit button:  show EditModal
     // onClick delete button: show DeleteModal
@@ -43,7 +47,7 @@ const ImageDetailPage = () => {
                 </div>
                 <div className="buttons">
                     {sessionUser.id === userId &&
-                        <><CRUDImageFormModal /></>}
+                        <><CRUDImageFormModal modalData={modalData}/></>}
                 </div>
             </div>
         </>
