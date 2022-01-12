@@ -21,9 +21,7 @@ const ImageBrowser = () => {
             <div className='image-browser'>
                 {images.map((image) => {
                     return (
-                        <NavLink key={image.id} to={`/api/images/${image.id}`}>
-                            <img src={image.url} key={image.id} />
-                        </NavLink>
+                        <img src={image.url} key={image.id} />
                     )
                 })}
             </div>
