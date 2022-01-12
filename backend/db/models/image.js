@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     userId: DataTypes.INTEGER,
-    albumsId: {
+    albumId: {
       type: DataTypes.INTEGER,
       unique: {
         args: false,

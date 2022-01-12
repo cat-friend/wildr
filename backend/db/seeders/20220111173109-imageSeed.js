@@ -47,103 +47,103 @@ module.exports = {
       },
       {
         title: "Juvenile Lions at Waterhole",
-        url: "https://www.denisepli.com/wildr/images/08.jpg",
+        url: "https://www.denisepli.com/wildr/images/08.JPG",
         description: "Waterhole camera trap, Kalahari Desert, Botswana",
         userId: 2
       },
       {
         title: "Ostrich",
-        url: "https://www.denisepli.com/wildr/images/09.jpg",
+        url: "https://www.denisepli.com/wildr/images/09.JPG",
         description: "Ostrich at a dry waterhole. Kalahari Desert, Botswana",
         userId: 3
       },
       {
         title: "Pack of wild dogs",
-        url: "https://www.denisepli.com/wildr/images/10.jpg",
+        url: "https://www.denisepli.com/wildr/images/10.JPG",
         description: "Camera trap photo. Kalahari Desert, Botswana",
         userId: 1
       },
       {
         title: "Eland at night",
-        url: "https://www.denisepli.com/wildr/images/11.jpg",
+        url: "https://www.denisepli.com/wildr/images/11.JPG",
         description: "Camera trap photo. Kalahari Desert, Botswana",
         userId: 2
       },
       {
         title: "Vultures",
-        url: "https://www.denisepli.com/wildr/images/12.jpg",
+        url: "https://www.denisepli.com/wildr/images/12.JPG",
         description: "Endangered lappet-faced vultures. Kalahari Desert, Botswana",
         userId: 3
       },
       {
         title: "Pack of wild dogs, hunting",
-        url: "https://www.denisepli.com/wildr/images/13.jpg",
+        url: "https://www.denisepli.com/wildr/images/13.JPG",
         description: "Pack of wild dogs hunting a kudu at a waterhole. Kalahari Desert, Botswana",
         userId: 1
       },
       {
         title: "Ostrich",
-        url: "https://www.denisepli.com/wildr/images/14.jpg",
+        url: "https://www.denisepli.com/wildr/images/14.JPG",
         description: "Ostrich at a waterhole. Kalahari Desert, Botswana",
         userId: 2
       },
       {
         title: "Kudu drinking",
-        url: "https://www.denisepli.com/wildr/images/15.jpg",
+        url: "https://www.denisepli.com/wildr/images/15.JPG",
         description: "Kudu drinking at a waterhole. Kalahari Desert, Botswana",
         userId: 3
       },
       {
         title: "Juvenile lioness",
-        url: "https://www.denisepli.com/wildr/images/16.jpg",
+        url: "https://www.denisepli.com/wildr/images/16.JPG",
         description: "Camera trap photo. Kalahari Desert, Botswana",
         userId: 1
       },
       {
         title: "Gazelle",
-        url: "https://www.denisepli.com/wildr/images/17.jpg",
+        url: "https://www.denisepli.com/wildr/images/17.JPG",
         description: "Gazelles drinking at a waterhole",
         userId: 2
       },
       {
         title: "Gazelles",
-        url: "https://www.denisepli.com/wildr/images/18.jpg",
+        url: "https://www.denisepli.com/wildr/images/18.JPG",
         description: "Gazelles drinking at a waterhole. Kalahari Desert, Botswana",
         userId: 3
       },
       {
         title: "Gemsbok at night",
-        url: "https://www.denisepli.com/wildr/images/19.jpg",
+        url: "https://www.denisepli.com/wildr/images/19.JPG",
         description: "Camera trap photo of gemsbok (oryx) at night",
         userId: 1
       },
       {
         title: "Gemsbok, daytime",
-        url: "https://www.denisepli.com/wildr/images/20.jpg",
+        url: "https://www.denisepli.com/wildr/images/20.JPG",
         description: "Camera trap photo of gemsbok during the day. Kalahari Desert, Botswana",
         userId: 2
       },
       {
         title: "Serrated tortoise",
-        url: "https://www.denisepli.com/wildr/images/21.jpg",
+        url: "https://www.denisepli.com/wildr/images/21.JPG",
         description: "Serrated tortoise. Kalahari Desert, Botswana",
         userId: 3
       },
       {
         title: "Gemsbok",
-        url: "https://www.denisepli.com/wildr/images/22.jpg",
+        url: "https://www.denisepli.com/wildr/images/22.JPG",
         description: "Gemsbok at a waterhole.",
         userId: 1
       },
       {
         title: "Wildebeest",
-        url: "https://www.denisepli.com/wildr/images/23.jpg",
+        url: "https://www.denisepli.com/wildr/images/23.JPG",
         description: "Endangered wildebeest in the Kalahari.",
         userId: 2
       },
       {
         title: "Sunrise on the pan",
-        url: "https://www.denisepli.com/wildr/images/24.jpg",
+        url: "https://www.denisepli.com/wildr/images/24.JPG",
         description: "Sunrise in Khutse, Kalahari Desert, Botswana.",
         userId: 3
       }

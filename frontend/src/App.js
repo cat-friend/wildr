@@ -5,6 +5,8 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import LoginFormPage from "./components/LoginFormPage";
 import { SignUpFormPage } from "./components/SignupFormPage";
+import ImageBrowser from "./components/ImageBrowser";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -23,7 +25,7 @@ function App() {
         <Route path="/login">
           <LoginFormPage />
         </Route>
-      </Switch>)
+      </Switch>) && (<ImageBrowser />)
       }
     </div>
   </>)
