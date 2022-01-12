@@ -41,7 +41,7 @@ module.exports = {
       },
       {
         title: "Giraffe",
-        url: "https://www.denisepli.com/wildr/images/07.jpg",
+        url: "https://www.denisepli.com/wildr/images/07.JPG",
         description: "Giraffe on a camera trap at a waterhole, Kalahari Desert, Botswana",
         userId: 1
       },
