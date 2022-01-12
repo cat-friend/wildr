@@ -13,8 +13,17 @@ const addOneImage = image => ({
     image
 });
 
-export const getImages = () => async (dispatch) => {
+export const getImages = (id) => async (dispatch) => {
+    const response = await csrfFetch(`/api/images/${id}`);
+    if (response.ok) {
+        const image = await response.json();
+        dispatch(addOneImage(image));
+    }
+}
+
+export const getOneImage = () => async (dispatch) => {
     const response = await csrfFetch('/api/images');
+    console.log("response", response)
     if (response.ok) {
         const list = await response.json();
         dispatch(load(list));

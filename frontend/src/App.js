@@ -25,7 +25,9 @@ function App() {
         <Route path="/login">
           <LoginFormPage />
         </Route>
-      </Switch>) && (<ImageBrowser />)
+        <Route path="/images/:imageId"><h1>Hello!</h1></Route>
+        <Route path="/images"><ImageBrowser /></Route>
+      </Switch>)
       }
     </div>
   </>)

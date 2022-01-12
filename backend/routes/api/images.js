@@ -13,6 +13,10 @@ const validateImage = [
 
 ]
 
+router.get('/images/:imageId', asyncHandler(async (req, res, next) => {
+    console.log("/images/:imageId");
+}));
+
 // getting all images
 router.get('/', asyncHandler(async (req, res, next) => {
     const images = await Image.findAll({

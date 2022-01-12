@@ -6,7 +6,6 @@ import { getImages } from '../../store/images';
 
 const ImageBrowser = () => {
     const dispatch = useDispatch();
-    const { photoId } = useParams();
     useEffect(() => {
         dispatch(getImages())
     }, [dispatch]);
@@ -17,7 +16,7 @@ const ImageBrowser = () => {
     });
 
     return (
-        <><h2>image browser</h2>
+        <><h2>Image Browser</h2>
             <div className='image-browser'>
                 {images.map((image) => {
                     return (
