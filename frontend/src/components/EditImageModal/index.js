@@ -1,44 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import { Modal } from '../../context/Modal';
 import CRUDImageForm from './EditImageForm';
+import { useDispatch, useSelector } from "react-redux";
+import * as imageActions from "../../store/images";
 
 
 function CRUDImageFormModal({ modalData }) {
     const { crudAction, imageId } = modalData;
+    const dispatch = useDispatch();
     console.log("crudAction", crudAction);
-    const [showModal, setShowModal] = useState(false);
+    const [editModal, setEditModal] = useState(false);
+    const [delModal, setDelModal] = useState(false);
+    const [createModal, setCreateModal] = useState(false);
     const [action, setAction] = useState();
     const EDIT = "Edit";
     const DELETE = "Delete";
     const CREATE = "Upload Image";
+    useEffect(() => {
+        dispatch(imageActions.getOneImage(imageId));
+    }, [imageId, dispatch]);
+    const image = useSelector(state => state.images[imageId]);
     let displayedButtons = null;
 
     const formData = {
         action,
-        imageId
+        image
     }
 
     if (crudAction === "edit/delete") {
         displayedButtons = (
             <>
                 <button onClick={() => {
-                    setShowModal(true);
+                    setEditModal(true);
                     setAction(EDIT);
                 }} to="#">Edit</button>
                 {
-                    showModal && (
-                        <Modal onClose={() => setShowModal(false)}>
+                    editModal && (
+                        <Modal onClose={() => setEditModal(false)}>
                             <CRUDImageForm formData={formData} />
                         </Modal>
                     )
                 }
                 <button onClick={() => {
-                    setShowModal(true);
+                    setDelModal(true);
                     setAction(DELETE);
                 }} to="#">Delete</button>
                 {
-                    showModal && (
-                        <Modal onClose={() => setShowModal(false)}>
+                    delModal && (
+                        <Modal onClose={() => setDelModal(false)}>
                             <CRUDImageForm formData={formData} />
                         </Modal>
                     )
@@ -50,12 +59,12 @@ function CRUDImageFormModal({ modalData }) {
         displayedButtons = (
             <>
                 <button onClick={() => {
-                    setShowModal(true);
+                    setCreateModal(true);
                     setAction(CREATE);
                 }} to="#">Upload Image</button>
                 {
-                    showModal && (
-                        <Modal onClose={() => setShowModal(false)}>
+                    createModal && (
+                        <Modal onClose={() => setCreateModal(false)}>
                             <CRUDImageForm formData={formData} />
                         </Modal>
                     )

@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const LOAD = 'wildr/image/LOAD';
 const ADD_IMAGE = 'wildr/image/ADD_IMAGE';
+const DELETE_IMAGE = 'wildr/image/DELETE_IMAGE'
 
 const load = list => ({
     type: LOAD,
@@ -12,6 +13,11 @@ const addOneImage = image => ({
     type: ADD_IMAGE,
     image
 });
+
+const deleteOneImage = image => ({
+    type: DELETE_IMAGE,
+    image
+})
 
 export const getImages = () => async (dispatch) => {
     const response = await csrfFetch('/api/images');
@@ -27,6 +33,37 @@ export const getOneImage = (id) => async (dispatch) => {
     if (response.ok) {
         const image = await response.json();
         dispatch(addOneImage(image));
+        return image;
+    }
+}
+
+export const deleteImage = ({ id }) => async (dispatch) => {
+    const response = await csrfFetch(`/api/images/${id}`,
+        { method: 'DELETE', body: JSON.stringify(id) });
+    if (response.ok) {
+        const image = await response.json();
+        dispatch(deleteOneImage(image));
+        return id;
+    }
+}
+
+export const createImage = (payload) => async (dispatch) => {
+    const response = await csrfFetch(`/api/images`,
+        { method: 'POST', body: JSON.stringify(payload) });
+    if (response.ok) {
+        const image = await response.json();
+        dispatch(addOneImage(image));
+        return image;
+    }
+}
+
+export const editImage = (payload) => async (dispatch) => {
+    const response = await csrfFetch(`/api/images/${payload.imageId}`,
+        { method: 'PUT', body: JSON.stringify(payload) });
+    if (response.ok) {
+        const image = await response.json();
+        dispatch(addOneImage(image));
+        return image;
     }
 }
 
