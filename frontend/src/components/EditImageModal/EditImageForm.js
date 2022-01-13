@@ -39,7 +39,7 @@ function CRUDImageForm({ formData }) {
             .catch(async (response) => {
                 const data = await response.json();
                 if (data && data.errors) setErrors(data.errors);
-            })
+            }).then((res) => { if (errors.length === 0) window.location.reload(true); })
     }
 
     const submitDelete = () => {
