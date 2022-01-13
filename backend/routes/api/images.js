@@ -8,10 +8,16 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 // middleware
-
 const validateImage = [
-
-]
+    check('title')
+        .exists({ checkFalsy: true })
+        .withMessage("Please provide a title for your image."),
+    check('url')
+        .exists({ checkFalsy: true })
+        .isURL()
+        .withMessage("Please provide a source URL for your image."),
+    handleValidationErrors
+];
 // getting one image
 router.get('/:imageId', asyncHandler(async (req, res, next) => {
     const image = await Image.findByPk(req.params.imageId)
@@ -30,9 +36,14 @@ router.get('/', asyncHandler(async (req, res, next) => {
 router.put('/:imageId(\\d+)', validateImage, asyncHandler(async (req, res, next) => {
     const { id, title, url, description, userId, albumId } = req.body;
     const currImage = await Image.findByPk(id);
-    if (!currImage) throw new Error('Cannot find image.');
-    const updatedImage = currImage.update({ title, url, description, userId, albumId });
-    return res.json({ updatedImage });
+    if (currImage.userId !== userId) {
+        const error = new Error('Unauthorized');
+        error.status = 403;
+        error.title = 'Unauthorized request.'
+        next(error);
+    }
+    const updatedImage = await currImage.update({ title, url, description, userId, albumId });
+    return res.json(updatedImage);
 }));
 
 

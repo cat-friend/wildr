@@ -37,13 +37,13 @@ export const getOneImage = (id) => async (dispatch) => {
     }
 }
 
-export const deleteImage = ({ id }) => async (dispatch) => {
-    const response = await csrfFetch(`/api/images/${id}`,
-        { method: 'DELETE', body: JSON.stringify(id) });
+export const deleteImage = (payload) => async (dispatch) => {
+    const response = await csrfFetch(`/api/images/${payload.imageId}`,
+        { method: 'DELETE', body: JSON.stringify(payload) });
     if (response.ok) {
         const image = await response.json();
         dispatch(deleteOneImage(image));
-        return id;
+        return payload;
     }
 }
 
@@ -58,12 +58,12 @@ export const createImage = (payload) => async (dispatch) => {
 }
 
 export const editImage = (payload) => async (dispatch) => {
-    const response = await csrfFetch(`/api/images/${payload.imageId}`,
+    const response = await csrfFetch(`/api/images/${payload.id}`,
         { method: 'PUT', body: JSON.stringify(payload) });
     if (response.ok) {
         const image = await response.json();
         dispatch(addOneImage(image));
-        return image;
+        return;
     }
 }
 
@@ -80,9 +80,14 @@ const imageReducer = (state = {}, action) => {
             }
         }
         case ADD_IMAGE: {
-            const newImage = {};
+            const newImage = {...state};
             newImage[action.image.id] = action.image;
-            return { ...newImage, ...state };
+            return { ...newImage};
+        }
+        case DELETE_IMAGE: {
+            const allImages = { ...state };
+            delete allImages[action.image.id];
+            return state;
         }
         default: return state;
     }
