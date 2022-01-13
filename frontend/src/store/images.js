@@ -58,7 +58,7 @@ export const createImage = (payload) => async (dispatch) => {
 }
 
 export const editImage = (payload) => async (dispatch) => {
-    const response = await csrfFetch(`/api/images/${payload.id}`,
+    const response = await csrfFetch(`/api/images/${payload.imageId}`,
         { method: 'PUT', body: JSON.stringify(payload) });
 
     const image = await response.json();

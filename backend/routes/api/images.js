@@ -34,8 +34,8 @@ router.get('/', asyncHandler(async (req, res, next) => {
 
 // updating an image
 router.put('/:imageId(\\d+)', validateImage, asyncHandler(async (req, res, next) => {
-    const { id, title, url, description, userId, albumId } = req.body;
-    const currImage = await Image.findByPk(id);
+    const { imageId, title, url, description, userId, albumId } = req.body;
+    const currImage = await Image.findByPk(imageId);
     if (currImage.userId !== userId) {
         const error = new Error('Unauthorized');
         error.status = 403;
