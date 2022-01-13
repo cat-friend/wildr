@@ -8,6 +8,7 @@ import { SignUpFormPage } from "./components/SignupFormPage";
 import ImageBrowser from "./components/ImageBrowser";
 import ImageDetailPage from "./components/ImageDetail";
 import Splash from "./components/Splash";
+import Footer from "./components/Footer";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         </Switch>)
       }
     </div>
+    <footer><Footer /></footer>
   </>)
 }
 

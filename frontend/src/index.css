@@ -111,3 +111,9 @@ input:focus, textarea:focus {
 .image-detail {
     max-width: 800px;
 }
+
+footer {
+    display:flex;
+    justify-content: space-between;
+    margin-top: 2%;
+}
