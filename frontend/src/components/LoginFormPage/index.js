@@ -26,30 +26,44 @@ const LoginFormPage = () => {
             });
     }
 
-    return (
-        <>
-            <form onSubmit={onSubmit}>
-                <ul>
-                    {errors.map((error, i) => <li key={i}>{error}</li>)}
-                </ul>
-                <input
-                    value={credential}
-                    onChange={(e) => setCredential(e.target.value)}
-                    placeholder="Enter email or username"
-                    required
-                    type="text"
-                >
-                </input>
-                <input
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    plassholder="Enter password"
-                    required
-                    type="password">
-                </input>
-                <button type="submit" className="light-button">Log In</button>
-            </form>
-        </>)
+    const demoUser = async (e) => {
+        e.preventDefault();
+        const payload = {
+            credential: "demo@user.io",
+            password: "password01"
+        }
+        return dispatch(sessionActions.login(payload))
+        .catch(async (response) => {
+            const data = await response.json();
+            if (data && data.errors) setErrors(data.errors);
+        });
+}
+
+return (
+    <>
+        <form onSubmit={onSubmit}>
+            <ul>
+                {errors.map((error, i) => <li key={i}>{error}</li>)}
+            </ul>
+            <input
+                value={credential}
+                onChange={(e) => setCredential(e.target.value)}
+                placeholder="Enter email or username"
+                required
+                type="text"
+            >
+            </input>
+            <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                plassholder="Enter password"
+                required
+                type="password">
+            </input>
+            <button type="submit" className="light-button">Log In</button>
+            <button type="button" className="dark-button">Demo User</button>
+        </form>
+    </>)
 }
 
 export default LoginFormPage;

@@ -8,7 +8,6 @@ import * as imageActions from "../../store/images";
 function CRUDImageFormModal({ modalData }) {
     const { crudAction, imageId } = modalData;
     const dispatch = useDispatch();
-    console.log("crudAction", crudAction);
     const [editModal, setEditModal] = useState(false);
     const [delModal, setDelModal] = useState(false);
     const [createModal, setCreateModal] = useState(false);
@@ -17,8 +16,8 @@ function CRUDImageFormModal({ modalData }) {
     const DELETE = "Delete";
     const CREATE = "Upload Image";
     useEffect(() => {
-        dispatch(imageActions.getOneImage(imageId));
-    }, [imageId, dispatch]);
+        if (imageId > 0) dispatch(imageActions.getOneImage(imageId));
+    }, [imageId, dispatch])
     const image = useSelector(state => state.images[imageId]);
     let displayedButtons = null;
 
@@ -73,7 +72,6 @@ function CRUDImageFormModal({ modalData }) {
 
     }
     return (<>
-        <h1>Hello</h1>
         {displayedButtons}</>);
 }
 

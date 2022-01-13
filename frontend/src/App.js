@@ -7,6 +7,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import { SignUpFormPage } from "./components/SignupFormPage";
 import ImageBrowser from "./components/ImageBrowser";
 import ImageDetailPage from "./components/ImageDetail";
+import Splash from "./components/Splash";
 
 
 function App() {
@@ -20,6 +21,9 @@ function App() {
     <nav><Navigation isRestored={isRestored} /></nav>
     <div>
       {isRestored && (< Switch >
+      <Route path="/" exact>
+        <Splash />
+      </Route>
         <Route path="/signup">
           <SignUpFormPage />
         </Route>

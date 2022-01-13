@@ -21,19 +21,18 @@ button.dark-button {
     padding: 0;
 }
 
-nav {
-    display: inline;
-}
 
-nav > div {
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 70px;
 }
 
 div.logo {
-    display: flex;
+    display: inline;
     align-items: center;
+    flex-direction: row;
 }
 
 div.logo > h1 {

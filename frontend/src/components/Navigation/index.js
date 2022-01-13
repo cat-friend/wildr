@@ -2,18 +2,37 @@ import React from 'react';
 import { NavLink } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import LoginFormModal from '../LoginFormModal';
-import ProfileButton from "./ProfileButton";
 import './Navigation.css'
+import CRUDImageFormModal from "../EditImageModal";
+import { useDispatch } from 'react-redux';
+import * as sessionActions from '../../store/session';
 
 const Navigation = ({ isRestored }) => {
+    const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     console.log("isRestored", isRestored);
     let sessionLinks;
+    const modalData = {};
+    const logout = (e) => {
+        e.preventDefault();
+        dispatch(sessionActions.logout());
+    };
+
     if (sessionUser) {
+        modalData.crudAction = "create";
+        modalData.imageId = -1;
         sessionLinks = (
-            <div>
-                <ProfileButton user={sessionUser} />
-            </div>
+            <>
+                <div>Welcome, {sessionUser.username}!</div>
+                <div>
+                </div>
+                <div>
+                    <CRUDImageFormModal modalData={modalData} />
+                </div>
+                <div>
+                    <button onClick={logout} className="dark-button">Log Out</button>
+                </div>
+            </>
         )
     }
     else {
@@ -26,11 +45,10 @@ const Navigation = ({ isRestored }) => {
     }
     return (
         <div className='navbar'>
-            <div className='logo'>
-                <img src='/logo.png' alt="logo for Wildr" />
-                <p className="title">Wildr</p>
+            <div className='logo title'>
+                <NavLink to="/" className="nav-items"><img src='/logo.png' alt="logo for Wildr" />
+                    Wildr</NavLink>
             </div>
-            <div><NavLink to="/" className="nav-items">Homepage</NavLink></div>
             {isRestored && sessionLinks}
         </div >
     );
