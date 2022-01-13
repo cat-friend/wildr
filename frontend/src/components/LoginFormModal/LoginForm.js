@@ -34,12 +34,12 @@ function LoginForm() {
 
   return (
     <div className="login-form">
+      <ul className="error-list">
+        {errors.map((error, idx) => (
+          <li key={idx} className="errors">{error}</li>
+        ))}
+      </ul>
       <form onSubmit={handleSubmit} className="login-form">
-        <ul className="error-list">
-          {errors.map((error, idx) => (
-            <li key={idx} className="errors">{error}</li>
-          ))}
-        </ul>
         <input
           type="text"
           value={credential}

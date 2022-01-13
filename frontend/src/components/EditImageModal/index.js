@@ -3,6 +3,7 @@ import { Modal } from '../../context/Modal';
 import CRUDImageForm from './EditImageForm';
 import { useDispatch, useSelector } from "react-redux";
 import * as imageActions from "../../store/images";
+import { NavLink } from 'react-router-dom';
 
 
 function CRUDImageFormModal({ modalData }) {
@@ -29,10 +30,10 @@ function CRUDImageFormModal({ modalData }) {
     if (crudAction === "edit/delete") {
         displayedButtons = (
             <>
-                <button onClick={() => {
+                <NavLink onClick={() => {
                     setEditModal(true);
                     setAction(EDIT);
-                }} to="#">Edit</button>
+                }} to="#" className="crud-link">Edit</NavLink>
                 {
                     editModal && (
                         <Modal onClose={() => setEditModal(false)}>
@@ -40,10 +41,10 @@ function CRUDImageFormModal({ modalData }) {
                         </Modal>
                     )
                 }
-                <button onClick={() => {
+                <NavLink onClick={() => {
                     setDelModal(true);
                     setAction(DELETE);
-                }} to="#">Delete</button>
+                }} to="#" className="crud-link">Delete</NavLink>
                 {
                     delModal && (
                         <Modal onClose={() => setDelModal(false)}>
@@ -57,10 +58,10 @@ function CRUDImageFormModal({ modalData }) {
     else {
         displayedButtons = (
             <>
-                <button onClick={() => {
+                <NavLink onClick={() => {
                     setCreateModal(true);
                     setAction(CREATE);
-                }} to="#">Upload Image</button>
+                }} to="#">Upload Image</NavLink>
                 {
                     createModal && (
                         <Modal onClose={() => setCreateModal(false)}>

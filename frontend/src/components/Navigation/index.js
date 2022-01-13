@@ -1,16 +1,16 @@
 import React from 'react';
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css'
 import CRUDImageFormModal from "../EditImageModal";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
+import RegisterFormModal from '../RegisterFormModal';
 
 const Navigation = ({ isRestored }) => {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-    console.log("isRestored", isRestored);
     let sessionLinks;
     const modalData = {};
     const logout = (e) => {
@@ -25,12 +25,13 @@ const Navigation = ({ isRestored }) => {
             <>
                 <div>Welcome, {sessionUser.username}!</div>
                 <div>
+                    <NavLink className="navlink" to="/images">Browse Images</NavLink>
                 </div>
                 <div>
                     <CRUDImageFormModal modalData={modalData} />
                 </div>
                 <div>
-                    <button onClick={logout} className="dark-button">Log Out</button>
+                    <NavLink onClick={logout} className="dark-button" to="#">Log Out</NavLink>
                 </div>
             </>
         )
@@ -38,8 +39,11 @@ const Navigation = ({ isRestored }) => {
     else {
         sessionLinks = (
             <>
+                <div>
+                    <NavLink className="navlink" to="/images">Browse Images</NavLink>
+                </div>
                 <div><LoginFormModal /></div>
-                <div><NavLink to="/signup" className="nav-items">Sign Up</NavLink></div>
+                <div><RegisterFormModal /></div>
             </>
         );
     }

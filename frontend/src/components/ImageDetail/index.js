@@ -44,7 +44,7 @@ const ImageDetailPage = () => {
             imageDetailContent = (<>
                 <div className="image-details-container">
                     <div className="image">
-                        <img src={image?.url} />
+                        <img src={image?.url} alt={image?.title} className="image-detail"/>
                     </div>
                     <div className="details">
                         <h2>{image?.title}</h2>
@@ -57,7 +57,7 @@ const ImageDetailPage = () => {
             imageDetailContent = (<>
                 <div className="image-details-container">
                     <div className="image">
-                        <img src={image?.url} />
+                        <img src={image?.url} className="image-detail"/>
                     </div>
                     <div className="details">
                         <h2>{image?.title}</h2>

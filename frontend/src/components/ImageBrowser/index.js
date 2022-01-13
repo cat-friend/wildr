@@ -15,15 +15,16 @@ const ImageBrowser = () => {
     });
 
     return (
-        <><h2>Image Browser</h2>
-            <div className='image-browser'>
+        <div className='image-browser'><h2>Image Browser</h2>
+            <div className='images'>
                 {images.map((image) => {
                     return (
-                        <img src={image.url} key={image.id} alt={image.title}/>
+                        <NavLink to={`/images/${image.id}`}><img src={image.url} key={image.id} alt={image.title} className="thumbnails" /></NavLink>
                     )
                 })}
             </div>
-        </>
+        </div>
+
     )
 }
 
