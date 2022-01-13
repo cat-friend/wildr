@@ -71,7 +71,7 @@ button.dark-button {
     margin-top: 20px;
 }
 
-.thumbnails {
+.thumbnails, .modal-image > img {
     max-width: 300px;
     margin: 30px;
 }
