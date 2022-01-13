@@ -20,19 +20,14 @@ function App() {
   return (<>
     <nav><Navigation isRestored={isRestored} /></nav>
     <div>
-      {isRestored && (< Switch >
-      <Route path="/" exact>
-        <Splash />
-      </Route>
-        <Route path="/signup">
-          <SignUpFormPage />
-        </Route>
-        <Route path="/login">
-          <LoginFormPage />
-        </Route>
-        <Route path="/images/:imageId"><ImageDetailPage /></Route>
-        <Route path="/images"><ImageBrowser /></Route>
-      </Switch>)
+      {isRestored && (
+        < Switch >
+          <Route path="/" exact>
+            <Splash />
+          </Route>
+          <Route path="/images/:imageId"><ImageDetailPage /></Route>
+          <Route path="/images"><ImageBrowser /></Route>
+        </Switch>)
       }
     </div>
   </>)
