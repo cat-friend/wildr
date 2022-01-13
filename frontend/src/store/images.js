@@ -60,11 +60,12 @@ export const createImage = (payload) => async (dispatch) => {
 export const editImage = (payload) => async (dispatch) => {
     const response = await csrfFetch(`/api/images/${payload.id}`,
         { method: 'PUT', body: JSON.stringify(payload) });
+
+    const image = await response.json();
     if (response.ok) {
-        const image = await response.json();
         dispatch(addOneImage(image));
-        return;
     }
+    return image;
 }
 
 const imageReducer = (state = {}, action) => {
@@ -80,9 +81,9 @@ const imageReducer = (state = {}, action) => {
             }
         }
         case ADD_IMAGE: {
-            const newImage = {...state};
+            const newImage = { ...state };
             newImage[action.image.id] = action.image;
-            return { ...newImage};
+            return { ...newImage };
         }
         case DELETE_IMAGE: {
             const allImages = { ...state };
