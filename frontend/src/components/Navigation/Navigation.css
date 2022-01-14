@@ -12,13 +12,17 @@ nav {
 
 
 div.logo {
-    display: inline;
-    align-items: center;
+    display: flex;
     flex-direction: row;
+    height: 100%;
+}
+
+.nav-items > img {
+    vertical-align: middle;
 }
 
 div.logo > h1 {
     font-size: 40px;
     margin: 0;
-    display: inline;
+    padding: 0;
 }

@@ -23,7 +23,7 @@ const Navigation = ({ isRestored }) => {
         modalData.imageId = -1;
         sessionLinks = (
             <>
-                <div>Welcome, {sessionUser.username}!</div>
+                <h2>Welcome, {sessionUser.username}!</h2>
                 <div>
                     <NavLink className="navlink" to="/images">Browse Images</NavLink>
                 </div>
@@ -50,8 +50,10 @@ const Navigation = ({ isRestored }) => {
     return (
         <nav>
             <div className='logo title'>
-                <NavLink to="/" className="nav-items"><img src='/logo.png' alt="logo for Wildr" />
-                    Wildr</NavLink>
+                <NavLink to="/" className="nav-items">
+                    <img src='/logo.png' alt="logo for Wildr" />
+                    Wildr
+                </NavLink>
             </div>
             {isRestored && sessionLinks}
         </nav >
