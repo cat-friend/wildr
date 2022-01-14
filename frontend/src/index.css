@@ -23,6 +23,7 @@ body {
     font-style: normal;
     color: var(--body-font-color);
     padding: 0;
+    font-size: 14px;
 }
 
 #root {
@@ -60,8 +61,17 @@ a {
     text-decoration: none;
 }
 
-a:visited {
-    color: var(--link-visited)
+.navlink {
+    color: black;
+    padding: 5px;
+    border: 2px solid black;
+}
+
+.crud-link {
+    background-color: white;
+    border: 2px solid var(--link-color);
+    margin-right: 10px;
+    padding: 5px;
 }
 
 a:hover {
@@ -138,14 +148,16 @@ input:focus, textarea:focus {
 
 }
 
-.crud-link {
-    padding-right: 20px;
-}
+
 
 .image-browser {
     margin-left: auto;
     margin-right: auto;
     width: 90%
+}
+
+.image-details-container div {
+    margin-top: 10px;
 }
 
 .images {
@@ -189,6 +201,9 @@ ul.error-list {
 
 button {
     border-radius: 5px;
+    font-family: var(--body-font-family);
+    font-weight: 300;
+    font-style: normal;
 }
 
 button.dark-button {

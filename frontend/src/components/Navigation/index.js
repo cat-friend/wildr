@@ -31,7 +31,7 @@ const Navigation = ({ isRestored }) => {
                     <CRUDImageFormModal modalData={modalData} />
                 </div>
                 <div>
-                    <NavLink onClick={logout} className="dark-button" to="#">Log Out</NavLink>
+                    <NavLink className="navlink" onClick={logout} to="#">Log Out</NavLink>
                 </div>
             </>
         )

@@ -61,7 +61,7 @@ const ImageDetailPage = () => {
                     </div>
                     <div className="details">
                         <h2>{image?.title}</h2>
-                        <p>{image?.description}</p>
+                    <div>{image?.description}</div>
                     </div>
                     <div className="buttons">
                         {sessionUser.id === userId &&

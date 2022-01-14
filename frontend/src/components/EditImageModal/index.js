@@ -61,7 +61,7 @@ function CRUDImageFormModal({ modalData }) {
                 <NavLink onClick={() => {
                     setCreateModal(true);
                     setAction(CREATE);
-                }} to="#">Upload Image</NavLink>
+                }} to="#" className="crud-link">Upload Image</NavLink>
                 {
                     createModal && (
                         <Modal onClose={() => setCreateModal(false)}>
