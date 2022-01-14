@@ -1,5 +1,5 @@
 const Footer = () => {
-    return (<div class="footer">
+    return (<div className="footer">
         <div className="info">
         <a href="https://denisepli.com" target="_blank">Denise Li</a>
         </div>

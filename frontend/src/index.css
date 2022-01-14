@@ -23,7 +23,6 @@ body {
     font-style: normal;
     color: var(--body-font-color);
     padding: 0;
-    margin: 70px 0 100px 0%;
 }
 
 #root {
@@ -45,6 +44,7 @@ body {
 .content {
     width: 80%;
     height: 80%;
+    margin-top: 100px;
 }
 
 h1, h2, h3, h4 {
@@ -69,9 +69,18 @@ a:hover {
 }
 
 
-.thumbnails, .modal-image>img {
+.thumbnails {
     max-width: 300px;
     margin: 30px;
+}
+
+.modal-image {
+    justify-content: center;
+    display: flex;
+
+}
+.modal-image > img {
+    max-width: 80%;
 }
 
 input, textarea {
@@ -86,7 +95,7 @@ input, textarea {
 }
 
 input:focus, textarea:focus {
-    border: 3px solid var(--link-color);
+    border: 3px solid var(--link-visited);
 }
 
 .placeholder {
@@ -154,4 +163,27 @@ input:focus, textarea:focus {
     left: 0;
     width: 100%;
     height: 5%;
+}
+
+
+ul.error-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.errors {
+    border: 2px solid darkred;
+    margin: 0;
+}
+
+button {
+    border-radius: 5px;
+}
+
+button.dark-button {
+    background-color: white;
+    border: var(--button-border-dark) 2px solid;
+    width: 100%;
+    margin-top: 20px;
 }

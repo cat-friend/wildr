@@ -77,7 +77,6 @@ router.delete('/:imageId(\\d+)', asyncHandler(async (req, res, next) => {
         next(error);
     }
     const delImage = await currImage.destroy();
-    console.log("delImage", delImage)
     return res.json(currImage);
 }));
 module.exports = router;

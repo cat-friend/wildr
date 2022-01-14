@@ -42,22 +42,19 @@ function CRUDImageForm({ formData }) {
             description,
             userId: sessionUser.id
         }
-        console.log(payload);
-        // send payload to store, from there store goes to fetch
 
         return dispatch(imageActions.editImage(payload))
-            .catch(async (response) => {
-                const data = await response.json();
-                if (data && data.errors) setErrors(data.errors);
-            })
-            .then((res) => {
-                if (errors.length === 0) {
+            .then(
+                (data) => {
                     setSuccess("Success!");
                     setTimeout(() => {
-                        window.location.reload(true);
+                        window.location.replace(`/images/${data.id}`);
                     }, 1500);
+                }, async (response) => {
+                    const data = await response.json();
+                    if (data && data.errors) setErrors(data.errors);
                 }
-            })
+            );
     }
 
     const submitDelete = () => {
@@ -74,19 +71,18 @@ function CRUDImageForm({ formData }) {
         }
 
         return dispatch(imageActions.deleteImage(payload))
-            .catch(async (response) => {
-                const data = await response.json();
-                if (data && data.errors) setErrors(data.errors);
-            })
-            .then((res) => {
-                if (errors.length === 0) {
+            .then(
+                () => {
                     setSuccess("Success!");
                     setTimeout(() => {
-                        window.location.replace('/images');
+                        window.location.replace(`/images`);
                     }, 1500);
-                    console.log("res", res)
+                },
+                async (response) => {
+                    const data = await response.json();
+                    if (data && data.errors) setErrors(data.errors);
                 }
-            });
+            );
     }
 
     const submitCreate = (e) => {
@@ -106,25 +102,24 @@ function CRUDImageForm({ formData }) {
             userId: sessionUser.id
         }
         return dispatch(imageActions.createImage(payload))
-            .catch(async (response) => {
-                const data = await response.json();
-                if (data && data.errors) setErrors(data.errors);
-            })
-            .then((res) => {
-                if (errors.length === 0) {
+            .then(
+                (data) => {
                     setSuccess("Success!");
                     setTimeout(() => {
-                        window.location.replace(`/images/${res.id}`);
+                        window.location.replace(`/images/${data.id}`);
                     }, 1500);
+                }, async (response) => {
+                    const data = await response.json();
+                    if (data && data.errors) setErrors(data.errors);
                 }
-            })
+            );
     }
 
     let modalContent = null;
     // if action = create, edit, delete --> generate appropriate CRUD form
     switch (action) {
         case "Edit": {
-            modalContent = (<><h1>Edit</h1>
+            modalContent = (<><h1>Edit {currImage.title}</h1>
                 <h2>Preview</h2>
                 <div className="modal-image"><img src={url} /></div>
                 <form onSubmit={submitEdit}>
@@ -146,8 +141,8 @@ function CRUDImageForm({ formData }) {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="(Optional)" />
-                    <button type="submit">Submit</button>
-                    <button onClick={(e) => window.location.reload(true)} type="button">Cancel</button>
+                    <button type="submit" className="dark-button">Submit</button>
+                    <button onClick={(e) => window.location.reload(true)} type="button" className="light-button">Cancel</button>
                 </form></>
             )
             break;
@@ -155,15 +150,15 @@ function CRUDImageForm({ formData }) {
         case "Delete": {
             modalContent = (<><h2>Are you sure you want to delete this image?</h2>
                 <h3>This cannot be undone.</h3>
-                <button type="button" onClick={(e) => submitDelete()}>Yes</button>
-                <button type="button" onClick={(e) => window.location.reload(true)}>No</button>
+                <button type="button" onClick={(e) => submitDelete()} className="dark-button">Yes</button>
+                <button type="button" onClick={(e) => window.location.reload(true)} className="light-button">No</button>
             </>)
             break;
         }
         case "Upload Image": {
-            modalContent = (<><h1>create</h1>
+            modalContent = (<><h1>Upload New Image</h1>
                 <h2>Preview</h2>
-                <div className="modal-image"><img src={url} /></div>
+                <div className="modal-image"><img src={url} alt={title}/></div>
                 <form onSubmit={submitCreate}>
                     <label htmlFor="title">Title:</label>
                     <input
@@ -183,8 +178,8 @@ function CRUDImageForm({ formData }) {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="(Optional)" />
-                    <button type="submit">Submit</button>
-                    <button onClick={(e) => window.location.reload(true)} type="button">Cancel</button>
+                    <button type="submit" className="dark-button">Submit</button>
+                    <button onClick={(e) => window.location.reload(true)} type="button" className="light-button">Cancel</button>
                 </form>
             </>)
             break;
@@ -192,8 +187,8 @@ function CRUDImageForm({ formData }) {
         default: break;
     }
     return (<>{modalContent}
-        <ul>
-            {errors.map((error, i) => <li key={i}>{error}</li>)}
+        <ul className="error-list">
+            {errors.map((error, i) => <li key={i} className="errors">{error}</li>)}
         </ul>
         <h2>{success}</h2>
     </>

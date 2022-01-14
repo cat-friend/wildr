@@ -20,8 +20,18 @@
 
   #modal-content {
     position: absolute;
-    background-color:var(--body-background);
+    background-color: rgb(255, 248, 241);
     width: fit-content;
+    max-width: 30%;
     height: fit-content;
     border-radius: 10px;
+    border: solid 3px var(--button-border-dark);
+    padding: 10px;
   }
+
+  button.light-button {
+    background-color: white;
+    border: var(--button-border-light) 2px solid;
+    width: 100%;
+    margin-top: 20px;
+}

@@ -23,7 +23,6 @@ export const getImages = () => async (dispatch) => {
     const response = await csrfFetch('/api/images');
     if (response.ok) {
         const images = await response.json();
-        console.log("images from getImages", images)
         dispatch(load(images));
         return images;
     }
@@ -96,7 +95,6 @@ const imageReducer = (state = {}, action) => {
         }
         case DELETE_IMAGE: {
             const allImages = { ...state };
-            console.log("allImages", allImages);
             delete allImages[action.image.id];
             return allImages;
         }
