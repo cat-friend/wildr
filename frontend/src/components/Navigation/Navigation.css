@@ -1,32 +1,15 @@
-#profile-button {
-    background-color: white;
-    border: var(--button-border-light) 2px solid;
-    width: fit-content;
-    align-self: flex-end;
-    margin-top: 0px;
-    padding: 0;
-}
-
-.profile-dropdown {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-button.dark-button {
-    background-color: white;
-    border: var(--button-border-dark) 2px solid;
-    margin-top: 20px;
-    padding: 0;
-}
-
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+nav {
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 70px;
+    width: 100%;
+    background-color: var(--body-background);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
+
 
 div.logo {
     display: inline;

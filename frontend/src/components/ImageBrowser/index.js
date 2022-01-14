@@ -19,7 +19,7 @@ const ImageBrowser = () => {
             <div className='images'>
                 {images.map((image) => {
                     return (
-                        <NavLink to={`/images/${image.id}`}><img src={image.url} key={image.id} alt={image.title} className="thumbnails" /></NavLink>
+                        <NavLink to={`/images/${image.id}`} key={image.id}><img src={image.url} key={image.id} alt={image.title} className="thumbnails" /></NavLink>
                     )
                 })}
             </div>

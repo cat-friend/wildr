@@ -3,7 +3,7 @@
     --button-border-dark: #9b6f1d;
     --button-border-light: #d5a350;
     --accent-color: #99c;
-    --body-background: rgba(255, 204, 153, .25);
+    --body-background: rgba(255, 204, 153, .5);
     --body-font-family: circe-rounded, sans-serif;
     --link-color: #005700;
     --link-visited: #363;
@@ -11,11 +11,10 @@
 
 * {
     box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
-nav {
-    width: 100%;
-}
 
 body {
     background-color: var(--body-background);
@@ -23,8 +22,16 @@ body {
     font-weight: 300;
     font-style: normal;
     color: var(--body-font-color);
-    margin: 2% 5%;
     padding: 0;
+    margin: 70px 0 100px 0%;
+}
+
+#root {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    height: 95%;
+    margin-bottom: 5%
 }
 
 .title {
@@ -35,10 +42,17 @@ body {
     padding: 0;
 }
 
+.content {
+    width: 80%;
+    height: 80%;
+}
+
 h1, h2, h3, h4 {
     font-family: circe-slab-a, serif;
     font-weight: 700;
     font-style: normal;
+    padding: 0;
+    margin: 0;
 }
 
 a {
@@ -54,24 +68,8 @@ a:hover {
     text-decoration: underline;
 }
 
-.body-div {
-    margin: 0 auto 0 auto;
-    width: 100%;
-}
 
-
-button {
-    border-radius: 5px;
-}
-
-button.dark-button {
-    background-color: white;
-    border: var(--button-border-dark) 2px solid;
-    width: 100%;
-    margin-top: 20px;
-}
-
-.thumbnails, .modal-image > img {
+.thumbnails, .modal-image>img {
     max-width: 300px;
     margin: 30px;
 }
@@ -91,11 +89,44 @@ input:focus, textarea:focus {
     border: 3px solid var(--link-color);
 }
 
-.splash {
-    background: no-repeat url("https://www.denisepli.com/wildr/images/30.JPG") center;
-    background-size: contain;
+.placeholder {
     width: 100%;
-    height: 95vh;
+    height: 75vh;
+}
+
+.splash {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-position: 50%;
+    background: url("https://www.denisepli.com/wildr/images/30.JPG") center no-repeat;
+    background-size: cover;
+    z-index: -1;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.splash-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    color: white;
+    border: 5px solid white;
+    border-radius: 5%;
+    background: rgba(0, 0, 0, .5);
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    width: 30vw;
+    font-size: 20px;
+
 }
 
 .crud-link {
@@ -109,11 +140,18 @@ input:focus, textarea:focus {
 }
 
 .image-detail {
-    max-width: 800px;
+    width: 100%;
+
 }
 
-footer {
-    display:flex;
-    justify-content: space-between;
+.footer {
+    background-color: var(--body-background);
+    display: flex;
+    justify-content: space-around;
     margin-top: 2%;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5%;
 }

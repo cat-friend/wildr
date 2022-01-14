@@ -3,12 +3,11 @@ import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import LoginFormPage from "./components/LoginFormPage";
-import { SignUpFormPage } from "./components/SignupFormPage";
+
 import ImageBrowser from "./components/ImageBrowser";
 import ImageDetailPage from "./components/ImageDetail";
 import Splash from "./components/Splash";
-import Footer from "./components/Footer";
+
 
 
 function App() {
@@ -20,7 +19,7 @@ function App() {
 
   return (<>
     <nav><Navigation isRestored={isRestored} /></nav>
-    <div>
+    <div className="content">
       {isRestored && (
         < Switch >
           <Route path="/" exact>
@@ -31,8 +30,8 @@ function App() {
         </Switch>)
       }
     </div>
-    <footer><Footer /></footer>
   </>)
 }
 
 export default App;
+

@@ -48,13 +48,13 @@ const Navigation = ({ isRestored }) => {
         );
     }
     return (
-        <div className='navbar'>
+        <nav>
             <div className='logo title'>
                 <NavLink to="/" className="nav-items"><img src='/logo.png' alt="logo for Wildr" />
                     Wildr</NavLink>
             </div>
             {isRestored && sessionLinks}
-        </div >
+        </nav >
     );
 }
 

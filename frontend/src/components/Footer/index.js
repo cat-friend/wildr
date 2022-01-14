@@ -1,5 +1,5 @@
 const Footer = () => {
-    return (<>
+    return (<div class="footer">
         <div className="info">
         <a href="https://denisepli.com" target="_blank">Denise Li</a>
         </div>
@@ -12,7 +12,7 @@ const Footer = () => {
         <div className="info">
             <a href="https://www.linkedin.com/in/denise-li-45350320/" target="_blank">LinkedIn</a>
         </div>
-    </>)
+    </div>)
 }
 
 export default Footer;
