@@ -187,3 +187,21 @@ button.dark-button {
     width: 100%;
     margin-top: 20px;
 }
+
+button.light-button {
+    background-color: white;
+    border: var(--button-border-light) 2px solid;
+    width: 100%;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #A6C466;
+    color: white;
+    border: 2px solid var(--link-color);
+}
+
+button:active {
+    background-color: var(--link-color);
+    border: 2 px solid #A6C466;
+}
