@@ -148,6 +148,11 @@ input:focus, textarea:focus {
     width: 90%
 }
 
+.images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
 .image-detail {
     width: 100%;
 
