@@ -8,7 +8,7 @@ function RegisterFormModal() {
 
     return (
         <>
-            <Link onClick={() => setShowRegister(true)} to="#">Register</Link>
+            <Link onClick={() => setShowRegister(true)} to="#" className='navlink'>Register</Link>
             {showRegister && (
                 <Modal onClose={() => setShowRegister(false)}>
                     <RegisterForm />

@@ -45,7 +45,7 @@ body {
 
 .content {
     width: 80%;
-    height: 80%;
+    min-height: 79vh;
     margin-top: 100px;
 }
 
