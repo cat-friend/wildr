@@ -4,7 +4,7 @@ import * as sessionActions from '../../store/session'
 import { Redirect } from "react-router-dom";
 
 export const SignUpFormPage = () => {
-    // userna;me, email, password, conforim password
+    // username, email, password, conforim password
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
