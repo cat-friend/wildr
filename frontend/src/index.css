@@ -149,15 +149,13 @@ input:focus, textarea:focus {
 
 }
 
-
-
 .image-browser {
     margin-left: auto;
     margin-right: auto;
     width: 90%
 }
 
-.image-details-container div {
+.details-container div {
     margin-top: 10px;
 }
 
@@ -166,7 +164,7 @@ input:focus, textarea:focus {
     flex-wrap: wrap;
     justify-content: space-around;
 }
-.image-detail {
+.detail {
     width: 100%;
     max-height: 100%;
     object-fit: contain;

@@ -42,7 +42,7 @@ const ImageDetailPage = () => {
     else {
         if (sessionUser) {
             imageDetailContent = (<>
-                <div className="image-details-container">
+                <div className="details-container">
                     <div className="image">
                         <img src={image?.url} alt={image?.title} className="image-detail"/>
                     </div>
@@ -55,7 +55,7 @@ const ImageDetailPage = () => {
         }
         if (sessionUser.id === userId) {
             imageDetailContent = (<>
-                <div className="image-details-container">
+                <div className="details-container">
                     <div className="image">
                         <img src={image?.url} className="image-detail"/>
                     </div>

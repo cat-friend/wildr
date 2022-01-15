@@ -11,18 +11,10 @@ const UserDetailPage = () => {
     const sessionUser = useSelector(state => state.session.user);
 
     useEffect(() => {
-        dispatch(imageActions.getOneImage(userId));
+        dispatch(imageActions.getOneUser(userId));
     }, [userId, dispatch]);
 
     const image = useSelector(state => state.images[userId]);
-
-    if (!image) {
-        return (
-            <><h1>Image Not Found.</h1>
-                <NavLink to="/images">Return to Image Browser</NavLink>
-            </>
-        )
-    }
 
     const userId = image?.userId;
     const modalData = {
@@ -30,10 +22,10 @@ const UserDetailPage = () => {
         userId
     }
 
-    let imageDetailContent;
+    let profileContent;
 
     if (!sessionUser) {
-        imageDetailContent = (<>
+        profileContent = (<>
             <h1>You are not authorized to view this page</h1>
             <h2>Please register or log in.</h2>
         </>
@@ -41,38 +33,47 @@ const UserDetailPage = () => {
     }
     else {
         if (sessionUser) {
-            imageDetailContent = (<>
-                <div className="image-details-container">
-                    <div className="image">
-                        <img src={image?.url} alt={image?.title} className="image-detail"/>
+            profileContent = (<>
+                <div className="details-container">
+                    <div className="profile-info">
+                        <img src={image?.url} alt={image?.title} className="image-detail" />
                     </div>
                     <div className="details">
-                        <h2>{image?.title}</h2>
-                        <p>{image?.description}</p>
+                        <div>
+                            Albums
+                        </div>
+                        <div>
+                            Photostream
+                        </div>
                     </div>
                 </div>
             </>);
         }
         if (sessionUser.id === userId) {
-            imageDetailContent = (<>
-                <div className="image-details-container">
-                    <div className="image">
-                        <img src={image?.url} className="image-detail"/>
+            profileContent = (<>
+                <div className="details-container">
+                    <div className="profile-info">
+                        <h2></h2>
+                        <div className="buttons">
+                            {sessionUser.id === userId &&
+                                <><CRUDImageFormModal modalData={modalData} /></>}
+                        </div>
+                        <img src={image?.url} alt={image?.title} className="image-detail" />
                     </div>
                     <div className="details">
-                        <h2>{image?.title}</h2>
-                    <div>{image?.description}</div>
-                    </div>
-                    <div className="buttons">
-                        {sessionUser.id === userId &&
-                            <><CRUDImageFormModal modalData={modalData} /></>}
+                        <div>
+                            Albums
+                        </div>
+                        <div>
+                            Photostream
+                        </div>
                     </div>
                 </div>
             </>);
         }
     }
-    return (imageDetailContent);
+    return (profileContent);
 
 }
 
-export default ImageDetailPage;
+export default UserDetailPage;
