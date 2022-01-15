@@ -1,4 +1,4 @@
-# Welcome to the RECIPEOPLE wiki!
+# Welcome to the Wildr wiki!
 
 This project structure will be based off of [Flickr].
 

@@ -2,53 +2,61 @@ import React from 'react';
 import { NavLink } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import LoginFormModal from '../LoginFormModal';
-import ProfileButton from "./ProfileButton";
 import './Navigation.css'
+import CRUDImageFormModal from "../EditImageModal";
+import { useDispatch } from 'react-redux';
+import * as sessionActions from '../../store/session';
+import RegisterFormModal from '../RegisterFormModal';
 
 const Navigation = ({ isRestored }) => {
+    const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-
     let sessionLinks;
+    const modalData = {};
+    const logout = (e) => {
+        e.preventDefault();
+        dispatch(sessionActions.logout());
+    };
+
     if (sessionUser) {
+        modalData.crudAction = "create";
+        modalData.imageId = -1;
         sessionLinks = (
-            <div>
-                <ProfileButton user={sessionUser} />
-            </div>
+            <>
+                <h2>Welcome, {sessionUser.username}!</h2>
+                <div>
+                    <NavLink className="navlink" to="/images">Browse Images</NavLink>
+                </div>
+                <div>
+                    <CRUDImageFormModal modalData={modalData} />
+                </div>
+                <div>
+                    <NavLink className="navlink" onClick={logout} to="#">Log Out</NavLink>
+                </div>
+            </>
         )
     }
     else {
         sessionLinks = (
             <>
+                <div>
+                    <NavLink className="navlink" to="/images">Browse Images</NavLink>
+                </div>
                 <div><LoginFormModal /></div>
-                <div><NavLink to="/signup" className="nav-items">Sign Up</NavLink></div>
+                <div><RegisterFormModal /></div>
             </>
         );
     }
     return (
-        <div className='navbar'>
-            <div className='logo'>
-                <img src='./logo.png' alt="logo for Wildr" />
-                <h1>Wildr</h1>
+        <nav>
+            <div className='logo title'>
+                <NavLink to="/" className="nav-items">
+                    <img src='/logo.png' alt="logo for Wildr" />
+                    Wildr
+                </NavLink>
             </div>
-            <div><NavLink to="/" className="nav-items">Homepage</NavLink></div>
-            {isRestored ?
-                <>
-                    {sessionLinks}
-                </>
-                : <>
-                    <div>
-                        <NavLink to="/signup" className="nav-items">
-                            Sign Up!
-                        </NavLink>
-                    </div>
-                    <div>
-                        <NavLink to="/login" className="nav-items">
-                            Log in
-                        </NavLink>
-                    </div>
-                </>
-            }
-        </div >
+            {isRestored && sessionLinks}
+        </nav >
     );
 }
 

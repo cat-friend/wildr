@@ -3,7 +3,7 @@
     --button-border-dark: #9b6f1d;
     --button-border-light: #d5a350;
     --accent-color: #99c;
-    --body-background: rgba(255, 204, 153, .25);
+    --body-background: rgba(255, 204, 153, .5);
     --body-font-family: circe-rounded, sans-serif;
     --link-color: #005700;
     --link-visited: #363;
@@ -11,7 +11,10 @@
 
 * {
     box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
+
 
 body {
     background-color: var(--body-background);
@@ -19,25 +22,39 @@ body {
     font-weight: 300;
     font-style: normal;
     color: var(--body-font-color);
-    margin: 0 5% 5% 5%;
+    padding: 0;
+    font-size: 14px;
+}
+
+#root {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    height: 95%;
+    margin-bottom: 5%
+}
+
+.title {
+    font-family: dolly-small-caps-new, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 50px;
+    padding: 0;
+    margin: 0;
+}
+
+.content {
+    width: 80%;
+    min-height: 79vh;
+    margin-top: 100px;
 }
 
 h1, h2, h3, h4 {
     font-family: circe-slab-a, serif;
     font-weight: 700;
     font-style: normal;
-}
-
-div.logo {
-    display: flex;
-    align-content: center;
-    align-items: center;
-}
-
-div.logo > h1 {
-    font-size: 40px;
+    padding: 0;
     margin: 0;
-    display: inline;
 }
 
 a {
@@ -45,22 +62,150 @@ a {
     text-decoration: none;
 }
 
-a:visited {
-    color: var(--link-visited)
+.navlink {
+    color: black;
+    padding: 5px;
+    border: 2px solid black;
+}
+
+.crud-link {
+    background-color: white;
+    border: 2px solid var(--link-color);
+    margin-right: 10px;
+    padding: 5px;
 }
 
 a:hover {
     text-decoration: underline;
 }
 
-.body-div {
-    margin: 0 auto 0 auto;
-    width: 80%
+
+.thumbnails {
+    max-width: 300px;
+    margin: 30px;
+}
+
+.modal-image {
+    justify-content: center;
+    display: flex;
+
+}
+.modal-image > img {
+    max-width: 80%;
+}
+
+input, textarea {
+    border-radius: 5px;
+    background-color: white;
+    width: 100%;
+    max-width: 100%;
+    font-family: var(--body-font-family);
+    font-weight: 300;
+    font-style: normal;
+    color: var(--body-font-color);
+}
+
+input:focus, textarea:focus {
+    border: 3px solid var(--link-visited);
+}
+
+.placeholder {
+    width: 100%;
+    height: 75vh;
+}
+
+.splash {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-position: 50%;
+    background: url("https://www.denisepli.com/wildr/images/30.JPG") center no-repeat;
+    background-size: cover;
+    z-index: -1;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.splash-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    color: white;
+    border: 5px solid white;
+    border-radius: 5%;
+    background: rgba(0, 0, 0, .5);
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    width: 30vw;
+    font-size: 20px;
+
 }
 
 
+
+.image-browser {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%
+}
+
+.image-details-container div {
+    margin-top: 10px;
+}
+
+.images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.image-detail {
+    width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+footer {
+    height: 70x;
+}
+
+.footer {
+    box-sizing: border-box;
+    background-color: var(--body-background);
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2%;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    min-height: 40px;
+}
+
+
+ul.error-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.errors {
+    border: 2px solid darkred;
+    margin: 0;
+}
+
 button {
     border-radius: 5px;
+    font-family: var(--body-font-family);
+    font-weight: 300;
+    font-style: normal;
 }
 
 button.dark-button {
@@ -68,4 +213,22 @@ button.dark-button {
     border: var(--button-border-dark) 2px solid;
     width: 100%;
     margin-top: 20px;
+}
+
+button.light-button {
+    background-color: white;
+    border: var(--button-border-light) 2px solid;
+    width: 100%;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #A6C466;
+    color: white;
+    border: 2px solid var(--link-color);
+}
+
+button:active {
+    background-color: var(--link-color);
+    border: 2 px solid #A6C466;
 }

@@ -3,8 +3,12 @@ import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import LoginFormPage from "./components/LoginFormPage";
-import { SignUpFormPage } from "./components/SignupFormPage";
+
+import ImageBrowser from "./components/ImageBrowser";
+import ImageDetailPage from "./components/ImageDetail";
+import Splash from "./components/Splash";
+
+
 
 function App() {
   const dispatch = useDispatch();
@@ -15,20 +19,19 @@ function App() {
 
   return (<>
     <nav><Navigation isRestored={isRestored} /></nav>
-    <div>
-      {
-        isRestored ?
-          (< Switch >
-            <Route path="/signup">
-              <SignUpFormPage />
-            </Route>
-            <Route path="/login">
-              <LoginFormPage />
-            </Route>
-          </Switch>) : null
+    <div className="content">
+      {isRestored && (
+        < Switch >
+          <Route path="/" exact>
+            <Splash />
+          </Route>
+          <Route path="/images/:imageId"><ImageDetailPage /></Route>
+          <Route path="/images"><ImageBrowser /></Route>
+        </Switch>)
       }
     </div>
   </>)
 }
 
 export default App;
+

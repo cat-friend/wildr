@@ -8,6 +8,19 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
+  const demoUser = async (e) => {
+    e.preventDefault();
+    const payload = {
+      credential: "demo@user.io",
+      password: "password01"
+    }
+    return dispatch(sessionActions.login(payload))
+      .catch(async (response) => {
+        const data = await response.json();
+        if (data && data.errors) setErrors(data.errors);
+      });
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
@@ -21,12 +34,12 @@ function LoginForm() {
 
   return (
     <div className="login-form">
+      <ul className="error-list">
+        {errors.map((error, idx) => (
+          <li key={idx} className="errors">{error}</li>
+        ))}
+      </ul>
       <form onSubmit={handleSubmit} className="login-form">
-        <ul className="error-list">
-          {errors.map((error, idx) => (
-            <li key={idx} className="errors">{error}</li>
-          ))}
-        </ul>
         <input
           type="text"
           value={credential}
@@ -43,6 +56,7 @@ function LoginForm() {
           placeholder="Password"
         />
         <button type="submit" className="light-button">Log In</button>
+        <button type="button" className="dark-button" onClick={demoUser}>Demo User</button>
       </form>
     </div>
   );

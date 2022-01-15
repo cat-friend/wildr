@@ -15,27 +15,3 @@ div.login-form {
 form.login-form {
     margin-top: 20px;
 }
-
-ul.error-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-.errors {
-    border: 2px solid darkred;
-    margin: 0;
-}
-
-button.light-button {
-    background-color: white;
-    border: var(--button-border-light) 2px solid;
-    width: 100%;
-    margin-top: 20px;
-}
-
-input {
-    border-radius: 5px;
-    background-color: white;
-    width: 100%;
-}
