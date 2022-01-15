@@ -42,6 +42,29 @@
 - [ ] When a user submits the form, they will be able to view their new profile information without needing to refresh the page.
 - [ ] A user may not update profile features of other users.
 
+### User Profile Pages
+
+* As an authenticated user, I want to be able to see other user's profile pages.
+  * When I'm on the `/users/:userId` page:
+    * I would like to be able to see their username, profile icon, description, photostream, and their albums (if any).
+    * I should not be able to edit the profile of a person who is not me.
+* When I am logged in, I want to see a button to navigate to my own user profile (`/users/:userId`).
+* When I navigate to my own user profile (`/users/:userId`), I would like to be able to see a button to edit my profile.
+* When I click on the button, I would like to see a form to edit my profile. The form will pre-populate with my current data.
+  * When I enter invalid data on the `Edit Profile` form:
+    * I would like the website to inform me of the validations I failed to pass, and repopulate the form with my valid entries (except my password).
+    * So that I can try again without needing to refill forms I entered valid data into.
+
+#### Acceptance Criteria
+
+- [ ] A link appears in the navigation to register as a new user (only when not logged in)
+- [ ] When a user creates an image, a link appears in the `/images/:imagesId` page that directs to that person's user profile.
+- [ ] When an authorized user navigates to their user profile page (`/users/:userId`), they will see a button to edit their user profile.
+    - [ ] An unauthorized user will not be able to edit a profile.
+- [ ] When editing their profile, if any information is invalid, the user is alerted of the errors in their input(s).
+    - [ ] The user will not be able to submit the form if invalid data are present in the `Edit Profile` form.
+- [ ] Once the user's profile is successfully updated, the user is redirected to their profile/splash page.
+
 ### Log Out
 
 * As a logged in user, I can log out of my account so I can ensure that it isn’t used without my permission.
@@ -192,11 +215,11 @@
 ### Viewing Reviews of a Recipe
 * As a logged in or logged out user, when I am on a recipe’s (`/recipes/:recipeId`) page, I can view all reviews of the recipe
     * to determine whether I'd like to add it to a collection.
-* As a logged-in user, when I am viewing my user page (`users/:userId`), I can view my 9 most recent reviews for any recipe.
+* As a logged-in user, when I am viewing my user page (`/users/:userId`), I can view my 9 most recent reviews for any recipe.
 
 #### Acceptance Criteria
 - [ ] An authenticated or unauthenticated user can view all reivews on any recipe when viewing the `/recipes/:recipeId` page.
-- [ ] When an authenticated user is viewing their user page (`users/:userId`), they can view their 9 most recent reviews for any recipe.
+- [ ] When an authenticated user is viewing their user page (`/users/:userId`), they can view their 9 most recent reviews for any recipe.
 
 ### Editing a Review of a Recipe
 * As an authenticated user, when I am viewing the recipe reviews on the `/recipes/:recipeId` page, I can edit the reviews that I created
