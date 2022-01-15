@@ -141,7 +141,7 @@
 ### Creating an Album
 * As a logged in user, I can create albums in which to store images.
 * When I am viewing my profile page, in order to create a new album, I can click a button to create a new album and a `Create a New Album` form will appear.
-* When I am viewing a recipe and don't have any albums, I can see a button to create a new album.
+* When I am viewing a image and don't have any albums, I can see a button to create a new album.
     * When I click this button, a `Create a New Album` form will pop up and allow me to create a new album.
 * When I enter invalid data on the `Create a New Album` form, the page will inform me of the failed validations and repopulate the form with the valid entries
     * so that I can try again without needing to refill every input field.
@@ -153,32 +153,31 @@
 
 
 ### Adding Images to a Album
-* As a logged in user, and I am viewing an image on the `/images/imageId` page, I can add images to an album
-    * so that I have the images that I want in an album.
+* As a logged in user, and I am viewing my own images on the `/images/imageId` page, I can add images to an album.
 * When I am viewing an image, I have the option to use a dropdown menu to add the image to an existing album of mine.
     * I should be able to see an `Add to Album` button.
 * When I click the `Add to Album` button, the image will be saved to the album that I selected.
 
 #### Acceptance Criteria
-- [ ] When viewing a recipe on the `/images/:imageId` page, the user has the option to use a dropdown to select an existing album of theirs.
-- [ ] When the user clicks an `Add` button, the recipe will be added to the selected album.
+- [ ] When viewing an image on the `/images/:imageId` page, the user has the option to use a dropdown to select an existing album of theirs.
+- [ ] When the user clicks an `Add` button, the image will be added to the selected album.
 
 ### Removing Recipes from a Album
-* As a logged in user and viewing a specific album of mine on the `/albums/:albumId` page, I can remove images from an album
-    * so that I only have the images that I want in an album.
+* As a logged in user and viewing a specific album of mine on the `/albums/:albumId` page, I can remove images from an album.
 * I will see a `Remove from Album` button.
-    * When I click this button, the recipe will disappear from the album.
-* If I change my mind, I can add the recipe to the same album again when I am viewing the recipe on the `/images/:imageId` page.
+    * When I click this button, the image will disappear from the album.
+* If I change my mind, I can add the image to the same album again when I am viewing the image on the `/images/:imageId` page.
 
 #### Acceptance Criteria
-- [ ] When viewing an album on the `/albums/:albumId` page, the user can remove recipes from the album.
-- [ ] When the user clicks the `Remove from Album` button, the recipe will disappear from the album.
-- [ ] The user can add the recipe back to the same album when they are viewing the recipe on the `/recipes/:imageId` page.
+- [ ] When viewing an album on the `/albums/:albumId` page, the user can remove images from the album.
+- [ ] When the user clicks the `Remove from Album` button, the image will disappear from the album.
+- [ ] The user can add the image back to the same album when they are viewing the image on the `/images/:imageId` page.
 
 ### Deleting a Album
 * As a logged in user and viewing my album on the `/albums/:albumId` page, I can delete the entire album when I no longer have a use for it.
 * I will only see a `Delete Album` button if I am the user who created the album.
 * When I click the `Delete Album` button, the album will no longer exist.
+    * but the images contained within the album will still exist.
 * If I try to navigate to the URL of the album that I have deleted, I will get a `404` error.
 * I will not be able to delete the albums that other users have created.
 * I will be able to create a new album with the same name as the album that I have deleted.
@@ -187,9 +186,10 @@
 - [ ] When a user is viewing an album that they have created on the `/albums/:albumId` page, a `Delete Album` button appears.
 - [ ] The user will only see a `Delete Album` button if they are the user who created the album.
 - [ ] When the user clicks the `Delete Album` button, the album will be deleted.
+    - [ ] When the user clicks the `Delete Album` button, images contained within the album will not be deleted and will no longer be assigned to an album.
 - [ ] If the user tries to navigate to the URL of the album that they have deleted, they will get a `404` error.
-- [ ] A user cannot delete an album they they have not created.
-- [ ] A user will be able to create a new album with the same name as the album that they have deleted.
+- [ ] A user cannot delete an album that they have not created.
+- [ ] A user will be able to create a new album with the same name as the album that they have previously deleted.
 
 <!--
 ## Recipe Reviews
