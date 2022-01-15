@@ -135,61 +135,63 @@
 #### Acceptance Criteria
 - [ ] When the user is viewing a image that they have created, the user can click a button to delete their image.
 - [ ] The image will be deleted from the database and will no longer appear on the app.
-<!--
-## Collections
 
-### Creating a Collection
-* As a logged in user, I can create collections in which to store recipes.
-* When I am viewing my profile page, in order to create a new collection, I can click a button to create a new collection and a `Create a New Collection` form will appear.
-* When I am viewing a recipe and don't have any collections, I can see a button to create a new collection.
-    * When I click this button, a `Create a New Collection` form will pop up and allow me to create a new collection.
-* When I enter invalid data on the `Create a New Collection` form, the page will inform me of the failed validations and repopulate the form with the valid entries
+## Albums
+
+### Creating an Album
+* As a logged in user, I can create albums in which to store images.
+* When I am viewing my profile page, in order to create a new album, I can click a button to create a new album and a `Create a New Album` form will appear.
+* When I am viewing a recipe and don't have any albums, I can see a button to create a new album.
+    * When I click this button, a `Create a New Album` form will pop up and allow me to create a new album.
+* When I enter invalid data on the `Create a New Album` form, the page will inform me of the failed validations and repopulate the form with the valid entries
     * so that I can try again without needing to refill every input field.
 
 #### Acceptance Criteria
-- [ ] As a user I can go to my user page and click a button to create a new collection.
-- [ ] The button will pop up a form for the user to put the name in for the new collection.
-- [ ] A user can also create a collection if they don’t have any collections when viewing a recipe. A create collection button will appear instead of the option to add to collection.
+- [ ] As a user I can go to my user page and click a button to create a new album.
+- [ ] The button will pop up a form for the user to put the name in for the new album.
+- [ ] A user can also create an album if they don’t have any albums when viewing an image. A create album button will appear instead of the option to add to an album.
 
-### Adding Recipes to a Collection
-* As a logged in user, and I am viewing the recipe on the `/recipes/recipeId` page, I can add recipes to a collection
-    * so that I have the recipes that I want in a collection.
-* When I am viewing a recipe, I have the option to use a dropdown menu to add the recipe to an existing collection of mine.
-    * I should be able to see an `Add to Collection` button.
-* When I click the `Add to Collection` button, the recipe will be saved to the collection that I selected.
 
-#### Acceptance Criteria
-- [ ] When viewing a recipe on the `/recipes/recipeId` page, the user has the option to use a dropdown to select an existing collection of theirs.
-- [ ] When the user clicks an `Add` button, the recipe will be added to the selected collection.
-
-### Removing Recipes from a Collection
-* As a logged in user and viewing a specific collection of mine on the `/collections/:collectionId` page, I can remove recipes from a collection
-    * so that I only have the recipes that I want in a collection.
-* I will see a `Remove from Collection` button.
-    * When I click this button, the recipe will disappear from the collection.
-* If I change my mind, I can add the recipe to the same collection again when I am viewing the recipe on the `/recipes/:recipeId` page.
+### Adding Images to a Album
+* As a logged in user, and I am viewing an image on the `/images/imageId` page, I can add images to an album
+    * so that I have the images that I want in an album.
+* When I am viewing an image, I have the option to use a dropdown menu to add the image to an existing album of mine.
+    * I should be able to see an `Add to Album` button.
+* When I click the `Add to Album` button, the image will be saved to the album that I selected.
 
 #### Acceptance Criteria
-- [ ] When viewing a collection on the `/collections/:collectionId` page, the user can remove recipes from the collection.
-- [ ] When the user clicks the `Remove from Collection` button, the recipe will disappear from the collection.
-- [ ] The user can add the recipe back to the same collection when they are viewing the recipe on the `/recipes/:recipeId` page.
+- [ ] When viewing a recipe on the `/images/:imageId` page, the user has the option to use a dropdown to select an existing album of theirs.
+- [ ] When the user clicks an `Add` button, the recipe will be added to the selected album.
 
-### Deleting a Collection
-* As a logged in user and viewing my collection on the `/collections/:collectionId` page, I can delete the entire collection when I no longer have a use for it.
-* I will only see a `Delete Collection` button if I am the user who created the collection.
-* When I click the `Delete Collection` button, the collection will no longer exist.
-* If I try to navigate to the URL of the collection that I have deleted, I will get a `404` error.
-* I will not be able to delete the collections that other users have created.
-* I will be able to create a new collection with the same name as the collection that I have deleted.
+### Removing Recipes from a Album
+* As a logged in user and viewing a specific album of mine on the `/albums/:albumId` page, I can remove images from an album
+    * so that I only have the images that I want in an album.
+* I will see a `Remove from Album` button.
+    * When I click this button, the recipe will disappear from the album.
+* If I change my mind, I can add the recipe to the same album again when I am viewing the recipe on the `/images/:imageId` page.
 
 #### Acceptance Criteria
-- [ ] When a user is viewing a collection that they have created on the `/collections/:collectionId` page, a `Delete Collection` button appears.
-- [ ] The user will only see a `Delete Collection` button if they are the user who created the collection.
-- [ ] When the user clicks the `Delete Collection` button, the collection will be deleted.
-- [ ] If the user tries to navigate to the URL of the collection that they have deleted, they will get a `404` error.
-- [ ] A user cannot delete a collection they they have not created.
-- [ ] A user will be able to create a new collection with the same name as the collection that they have deleted.
+- [ ] When viewing an album on the `/albums/:albumId` page, the user can remove recipes from the album.
+- [ ] When the user clicks the `Remove from Album` button, the recipe will disappear from the album.
+- [ ] The user can add the recipe back to the same album when they are viewing the recipe on the `/recipes/:imageId` page.
 
+### Deleting a Album
+* As a logged in user and viewing my album on the `/albums/:albumId` page, I can delete the entire album when I no longer have a use for it.
+* I will only see a `Delete Album` button if I am the user who created the album.
+* When I click the `Delete Album` button, the album will no longer exist.
+* If I try to navigate to the URL of the album that I have deleted, I will get a `404` error.
+* I will not be able to delete the albums that other users have created.
+* I will be able to create a new album with the same name as the album that I have deleted.
+
+#### Acceptance Criteria
+- [ ] When a user is viewing an album that they have created on the `/albums/:albumId` page, a `Delete Album` button appears.
+- [ ] The user will only see a `Delete Album` button if they are the user who created the album.
+- [ ] When the user clicks the `Delete Album` button, the album will be deleted.
+- [ ] If the user tries to navigate to the URL of the album that they have deleted, they will get a `404` error.
+- [ ] A user cannot delete an album they they have not created.
+- [ ] A user will be able to create a new album with the same name as the album that they have deleted.
+
+<!--
 ## Recipe Reviews
 
 ### Creating a Review for a Recipe
