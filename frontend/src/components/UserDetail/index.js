@@ -36,38 +36,20 @@ const UserDetailPage = () => {
         if (sessionUser) {
             profileContent = (<>
                 <div className="details-container">
-                    <div>
+                    <div className="profile-info">
                         <h2>{user.username}</h2>
-                        <div>
-
-                        </div>
-                    </div>
-                    <div className="profile-info">
-                        <img src={image?.url} alt={image?.title} className="image-detail" />
-                    </div>
-                    <div className="details">
-                        <div>
-                            Albums
-                        </div>
-                        <div>
-                            Photostream
-                        </div>
-                    </div>
-                </div>
-            </>);
-        }
-        if (sessionUser.id === userId) {
-            profileContent = (<>
-                <div className="details-container">
-                    <div className="profile-info">
-                        <h2></h2>
                         <div className="buttons">
                             {sessionUser.id === userId &&
                                 <><EditProfileFormModal modalData={modalData} /></>}
                         </div>
-                        <img src={image?.url} alt={image?.title} className="image-detail" />
+                        <div>
+                            <img src={image?.url} alt={image?.title} className="image-detail" />
+                        </div>
+                        <h3>Description</h3>
+                        <div>{user.description}</div>
                     </div>
                     <div className="details">
+
                         <div>
                             Albums
                         </div>

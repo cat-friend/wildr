@@ -5,10 +5,10 @@ function EditProfileForm({ user }) {
     const { id, description } = user;
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-    const [username, setUsername] = useState("");
     const [newDescription, setDescription] = useState(description);
-    const [albums, setAlbums] = useState("");
-    const [photostream, setPhotostream] = useState("");
+    // const [icon, setIcon] = useState(state => state.session.profile.icon);
+    // const [albums, setAlbums] = useState(useSelector(state => state.session.albums));
+    // const [photostream, setPhotostream] = useState(useSelector(state => state.session.photostream));
     const [errors, setErrors] = useState([]);
     const [success, setSuccess] = useState("");
 
@@ -16,53 +16,70 @@ function EditProfileForm({ user }) {
         dispatchEvent(userActions.getOneUser(user.id));
     }, [user.id, dispatch])
 
-    let editForm;
-    if (sessionUser.id === userId) {
-        editForm = (<>
-            <div className="details-container">
-                <div className="profile-info">
-                    <h2></h2>
+    const editForm = (
+        <><ul className="error-list">
+            {errors.map((error, i) => <li key={i} className="errors">{error}</li>)}
+        </ul>
+            <h2>{success}</h2>
+
+            <form onSubmit={submitCreate}>
+                <label htmlFor="url">Profile Icon:</label>
+                <input
+                    id="icon"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    required />
+                <label htmlFor="description">Description:</label>
+                <textarea
+                    id="description"
+                    value={newDescription}
+                    onChange={(e) => setDescription(e.target.value)}
+                    required />
+                <button type="submit" className="dark-button">Submit</button>
+                <button onClick={(e) => window.location.reload(true)} type="button" className="light-button">Cancel</button>
+
+            </form>
+        </>
+    )
+
+    const profilePreview = (<>
+        <div className="details-container">
+            <div className="profile-info">
+                <div className="profile-header">
+                    <h2>{sessionUser.username} - Profile Preview</h2>
                     <div className="buttons">
-                        {sessionUser.id === userId &&
+                        {sessionUser.id === id &&
                             <><EditProfileFormModal modalData={modalData} /></>}
                     </div>
-                    <img src={image?.url} alt={image?.title} className="image-detail" />
                 </div>
-                <div className="details">
+                <div className="profile-body">
                     <div>
-                        Albums
+                        <img src={image?.url} alt={image?.title} className="image-detail" />
                     </div>
                     <div>
-                        Photostream
+                        {newDescription}
                     </div>
                 </div>
             </div>
-        </>);
+            <div className="details">
+                <div>
+                    Albums
+                </div>
+                <div>
+                    Photostream
+                </div>
+            </div>
+        </div>
+    </>)
+    const unauthorized = (<>
+        <h1>You are not authorized to view this page</h1>
+        <h2>Please register or log in.</h2>
+    </>)
+    if (sessionUser.id !== id) {
+        return unauthorized;
     }
+    return (profilePreview, editForm);
 
-    <form onSubmit={submitCreate}>
-        <label htmlFor="title">Title:</label>
-        <input
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required />
-        <label htmlFor="url">Image URL:</label>
-        <input
-            id="url"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            required />
-        <label htmlFor="description">Description:</label>
-        <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="(Optional)" />
-        <button type="submit" className="dark-button">Submit</button>
-        <button onClick={(e) => window.location.reload(true)} type="button" className="light-button">Cancel</button>
-    </form>
-    3 / vbv
 }
 
 export default EditProfileForm;
