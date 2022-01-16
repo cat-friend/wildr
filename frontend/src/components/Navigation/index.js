@@ -3,7 +3,7 @@ import { NavLink, Redirect } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css'
-import CRUDImageFormModal from "../EditImageModal";
+import CRUDImageFormModal from "../CRUDImageModal";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import RegisterFormModal from '../RegisterFormModal';

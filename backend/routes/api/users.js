@@ -3,8 +3,8 @@ const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
+const { User, Profile, UserIcon } = require('../../db/models');
 
 const router = express.Router();
 
@@ -42,7 +42,30 @@ router.post(
         return res.json({
             user,
         });
-    }),
+    })
 );
 
+// User pages
+router.get('/:userId', asyncHandler(async (req, res) => {
+    console.log("req.params", req.params.userId);
+    const user = await User.findByPk(req.params.userId);
+    const profile = await Profile.findByPk(req.params.userId);
+    const userIcon = await UserIcon.findByPk(profile.userIconId);
+    const profileData = {
+        user, profile, userIcon
+    }
+    return res.json(profileData);
+}));
+
+router.post('/:userId', asyncHandler(async (req, res) => {
+    console.log("post route");
+    res.json();
+    // const user = await User.findByPk(req.params.userId);
+    // const profile = await Profile.findByPk(req.params.userId);
+    // const userIcon = await UserIcon.findByPk(profile.userIconId);
+    // const profileData = {
+    //     user, profile, userIcon
+    // }
+    // return res.json(profileData);
+}));
 module.exports = router;
