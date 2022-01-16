@@ -66,7 +66,7 @@ router.get('/:userId', asyncHandler(async (req, res) => {
     return res.json(profileData);
 }));
 
-router.post('/:userId', validateProfile, asyncHandler(async (req, res) => {
+router.put('/:userId', validateProfile, asyncHandler(async (req, res) => {
     console.log("post route");
     const { user, profile } = req.body;
     const currUser = await User.findByPk(req.params.userId);
@@ -78,7 +78,7 @@ router.post('/:userId', validateProfile, asyncHandler(async (req, res) => {
     const profileData = {
         user: currUser, profile: currProfile, userIcon: currUserIcon
     };
-    
+
     return res.json(profileData);
 }));
 module.exports = router;
