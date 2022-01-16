@@ -8,6 +8,9 @@ const UserDetailPage = () => {
     const { userId } = useParams();
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
+    const [albums, setAlbums] = useState(useSelector(state => state.session.albums));
+    const [photostream, setPhotostream] = useState(useSelector(state => state.session.photostream));
+    const [description, setDescription] = useState(description);
 
     useEffect(() => {
         dispatch(userActions.getOneUser(userId));
