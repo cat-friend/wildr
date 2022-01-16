@@ -29,6 +29,12 @@ const validateSignup = [
     handleValidationErrors,
 ];
 
+const validateProfile = [
+    check('description')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide a description.')
+
+]
 // Sign up
 router.post(
     '/',
@@ -36,6 +42,9 @@ router.post(
     asyncHandler(async (req, res) => {
         const { email, password, username } = req.body;
         const user = await User.signup({ email, username, password });
+        const profile = await Profile.create({
+            userId: user.id
+        });
 
         await setTokenCookie(res, user);
 
@@ -57,15 +66,19 @@ router.get('/:userId', asyncHandler(async (req, res) => {
     return res.json(profileData);
 }));
 
-router.post('/:userId', asyncHandler(async (req, res) => {
+router.post('/:userId', validateProfile, asyncHandler(async (req, res) => {
     console.log("post route");
-    res.json();
-    // const user = await User.findByPk(req.params.userId);
-    // const profile = await Profile.findByPk(req.params.userId);
-    // const userIcon = await UserIcon.findByPk(profile.userIconId);
-    // const profileData = {
-    //     user, profile, userIcon
-    // }
-    // return res.json(profileData);
+    const { user, profile } = req.body;
+    const currUser = await User.findByPk(req.params.userId);
+    const currProfile = await Profile.findByPk(req.params.userId);
+    const currUserIcon = await UserIcon.findByPk(profile.userIconId);
+
+    await currProfile.update({ description: profile.description, userIconId: profile.userIconId });
+
+    const profileData = {
+        user: currUser, profile: currProfile, userIcon: currUserIcon
+    };
+    
+    return res.json(profileData);
 }));
 module.exports = router;

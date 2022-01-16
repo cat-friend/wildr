@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     userIconId: DataTypes.INTEGER,
     description: {
       type: DataTypes.STRING,
-      defaultValue: "Hello! I'm new to Wildr!",
+      defaultValue: "Hello! I'm new to Wildr and haven't described myself yet, but I'm probably pretty incredible!",
       validate: {
         len: [10, 350]
       }
