@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { NavLink, Redirect, } from "react-router-dom";
-import * as imageActions from "../../store/images";
-import CRUDImageFormModal from "../EditImageModal";
+import EditProfileFormModal from "../UserPageModal";
 
 const UserDetailPage = () => {
     const { userId } = useParams();
@@ -11,15 +10,14 @@ const UserDetailPage = () => {
     const sessionUser = useSelector(state => state.session.user);
 
     useEffect(() => {
-        dispatch(imageActions.getOneUser(userId));
+        dispatch(userActions.getOneUser(userId));
     }, [userId, dispatch]);
 
-    const image = useSelector(state => state.images[userId]);
+    const user = useSelector(state => state.users[userId]);
 
-    const userId = image?.userId;
+    const userId = user?.userId;
     const modalData = {
-        crudAction: "edit/delete",
-        userId
+        user
     }
 
     let profileContent;
@@ -35,6 +33,12 @@ const UserDetailPage = () => {
         if (sessionUser) {
             profileContent = (<>
                 <div className="details-container">
+                    <div>
+                        <h2>{user.username}</h2>
+                        <div>
+
+                        </div>
+                    </div>
                     <div className="profile-info">
                         <img src={image?.url} alt={image?.title} className="image-detail" />
                     </div>
@@ -56,7 +60,7 @@ const UserDetailPage = () => {
                         <h2></h2>
                         <div className="buttons">
                             {sessionUser.id === userId &&
-                                <><CRUDImageFormModal modalData={modalData} /></>}
+                                <><EditProfileFormModal modalData={modalData} /></>}
                         </div>
                         <img src={image?.url} alt={image?.title} className="image-detail" />
                     </div>

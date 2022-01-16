@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css'
@@ -16,6 +16,7 @@ const Navigation = ({ isRestored }) => {
     const logout = (e) => {
         e.preventDefault();
         dispatch(sessionActions.logout());
+        <Redirect to='/' />
     };
 
     if (sessionUser) {

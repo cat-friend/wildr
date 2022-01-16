@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { NavLink, Redirect, } from "react-router-dom";
 import * as imageActions from "../../store/images";
-import CRUDImageFormModal from "../EditImageModal";
+import CRUDImageFormModal from "../CRUDImageModal";
 
 const ImageDetailPage = () => {
     const { imageId } = useParams();
@@ -44,7 +44,7 @@ const ImageDetailPage = () => {
             imageDetailContent = (<>
                 <div className="details-container">
                     <div className="image">
-                        <img src={image?.url} alt={image?.title} className="image-detail"/>
+                        <img src={image?.url} alt={image?.title} className="image-detail" />
                     </div>
                     <div className="details">
                         <h2>{image?.title}</h2>
@@ -57,11 +57,11 @@ const ImageDetailPage = () => {
             imageDetailContent = (<>
                 <div className="details-container">
                     <div className="image">
-                        <img src={image?.url} className="image-detail"/>
+                        <img src={image?.url} className="image-detail" />
                     </div>
                     <div className="details">
                         <h2>{image?.title}</h2>
-                    <div>{image?.description}</div>
+                        <div>{image?.description}</div>
                     </div>
                     <div className="buttons">
                         {sessionUser.id === userId &&
