@@ -42,10 +42,9 @@ router.post(
     asyncHandler(async (req, res) => {
         const { email, password, username } = req.body;
         const user = await User.signup({ email, username, password });
-        const profile = await Profile.create({
+        await Profile.create({
             userId: user.id
         });
-
         await setTokenCookie(res, user);
 
         return res.json({
@@ -55,6 +54,7 @@ router.post(
 );
 
 // User pages
+
 router.get('/:userId', asyncHandler(async (req, res) => {
     console.log("req.params", req.params.userId);
     const user = await User.findByPk(req.params.userId);
@@ -67,7 +67,6 @@ router.get('/:userId', asyncHandler(async (req, res) => {
 }));
 
 router.put('/:userId', validateProfile, asyncHandler(async (req, res) => {
-    console.log("post route");
     const { user, profile } = req.body;
     const currUser = await User.findByPk(req.params.userId);
     const currProfile = await Profile.findByPk(req.params.userId);
@@ -81,4 +80,5 @@ router.put('/:userId', validateProfile, asyncHandler(async (req, res) => {
 
     return res.json(profileData);
 }));
+
 module.exports = router;

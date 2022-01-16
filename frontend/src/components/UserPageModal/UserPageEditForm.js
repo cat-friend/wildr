@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import * as userActions from "../../store/users";
 
 function EditProfileForm({ user }) {
     const { id, description } = user;
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const [newDescription, setDescription] = useState(description);
-    // const [icon, setIcon] = useState(state => state.session.profile.icon);
+    const [iconId, setIcon] = useState(state => state.session.profile.userIconId);
     // const [albums, setAlbums] = useState(useSelector(state => state.session.albums));
     // const [photostream, setPhotostream] = useState(useSelector(state => state.session.photostream));
     const [errors, setErrors] = useState([]);
@@ -15,6 +16,40 @@ function EditProfileForm({ user }) {
     useEffect(() => {
         dispatchEvent(userActions.getOneUser(user.id));
     }, [user.id, dispatch])
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        setErrors([]);
+        if (sessionUser.id !== id) {
+            window.alert("You are not authorized to perform this action");
+            setTimeout(() => {
+                window.location.reload(true);
+            }, 1500);
+            return;
+        }
+        const payload = {
+            user,
+            profile: {
+                userIconId: iconId,
+                description: newDescription
+            }
+        }
+
+        return dispatch(userActions.updateUser(payload))
+            .then(
+                (data) => {
+                    setSuccess("Success!");
+                    setTimeout(() => {
+                        window.location.replace(`/users/${data.user.id}`);
+                    }, 1500);
+                }, async (response) => {
+                    const data = await response.json();
+                    if (data && data.errors) setErrors(data.errors);
+                }
+            );
+    }
+
+
 
     const editForm = (
         <><ul className="error-list">

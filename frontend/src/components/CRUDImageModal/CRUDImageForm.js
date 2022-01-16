@@ -28,7 +28,7 @@ function CRUDImageForm({ formData }) {
     const submitEdit = async (e) => {
         e.preventDefault();
         setErrors([]);
-        if (!sessionUser.id === currImage.userId) {
+        if (sessionUser.id !== currImage.userId) {
             window.alert("You are not authorized to perform this action");
             setTimeout(() => {
                 window.location.reload(true);
