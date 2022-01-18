@@ -10,7 +10,9 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 router.get('/:profileId(\\d+)', asyncHandler(async (req, res, next) => {
     const id = req.params.profileId;
-    const profile = await Profile.findByPk(id);
+    const profile = await Profile.findByPk(id, {
+        include: User
+    })
     return res.json(profile);
 }));
 

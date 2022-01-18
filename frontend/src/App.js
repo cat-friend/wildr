@@ -7,7 +7,7 @@ import Navigation from "./components/Navigation";
 import ImageBrowser from "./components/ImageBrowser";
 import ImageDetailPage from "./components/ImageDetail";
 import Splash from "./components/Splash";
-
+import UserDetailPage from "./components/UserDetail";
 
 
 function App() {
@@ -27,6 +27,7 @@ function App() {
           </Route>
           <Route path="/images/:imageId"><ImageDetailPage /></Route>
           <Route path="/images"><ImageBrowser /></Route>
+          <Route path="/profiles/:profileId"><UserDetailPage /></Route>
         </Switch>)
       }
     </div>
@@ -34,4 +35,3 @@ function App() {
 }
 
 export default App;
-
