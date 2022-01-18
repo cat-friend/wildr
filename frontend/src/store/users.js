@@ -1,17 +1,14 @@
 import { csrfFetch } from "./csrf"
 
 const LOAD = 'wildr/user/LOAD';
-const PROFILE_LOAD = 'wildr/profile/LOAD';
+
 
 const load = user => ({
     type: LOAD,
     user
 });
 
-const profileLoad = profile => ({
-    type: PROFILE_LOAD,
-    profile
-});
+
 
 export const getOneUser = (userId) => async (dispatch) => {
     const response = await csrfFetch(`/api/users/${userId}`);
@@ -37,6 +34,7 @@ const userReducer = (state = {}, action) => {
             action.user.forEach((user) => {
                 users[user.id] = user;
             });
+            return users;
         }
         default: return state;
     }
