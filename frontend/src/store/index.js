@@ -2,13 +2,14 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import imageReducer from "./images";
-import profileReducer from "./profiles";
 import userReducer from "./users";
+import iconReducer from "./user-icons";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   images: imageReducer,
-  user: userReducer // includes profile, userIconId
+  user: userReducer,
+  icons: iconReducer
 });
 
 let enhancer;

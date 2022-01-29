@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import * as imageActions from "../../store/images";
 import { NavLink } from 'react-router-dom';
 
-function EditProfileFormModal() {
+function EditProfileFormModal({modalData}) {
     const [showModal, setShowModal] = useState(false);
     return (
         <>
-            <Link onClick={() => setShowModal(true)} to="#" className='crud-link'>Edit Profile</Link>
+            <NavLink onClick={() => setShowModal(true)} to="#" className='crud-link'>Edit Profile</NavLink>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <EditProfileForm />
+                    <EditProfileForm modalData={modalData}/>
                 </Modal>
             )}
         </>

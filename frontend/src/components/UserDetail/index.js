@@ -28,6 +28,7 @@ const UserDetailPage = () => {
         user
     }
 
+    console.log("moidalData from userdetail", modalData)
     let profileContent;
 
     if (!sessionUser) {
@@ -43,8 +44,8 @@ const UserDetailPage = () => {
                 <div className="profile-info">
                     <h2>{user?.username}</h2>
                     <div className="buttons">
-                        {/* {sessionUser?.id === user?.id &&
-                            <><EditProfileFormModal modalData={modalData} /></>} */}
+                        {sessionUser?.id === user?.id &&
+                            <><EditProfileFormModal modalData={modalData} /></>}
                     </div>
                     <div>
                         <img src={userIcon?.url} alt={`User icon for ${user?.username}`} className="image-detail" />

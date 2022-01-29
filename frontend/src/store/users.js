@@ -14,11 +14,9 @@ const put = user => ({
     user
 });
 
-
 export const getOneUser = (userId) => async (dispatch) => {
     const response = await csrfFetch(`/api/users/${userId}`);
     if (response.ok) {
-        console.log("user'", response)
         const user = await response.json();
         dispatch(load(user));
     }
