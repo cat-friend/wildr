@@ -65,7 +65,7 @@ function EditProfileForm({ modalData }) {
                 {allIcons.map((icon) => {
                     return (<>
                         <div id="icons-array">
-                            <input type="radio" key={icon.id} value={icon.id} id={icon.id} /><label for={icon.id}><img src={`${icon.url}`} className="icon-preview" /></label>
+                            <input type="radio" key={icon.id} value={icon.id} id={icon.id} checked={user.userIconId === icon.id}/><label for={icon.id}><img src={`${icon.url}`} className="icon-preview" /></label>
                         </div>
                     </>
                     )
