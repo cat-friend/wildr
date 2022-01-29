@@ -6,7 +6,8 @@ import { getAllUserIcons } from "../../store/user-icons";
 function EditProfileForm({ modalData }) {
     console.log("modalData user", modalData)
     const user = useSelector(state => state.user);
-    const allIcons = useSelector(state => state.icons);
+    const allIcons = useSelector(state => Object.values(state.icons));
+    console.log("allIcons", allIcons)
     const { description, id } = user
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
@@ -60,8 +61,16 @@ function EditProfileForm({ modalData }) {
             <h2>{success}</h2>
 
             <form onSubmit={onSubmit}>
-                {/* <label htmlFor="url">Profile Icon:</label>
-                <input
+                <label htmlFor="url">Profile Icon:</label>
+                {allIcons.map((icon) => {
+                    return (<>
+                        <div id="icons-array">
+                            <input type="radio" key={icon.id} value={icon.id} id={icon.id} /><label for={icon.id}><img src={`${icon.url}`} className="icon-preview" /></label>
+                        </div>
+                    </>
+                    )
+                })}
+                {/* <input
                     id="icon"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}

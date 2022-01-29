@@ -230,3 +230,12 @@ button:active {
     background-color: var(--link-color);
     border: 2 px solid #A6C466;
 }
+
+.icon-preview {
+    width: 25px;
+    height: 25px;
+}
+
+#icons-array {
+    display: flex;
+}
