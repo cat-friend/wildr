@@ -29,6 +29,20 @@ const validateSignup = [
     handleValidationErrors,
 ];
 
+const validateProfile = [
+    check('description')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide a description of yourself. We\'d love to get to know you!'),
+    check('userIconId')
+        .exists({ checkFalsy: true })
+        .withMessage('Please select a user icon.'),
+    check('description')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 3, max: 350 })
+        .withMessage('Please limit your description to be between 3 and 350 characters.'),
+    handleValidationErrors,
+];
+
 // Sign up
 router.post(
     '/',
@@ -56,8 +70,23 @@ router.get('/:userId', asyncHandler(async (req, res) => {
         error.title = 'Resource does not exist.'
         next(error);
     }
-    const user = await User.findByPk(req.params.userId, {include: [User, UserIcon, Profile, Image, Album]});
+    const user = await User.findByPk(req.params.userId, { include: [User, UserIcon, Image, Album] });
     return res.json(user);
 }));
+
+// Editing description / userId
+router.put('/:userId', validateProfile, asyncHandler(async (req, res) => {
+    if (req.params.userId < 1) {
+        const error = new Error('The page does not exist.');
+        error.status = 404;
+        error.title = 'Resource does not exist.'
+        next(error);
+    }
+    const currUser = await User.findByPk(req.params.userId);
+    const { description, userIconId } = req.body.User;
+    await currUser.update({ description, userIconId });
+    return res.json(currUser);
+})
+)
 
 module.exports = router;
