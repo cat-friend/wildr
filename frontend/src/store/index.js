@@ -3,11 +3,12 @@ import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import imageReducer from "./images";
 import profileReducer from "./profiles";
+import userReducer from "./users";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   images: imageReducer,
-  profile: profileReducer
+  user: userReducer // includes profile, userIconId
 });
 
 let enhancer;

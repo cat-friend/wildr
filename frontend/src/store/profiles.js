@@ -18,10 +18,7 @@ export const getOneProfile = (profileId) => async (dispatch) => {
 const profileReducer = (state = {}, action) => {
     switch (action.type) {
         case PROFILE_LOAD: {
-            const profile = {};
-            action.profile.forEach((profile) => {
-                profile[profile.id] = profile;
-            });
+            const profile = {...action.profile};
             return profile;
         }
         default: return state;

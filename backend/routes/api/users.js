@@ -4,7 +4,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
-const { User, Profile, UserIcon } = require('../../db/models');
+const { User, Profile, UserIcon, Album, Image } = require('../../db/models');
 
 const router = express.Router();
 
@@ -29,12 +29,6 @@ const validateSignup = [
     handleValidationErrors,
 ];
 
-const validateProfile = [
-    check('description')
-        .exists({ checkFalsy: true })
-        .withMessage('Please provide a description.')
-
-]
 // Sign up
 router.post(
     '/',
@@ -56,29 +50,14 @@ router.post(
 // User pages
 
 router.get('/:userId', asyncHandler(async (req, res) => {
-    console.log("req.params", req.params.userId);
-    const user = await User.findByPk(req.params.userId);
-    const profile = await Profile.findByPk(req.params.userId);
-    const userIcon = await UserIcon.findByPk(profile.userIconId);
-    const profileData = {
-        user, profile, userIcon
+    if (req.params.userId < 1) {
+        const error = new Error('The page does not exist.');
+        error.status = 404;
+        error.title = 'Resource does not exist.'
+        next(error);
     }
-    return res.json(profileData);
-}));
-
-router.put('/:userId', validateProfile, asyncHandler(async (req, res) => {
-    const { user, profile } = req.body;
-    const currUser = await User.findByPk(req.params.userId);
-    const currProfile = await Profile.findByPk(req.params.userId);
-    const currUserIcon = await UserIcon.findByPk(profile.userIconId);
-
-    await currProfile.update({ description: profile.description, userIconId: profile.userIconId });
-
-    const profileData = {
-        user: currUser, profile: currProfile, userIcon: currUserIcon
-    };
-
-    return res.json(profileData);
+    const user = await User.findByPk(req.params.userId, {include: [User, UserIcon, Profile, Image, Album]});
+    return res.json(user);
 }));
 
 module.exports = router;

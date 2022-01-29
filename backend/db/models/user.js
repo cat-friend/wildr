@@ -23,13 +23,21 @@ module.exports = (sequelize, DataTypes) => {
         len: [3, 256]
       },
     },
+    userIconId: DataTypes.INTEGER,
+    description: {
+      type: DataTypes.STRING,
+      defaultValue: "Hello! I'm new to Wildr and haven't described myself yet, but I'm probably pretty incredible!",
+      validate: {
+        len: [10, 350]
+      }
+    },
     hashedPassword: {
       type: DataTypes.STRING.BINARY,
       allowNull: false,
       validate: {
         len: [60, 60]
       },
-    },
+    }
   },
     {
       defaultScope: {
@@ -46,9 +54,12 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     });
+  User.beforeCreate(user => {
+    user.userIconId = Math.ceil(Math.random() * 15);
+  });
   User.associate = function (models) {
-    User.hasMany(models.Image, { foreignKey: 'userId'});
-    User.hasMany(models.Album, { foreignKey: 'userId'});
+    User.hasMany(models.Image, { foreignKey: 'userId' });
+    User.hasMany(models.Album, { foreignKey: 'userId' });
   };
   User.prototype.toSafeObject = function () { // remember, this cannot be an arrow function
     const { id, username, email } = this; // context will be the User instance

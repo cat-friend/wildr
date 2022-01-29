@@ -18,6 +18,18 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
+      userIconId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: function() {
+          profile.userIconId = Math.ceil(Math.random() * 15);
+        }
+      },
+      description: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: "Hello! I'm new to Wildr and haven't described myself yet, but I'm probably pretty incredible!"
+      },
       hashedPassword: {
         type: Sequelize.STRING.BINARY,
         allowNull: false,
