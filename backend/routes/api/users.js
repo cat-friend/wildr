@@ -70,7 +70,8 @@ router.get('/:userId', asyncHandler(async (req, res) => {
         error.title = 'Resource does not exist.'
         next(error);
     }
-    const user = await User.findByPk(req.params.userId, { include: [User, UserIcon, Image, Album] });
+    const user = await User.findByPk(req.params.userId, { include: [UserIcon] });
+    // const user = await User.findByPk(req.params.userId, { include: [UserIcon, Image, Album] });
     return res.json(user);
 }));
 
@@ -86,7 +87,6 @@ router.put('/:userId', validateProfile, asyncHandler(async (req, res) => {
     const { description, userIconId } = req.body.User;
     await currUser.update({ description, userIconId });
     return res.json(currUser);
-})
-)
+}));
 
 module.exports = router;

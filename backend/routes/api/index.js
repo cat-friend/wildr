@@ -14,6 +14,4 @@ router.post('/test', (req, res) => {
 
 router.use('/images', imagesRouter);
 
-router.use('/profiles', profilesRouter);
-
 module.exports = router;

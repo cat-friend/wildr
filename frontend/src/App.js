@@ -27,7 +27,7 @@ function App() {
           </Route>
           <Route path="/images/:imageId"><ImageDetailPage /></Route>
           <Route path="/images"><ImageBrowser /></Route>
-          <Route path="/profiles/:profileId"><UserDetailPage /></Route>
+          <Route path="/users/:userId"><UserDetailPage /></Route>
         </Switch>)
       }
     </div>
