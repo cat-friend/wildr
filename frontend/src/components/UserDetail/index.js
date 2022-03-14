@@ -39,10 +39,10 @@ const UserDetailPage = () => {
             <div className="details-container">
                 <div className="profile-info">
                     <h2>{user?.username}</h2>
-                    {/* <div className="buttons">
+                    <div className="buttons">
                         {sessionUser?.id === user?.id &&
                             <><EditProfileFormModal modalData={modalData} /></>}
-                    </div> */}
+                    </div>
                     <div>
                         <img src={userIcon?.url} alt={`User icon for ${user?.username}`} className="image-detail" />
                     </div>

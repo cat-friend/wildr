@@ -4,15 +4,13 @@ import * as userActions from "../../store/users";
 import { getAllUserIcons } from "../../store/user-icons";
 
 function EditProfileForm({ modalData }) {
-    console.log("modalData user", modalData)
     const user = useSelector(state => state.user);
     const allIcons = useSelector(state => Object.values(state.icons));
-    console.log("allIcons", allIcons)
     const { description, id } = user
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const [newDescription, setNewDescription] = useState(description);
-    const [iconId, setIcon] = useState(user.userIconId);
+    const [iconId, setIconId] = useState(user.userIconId);
     const [iconUrl, setIconUrl] = useState(user.UserIcon.url)
     const [errors, setErrors] = useState([]);
     const [success, setSuccess] = useState("");
@@ -62,20 +60,28 @@ function EditProfileForm({ modalData }) {
 
             <form onSubmit={onSubmit}>
                 <label htmlFor="url">Profile Icon:</label>
-                {allIcons.map((icon) => {
-                    return (<>
-                        <div id="icons-array">
-                            <input type="radio" key={icon.id} value={icon.id} id={icon.id} checked={user.userIconId === icon.id}/><label for={icon.id}><img src={`${icon.url}`} className="icon-preview" /></label>
-                        </div>
-                    </>
-                    )
-                })}
-                {/* <input
-                    id="icon"
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)}
-                    required /> */}
-                <h3><label htmlFor="description">Description:</label></h3>
+                <div id="icons-array">
+                    {allIcons.map((icon) => {
+                        return (
+                            <div key={icon.id}>
+                                <input type="radio"
+                                    value={icon.id}
+                                    id={icon.id}
+                                    checked={iconId == icon.id}
+                                    onChange={(e) => {
+                                        console.log("e.target.value", e.target.value);
+                                        console.log("iconId", iconId);
+                                        setIconId(e.target.value);
+                                    }} />
+                                <label HTMLfor={icon.id}>
+                                    <img src={`${icon.url}`} className="icon-preview" />
+                                </label>
+                            </div>
+                        )
+                    })}
+                </div>
+
+                <h3><label HTMLfor="description">Description:</label></h3>
                 <textarea
                     id="description"
                     value={newDescription}
