@@ -20,11 +20,6 @@ const UserDetailPage = () => {
         dispatch(userActions.getOneUser(userId));
     }, [userId, dispatch]);
 
-
-    const modalData = {
-        user
-    }
-
     let profileContent;
 
     if (!sessionUser) {
@@ -41,7 +36,7 @@ const UserDetailPage = () => {
                     <h2>{user?.username}</h2>
                     <div className="buttons">
                         {sessionUser?.id === user?.id &&
-                            <><EditProfileFormModal modalData={modalData} /></>}
+                            <><EditProfileFormModal /></>}
                     </div>
                     <div>
                         <img src={userIcon?.url} alt={`User icon for ${user?.username}`} className="image-detail" />

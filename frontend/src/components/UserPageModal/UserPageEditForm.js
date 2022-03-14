@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as userActions from "../../store/users";
 import { getAllUserIcons } from "../../store/user-icons";
 
-function EditProfileForm({ modalData }) {
+function EditProfileForm({setShowModal}) {
     const user = useSelector(state => state.user);
     const allIcons = useSelector(state => Object.values(state.icons));
     const { description, id } = user
@@ -41,8 +41,8 @@ function EditProfileForm({ modalData }) {
                 (data) => {
                     setSuccess("Success!");
                     setTimeout(() => {
-                        window.location.replace(`/users/${data.user.id}`);
-                    }, 1500);
+                        setShowModal(false);
+                    }, 750);
                 }, async (response) => {
                     const data = await response.json();
                     if (data && data.errors) setErrors(data.errors);
