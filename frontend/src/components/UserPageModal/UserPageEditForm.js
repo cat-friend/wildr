@@ -5,7 +5,7 @@ import { getAllUserIcons } from "../../store/user-icons";
 
 function EditProfileForm({setShowModal}) {
     const user = useSelector(state => state.user);
-    const allIcons = useSelector(state => Object.values(state.icons));
+    const allIcons = useSelector(state => state.icons);
     const { description, id } = user
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
@@ -61,7 +61,7 @@ function EditProfileForm({setShowModal}) {
             <form onSubmit={onSubmit}>
                 <label htmlFor="url">Profile Icon:</label>
                 <div id="icons-array">
-                    {allIcons.map((icon) => {
+                    {Object.values(allIcons).map((icon) => {
                         return (
                             <div key={icon.id}>
                                 <input type="radio"
@@ -70,8 +70,10 @@ function EditProfileForm({setShowModal}) {
                                     checked={iconId == icon.id}
                                     onChange={(e) => {
                                         console.log("e.target.value", e.target.value);
-                                        console.log("iconId", iconId);
+
                                         setIconId(e.target.value);
+                                        setIconUrl(allIcons[e.target.value].url);
+                                        console.log("iconIdUrl", allIcons[iconId].url);
                                     }} />
                                 <label HTMLfor={icon.id}>
                                     <img src={`${icon.url}`} className="icon-preview" />
