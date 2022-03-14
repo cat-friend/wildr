@@ -1,14 +1,12 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { NavLink, Redirect, } from "react-router-dom";
 import EditProfileFormModal from "../UserPageModal";
-import * as profileActions from "../../store/profiles"
 import * as userActions from "../../store/users";
 
 const UserDetailPage = () => {
     const { userId } = useParams();
-    console.log("userId", userId)
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const user  = useSelector(state => state.user);
@@ -16,8 +14,7 @@ const UserDetailPage = () => {
 
     // const [albums, setAlbums] = useState(useSelector(state => state.session.albums));
     // const [photostream, setPhotostream] = useState(useSelector(state => state.photostream));
-    const [description, setDescription] = useState(user?.description);
-    const [username, setUsername] = useState(user?.username);
+
 
     useEffect(() => {
         dispatch(userActions.getOneUser(userId));
@@ -28,7 +25,6 @@ const UserDetailPage = () => {
         user
     }
 
-    console.log("moidalData from userdetail", modalData)
     let profileContent;
 
     if (!sessionUser) {
@@ -43,10 +39,10 @@ const UserDetailPage = () => {
             <div className="details-container">
                 <div className="profile-info">
                     <h2>{user?.username}</h2>
-                    <div className="buttons">
+                    {/* <div className="buttons">
                         {sessionUser?.id === user?.id &&
                             <><EditProfileFormModal modalData={modalData} /></>}
-                    </div>
+                    </div> */}
                     <div>
                         <img src={userIcon?.url} alt={`User icon for ${user?.username}`} className="image-detail" />
                     </div>

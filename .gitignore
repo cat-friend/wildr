@@ -3,11 +3,6 @@
 build
 .DS_Store
 **/code.txt
-<<<<<<< HEAD
-readme-draft.md
-feedback.md
-=======
 feedback.md
 readme-draft.md
-
->>>>>>> main
+**/test.*

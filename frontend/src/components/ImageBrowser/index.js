@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, Route, useParams } from 'react-router-dom';
-import { csrfFetch } from "../../store/csrf";
+import { NavLink} from 'react-router-dom';
 import { getImages } from '../../store/images';
 
 const ImageBrowser = () => {
