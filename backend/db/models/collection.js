@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Collection = sequelize.define('Collection', {
+  const Collection = sequelize.define('Collections', {
     title: {
       type: DataTypes.STRING,
       validation: {
