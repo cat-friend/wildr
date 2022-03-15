@@ -69,11 +69,8 @@ function EditProfileForm({setShowModal}) {
                                     id={icon.id}
                                     checked={iconId == icon.id}
                                     onChange={(e) => {
-                                        console.log("e.target.value", e.target.value);
-
                                         setIconId(e.target.value);
                                         setIconUrl(allIcons[e.target.value].url);
-                                        console.log("iconIdUrl", allIcons[iconId].url);
                                     }} />
                                 <label HTMLfor={icon.id}>
                                     <img src={`${icon.url}`} className="icon-preview" />
