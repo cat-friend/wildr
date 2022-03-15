@@ -12,6 +12,7 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
+   return 
   },
 
   down: (queryInterface, Sequelize) => {
