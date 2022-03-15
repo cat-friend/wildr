@@ -12,7 +12,7 @@ const UserDetailPage = () => {
     const user  = useSelector(state => state.user);
     const userIcon = useSelector(state => state.user.UserIcon)
 
-    // const [albums, setAlbums] = useState(useSelector(state => state.session.albums));
+    // const [collections, setCollections] = useState(useSelector(state => state.session.collections));
     // const [photostream, setPhotostream] = useState(useSelector(state => state.photostream));
 
 
@@ -48,7 +48,7 @@ const UserDetailPage = () => {
 
                     <div>
                         <h2>
-                        Albums
+                        Collections
                         </h2>
                     </div>
                     <div><h2>

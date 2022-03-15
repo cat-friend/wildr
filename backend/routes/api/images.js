@@ -38,7 +38,7 @@ router.get('/', asyncHandler(async (req, res, next) => {
 
 // updating an image
 router.put('/:imageId(\\d+)', validateImage, asyncHandler(async (req, res, next) => {
-    const { imageId, title, url, description, userId, albumId } = req.body;
+    const { imageId, title, url, description, userId} = req.body;
     const currImage = await Image.findByPk(imageId);
     if (currImage.userId !== userId) {
         const error = new Error('Unauthorized');
@@ -46,15 +46,15 @@ router.put('/:imageId(\\d+)', validateImage, asyncHandler(async (req, res, next)
         error.title = 'Unauthorized request.'
         next(error);
     }
-    const updatedImage = await currImage.update({ title, url, description, userId, albumId });
+    const updatedImage = await currImage.update({ title, url, description, userId });
     return res.json(updatedImage);
 }));
 
 
 // // Posting an image
 router.post('/', validateImage, asyncHandler(async (req, res, next) => {
-    const { title, url, description, userId, albumId } = req.body;
-    const image = await Image.create({ title, url, description, userId, albumId });
+    const { title, url, description, userId } = req.body;
+    const image = await Image.create({ title, url, description, userId });
     return res.json(image);
 }));
 

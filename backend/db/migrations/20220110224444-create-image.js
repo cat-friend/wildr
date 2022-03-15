@@ -23,10 +23,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      albumId: {
-        type: Sequelize.INTEGER,
-        unique: true
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

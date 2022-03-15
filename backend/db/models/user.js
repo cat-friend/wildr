@@ -60,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function (models) {
     User.hasMany(models.Image, { foreignKey: 'userId' });
     User.belongsTo(models.UserIcon, { foreignKey: 'userIconId' });
-    User.hasMany(models.Album, { foreignKey: 'userId' });
+    User.hasMany(models.Collection, { foreignKey: 'userId' });
   };
   User.prototype.toSafeObject = function () { // remember, this cannot be an arrow function
     const { id, username, email } = this; // context will be the User instance
