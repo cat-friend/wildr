@@ -10,7 +10,7 @@ const UserDetailPage = () => {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const user  = useSelector(state => state.user);
-    const userIcon = useSelector(state => state.user.UserIcon)
+    const userIcon = user?.UserIcon
 
     // const [collections, setCollections] = useState(useSelector(state => state.session.collections));
     // const [photostream, setPhotostream] = useState(useSelector(state => state.photostream));

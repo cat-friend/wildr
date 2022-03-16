@@ -12,7 +12,7 @@ function EditProfileForm({ setShowModal }) {
     const user = useSelector(state => state.user);
     const [newDescription, setNewDescription] = useState(user?.description);
     const [iconId, setIconId] = useState(user?.userIconId);
-    const [iconUrl, setIconUrl] = useState(user?.UserIcon.url)
+    const [iconUrl, setIconUrl] = useState(user?.UserIcon?.url)
     const [errors, setErrors] = useState([]);
     const [success, setSuccess] = useState("");
 
@@ -42,6 +42,7 @@ function EditProfileForm({ setShowModal }) {
                 (data) => {
                     setSuccess("Success!");
                     setTimeout(() => {
+                        dispatch(userActions.getOneUser(userId));
                         setShowModal(false);
                     }, 750);
                 }, async (response) => {
@@ -60,7 +61,7 @@ function EditProfileForm({ setShowModal }) {
             <h2>{success}</h2>
 
             <form onSubmit={onSubmit}>
-                <label htmlFor="url">Profile Icon:</label>
+                <label HTMLfor="url">Profile Icon:</label>
                 <div id="icons-array">
                     {Object.values(allIcons).map((icon) => {
                         return (
