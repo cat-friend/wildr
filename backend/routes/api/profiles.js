@@ -26,8 +26,8 @@ router.get('/:profileId(\\d+)', asyncHandler(async (req, res, next) => {
 
 router.put('/:profileId(\\d+)', validateProfile, asyncHandler(async (req, res) => {
     const { user, profile } = req.body;
-    const currUser = await User.findByPk(req.params.userId);
-    const currProfile = await Profile.findByPk(req.params.userId);
+    const currUser = await User.findByPk(req.params.profileId);
+    const currProfile = await Profile.findByPk(req.params.profileId);
     const currUserIcon = await UserIcon.findByPk(profile.userIconId);
 
     await currProfile.update({ description: profile.description, userIconId: profile.userIconId });

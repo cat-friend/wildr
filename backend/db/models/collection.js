@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Collection = sequelize.define('Collections', {
+  const Collection = sequelize.define('Collection', {
     title: {
       type: DataTypes.STRING,
       validation: {
@@ -10,13 +10,17 @@ module.exports = (sequelize, DataTypes) => {
         len: [3, 100]
       }
     },
-    userId: DataTypes.INTEGER
+    userId: {
+      type: DataTypes.INTEGER,
+      references: { model: 'Users' },
+      allowNull: false
+    }
   }, {});
   Collection.associate = function (models) {
     Collection.belongsTo(models.User, { foreignKey: 'userId' });
 
     const columnMapping = {
-      through: 'CollectionPhotos',
+      through: 'CollectionPhoto',
       otherKey: 'imageId',
       foreignKey: 'collectionId',
       onDelete: 'cascade'

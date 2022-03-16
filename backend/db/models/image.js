@@ -38,7 +38,11 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    userId: DataTypes.INTEGER,
+    userId: {
+      type: DataTypes.INTEGER,
+      references: { model: 'Users' },
+      allowNull: false
+    },
   }, {});
   Image.associate = function (models) {
     Image.belongsTo(models.User, { foreignKey: 'userId' });
@@ -50,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'cascade'
     }
 
-    Image.hasMany(models.Collection, columnMapping);
+    Image.belongsToMany(models.Collection, columnMapping);
   };
   return Image;
 };

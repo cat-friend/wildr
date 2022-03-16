@@ -1,11 +1,17 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const CollectionPhotos = sequelize.define('CollectionPhotos', {
-    collectionId: DataTypes.INTEGER,
-    photoId: DataTypes.INTEGER
+  const CollectionPhoto = sequelize.define('CollectionPhoto', {
+    collectionId: {
+      type: DataTypes.INTEGER,
+      references: { model: 'Collection' }
+    },
+    imageId: {
+      type: DataTypes.INTEGER,
+      references: { model: 'Image' }
+    },
   }, {});
-  CollectionPhotos.associate = function(models) {
+  CollectionPhoto.associate = function (models) {
     // associations can be defined here
   };
-  return CollectionPhotos;
+  return CollectionPhoto;
 };
