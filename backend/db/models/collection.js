@@ -18,7 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     const columnMapping = {
       through: 'CollectionPhotos',
       otherKey: 'imageId',
-      foreignKey: 'collectionId'
+      foreignKey: 'collectionId',
+      onDelete: 'cascade'
     }
 
     Collection.belongsToMany(models.Image, columnMapping);

@@ -46,16 +46,11 @@ module.exports = (sequelize, DataTypes) => {
     const columnMapping = {
       through: 'CollectionPhotos',
       otherKey: 'collectionId',
-      foreignKey: 'imageId'
+      foreignKey: 'imageId',
+      onDelete: 'cascade'
     }
 
     Image.hasMany(models.Collection, columnMapping);
-    const imageTagsMapping = {
-      through: 'ImagesTags',
-      otherKey: 'tagId',
-      foreignKey: 'imageId'
-    }
-    Image.belongsToMany(models.Tag, imageTagsMapping);
   };
   return Image;
 };

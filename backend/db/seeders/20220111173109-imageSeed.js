@@ -151,6 +151,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Images', null, {});
+    return queryInterface.dropTable('Images');
   }
 };
