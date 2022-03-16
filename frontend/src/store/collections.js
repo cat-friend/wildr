@@ -4,18 +4,72 @@ const COLLECTIONS_LOAD = 'wildr/collections/LOAD'
 const COLLECTIONS_ADD = 'wildr/collections/ADD'
 const COLLECTIONS_DELETE_ONE = 'wildr/collections/DELETE_ONE'
 
-const collectionsLoad = collections => ({
+const load = collections => ({
     type: COLLECTIONS_LOAD,
     collections
+})
+
+const addOneCollection = collection => ({
+    type: COLLECTIONS_ADD,
+    collection
+});
+
+const deleteOneCollection = collection => ({
+    type: COLLECTIONS_DELETE_ONE,
+    collection
 })
 
 export const loadCollections = (userId) => async (dispatch) => {
     const response = await csrfFetch(`/api/collections/users/${userId}`);
     const collections = response.json();
     if (response.ok) {
-        dispatch(ssLoad(collections))
+        dispatch(load(collections))
     }
     return collections;
+}
+
+export const loadOneCollection = (collectionId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/collections/${collectionId}`);
+    const collection = response.json();
+    if (response.ok) {
+        dispatch(addOneCollection(collection));
+    }
+    return collection
+}
+
+export const createCollection = (payload) => async (dispatch) => {
+    const response = await csrfFetch(`/api/collections`,
+        { method: 'POST', body: JSON.stringify(payload) });
+    const collection = await response.json();
+    if (response.ok) {
+        dispatch(addOneCollection(collection));
+    }
+    return collection;
+}
+
+
+export const editCollection = (payload) => async (dispatch) => {
+    const response = await csrfFetch(`/api/collections/${payload.collectionId}`,
+        { method: 'PUT', body: JSON.stringify(payload) });
+    const collection = await response.json();
+    if (response.ok) {
+        dispatch(addOneCollection(collection));
+    }
+    return collection;
+}
+
+export const deleteCollection = (payload) => async (dispatch) => {
+    const response = await csrfFetch(`/api/collections/${payload.collectionsId}`);
+    if (response.ok) {
+        const delCollection = await csrfFetch(`/api/collections/${payload.collectionsId}`,
+            { method: 'DELETE', body: JSON.stringify(payload) });
+        const collection = await delCollection.json();
+        if (delCollection.ok) {
+            dispatch(deleteOneCollection(collection));
+        }
+        return collection;
+    }
+    return response.json();
 }
 
 const collectionsReducer = (state = {}, action) => {
