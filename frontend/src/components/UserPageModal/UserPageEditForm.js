@@ -2,29 +2,30 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as userActions from "../../store/users";
 import { getAllUserIcons } from "../../store/user-icons";
+import { useParams } from 'react-router-dom'
 
-function EditProfileForm({setShowModal}) {
-    const user = useSelector(state => state.user);
+function EditProfileForm({ setShowModal }) {
+    const { userId } = useParams();
     const allIcons = useSelector(state => state.icons);
-    const { description, id } = user
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-    const [newDescription, setNewDescription] = useState(description);
-    const [iconId, setIconId] = useState(user.userIconId);
-    const [iconUrl, setIconUrl] = useState(user.UserIcon.url)
+    const user = useSelector(state => state.user);
+    const [newDescription, setNewDescription] = useState(user?.description);
+    const [iconId, setIconId] = useState(user?.userIconId);
+    const [iconUrl, setIconUrl] = useState(user?.UserIcon.url)
     const [errors, setErrors] = useState([]);
     const [success, setSuccess] = useState("");
 
 
     useEffect(() => {
-        dispatch(userActions.getOneUser(id));
+        dispatch(userActions.getOneUser(userId));
         dispatch(getAllUserIcons());
-    }, [user.id, dispatch])
+    }, [userId, dispatch])
 
     const onSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
-        if (sessionUser.id !== id) {
+        if (sessionUser.id !== +userId) {
             window.alert("You are not authorized to perform this action");
             setTimeout(() => {
                 window.location.reload(true);
@@ -32,7 +33,7 @@ function EditProfileForm({setShowModal}) {
             return;
         }
         const payload = {
-            id,
+            id: +userId,
             userIconId: iconId,
             description: newDescription
         }
@@ -67,7 +68,7 @@ function EditProfileForm({setShowModal}) {
                                 <input type="radio"
                                     value={icon.id}
                                     id={icon.id}
-                                    checked={iconId == icon.id}
+                                    checked={+iconId === icon.id}
                                     onChange={(e) => {
                                         setIconId(e.target.value);
                                         setIconUrl(allIcons[e.target.value].url);
@@ -116,7 +117,7 @@ function EditProfileForm({setShowModal}) {
         <h1>You are not authorized to view this page</h1>
         <h2>Please register or log in.</h2>
     </>)
-    if (sessionUser.id !== id) {
+    if (sessionUser.id !== user.id) {
         return unauthorized;
     }
     return (

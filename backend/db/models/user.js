@@ -27,9 +27,6 @@ module.exports = (sequelize, DataTypes) => {
     description: {
       type: DataTypes.STRING,
       defaultValue: "Hello! I'm new to Wildr and haven't described myself yet, but I'm probably pretty incredible!",
-      validate: {
-        len: [10, 350]
-      }
     },
     hashedPassword: {
       type: DataTypes.STRING.BINARY,

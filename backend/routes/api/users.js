@@ -84,7 +84,7 @@ router.put('/:userId', validateProfile, asyncHandler(async (req, res) => {
         next(error);
     }
     const currUser = await User.findByPk(req.params.userId);
-    const { description, userIconId } = req.body.User;
+    const { description, userIconId } = req.body;
     const updatedUser = await currUser.update({ description, userIconId });
     return res.json(updatedUser);
 }));
