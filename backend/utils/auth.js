@@ -54,7 +54,6 @@ const requireAuth = [
     restoreUser,
     function (req, res, next) {
         if (req.user) return next();
-
         const err = new Error('Unauthorized');
         err.title = 'Unauthorized';
         err.errors = ['Unauthorized'];
@@ -65,19 +64,35 @@ const requireAuth = [
 
 const checkPermissions = (item, currUserId, next) => {
     if (item.userId !== currUserId) {
-        const err = new Error('You are not authorized to perform this operation.');
-        err.status = 403;
-        throw err;
+        const error = new Error('You are not authorized to perform this operation.');
+        error.status = 403;
+        error.title = 'UNAUTHORIZED';
+        next(error)
     }
 }
 
 const checkExistence = (model, pk, next) => {
-    const item = model.byByPk(pk);
+    const item = await model.findByPk(pk);
     if (!item) {
-        const error = new Error('Cannot find the requested collection.');
+        const error = new Error(`Cannot find the requested resource within ${model}.`);
         error.status = 404;
         error.title = 'Cannot find resource.'
         next(error);
     }
 }
-module.exports = { setTokenCookie, restoreUser, requireAuth, checkPermissions, checkExistence };
+
+const checkImageCollectionExistence = (model, collectionId, imageId, next) => {
+    const item = await model.findOne({
+        where: {
+            collectionId,
+            imageId
+        }
+    });
+    if (!item) {
+        const error = new Error(`Cannot find the requested resource within ${model}.`);
+        error.status = 404;
+        error.title = 'Cannot find resource.'
+        next(error);
+    }
+}
+module.exports = { setTokenCookie, restoreUser, requireAuth, checkPermissions, checkExistence, checkImageCollectionExistence };

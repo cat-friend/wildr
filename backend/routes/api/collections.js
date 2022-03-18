@@ -2,11 +2,10 @@ const express = require('express')
 const router = express.Router();
 const asyncHandler = require('express-async-handler');
 
-const { setTokenCookie, restoreUser } = require('../../utils/auth');
+const { checkExistence, checkPermissions, checkImageCollectionExistence } = require('../../utils/auth');
 const { Collection, Image, ImageCollection } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const collection = require('../../db/models/collection');
 
 // error handling middleware
 
@@ -22,37 +21,42 @@ const validateCollection = [
     handleValidationErrors
 ];
 
+// POST an image to a collection
+router.post('/:collectionId(\\d+)'), asyncHandler(async (req, res, next) => {
+    const collectionId = req.params.collectionId;
+    const collection = await Collection.findByPk(collectionId);
+    checkExistence(Collection, collectionId, next);
+    checkPermissions(collection, userId, next);
+    return res.json(collection);
+});
+
+// DELETE from a collection
+router.delete('/:collectionId(\\d+)/:imageId(\\d+)'), asyncHandler(async (req, res, next) => {
+    const imageId = req.params.imageId;
+    const collectionId = req.params.collectionId;
+    const { userId } = req.body;
+    const collection = await Collection.findByPk(collectionId);
+    checkExistence(Image, imageId, next);
+    checkExistence(Collection, collectionId, next);
+    checkImageCollectionExistence(ImageCollection, collectionId, imageId, next);
+    checkPermissions(collection, userId, next);
+});
 
 // READ a collection
 router.get('/:collectionId(\\d+)'), asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
     const collection = await Collection.findByPk(collectionId);
-    if (!collection) {
-        const error = new Error('Cannot find the requested image.');
-        error.status = 404;
-        error.title = 'Cannot find resource.'
-        next(error);
-    }
+    checkExistence(Collection, collectionId, next);
     return res.json(collection);
-})
+});
 
 // UPDATE a collection
 router.put('/collectionId(\\d+)', validateCollection, asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
     const { title, userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
-    if (!collection) {
-        const error = new Error('Cannot find the requested image.');
-        error.status = 404;
-        error.title = 'Cannot find resource.'
-        next(error);
-    }
-    if (collection.userId !== userId) {
-        const error = new Error('Unauthorized');
-        error.status = 403;
-        error.title = 'Unauthorized request.'
-        next(error);
-    }
+    checkExistence(Collection, collectionId, next);
+    checkPermissions(collection, userId, next);
     const updatedCollection = await collection.update({ title });
     return res.json(updatedCollection);
 }));
