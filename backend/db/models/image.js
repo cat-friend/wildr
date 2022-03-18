@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
     Image.belongsTo(models.User, { foreignKey: 'userId' });
 
     const columnMapping = {
-      through: 'CollectionPhotos',
+      through: 'ImageCollection',
       otherKey: 'collectionId',
       foreignKey: 'imageId',
       onDelete: 'cascade'
