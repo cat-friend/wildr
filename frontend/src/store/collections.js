@@ -20,7 +20,7 @@ const deleteOneCollection = collection => ({
 })
 
 export const loadCollections = (userId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/collections/users/${userId}`);
+    const response = await csrfFetch(`/api/users/${userId}/collections`);
     const collections = response.json();
     if (response.ok) {
         dispatch(load(collections))
