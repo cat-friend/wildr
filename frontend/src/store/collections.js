@@ -20,7 +20,7 @@ const deleteOneCollection = collection => ({
 })
 
 export const loadCollections = (userId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/collections/users/${userId}`);
+    const response = await csrfFetch(`/api/users/${userId}/collections`);
     const collections = response.json();
     if (response.ok) {
         dispatch(load(collections))
@@ -56,16 +56,39 @@ export const editCollection = (payload) => async (dispatch) => {
         dispatch(addOneCollection(collection));
     }
     return collection;
-}
+};
+
+export const addToCollection = (payload) => async (dispatch) => {
+    const response = await csrfFetch(`/api/collections/${payload.collectionId}`,
+        { method: 'POST', body: JSON.stringify(payload) });
+    const collection = await response.json();
+    if (response.ok) {
+        dispatch(loadOneCollection(payload.collectionId))
+        return;
+    }
+    return collection;
+};
+
+export const deleteFromCollection = (payload) => async (dispatch) => {
+    const response = await csrfFetch(`/api/collections/${payload.collectionId}`,
+        { method: 'DELETE', body: JSON.stringify(payload) });
+    const collection = await response.json();
+    if (response.ok) {
+        dispatch(loadOneCollection(payload.collectionId))
+        return;
+    }
+    return collection;
+};
 
 export const deleteCollection = (payload) => async (dispatch) => {
-    const response = await csrfFetch(`/api/collections/${payload.collectionsId}`);
+    const response = await csrfFetch(`/api/collections/${payload.collectionId}`);
     if (response.ok) {
-        const delCollection = await csrfFetch(`/api/collections/${payload.collectionsId}`,
+        const delCollection = await csrfFetch(`/api/collections/${payload.collectionId}`,
             { method: 'DELETE', body: JSON.stringify(payload) });
         const collection = await delCollection.json();
         if (delCollection.ok) {
             dispatch(deleteOneCollection(collection));
+            return;
         }
         return collection;
     }
