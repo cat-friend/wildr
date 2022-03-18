@@ -23,16 +23,7 @@ const validateCollection = [
 ];
 
 
-// CREATE a new collection
-
-router.post('/', validateCollection, asyncHandler(async (req, res, next) => {
-    const { title, userId } = req.body;
-    const collection = await Collection.create({title, userId});
-    return res.json(collection);
-}));
-
 // READ a collection
-
 router.get('/:collectionId(\\d+)'), asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
     const collection = await Collection.findByPk(collectionId);
@@ -44,3 +35,31 @@ router.get('/:collectionId(\\d+)'), asyncHandler(async (req, res, next) => {
     }
     return res.json(collection);
 })
+
+// UPDATE a collection
+router.put('/collectionId(\\d+)', validateCollection, asyncHandler(async (req, res, next) => {
+    const collectionId = req.params.collectionId;
+    const { title, userId } = req.body;
+    const collection = await Collection.findByPk(collectionId);
+    if (!collection) {
+        const error = new Error('Cannot find the requested image.');
+        error.status = 404;
+        error.title = 'Cannot find resource.'
+        next(error);
+    }
+    if (collection.userId !== userId) {
+        const error = new Error('Unauthorized');
+        error.status = 403;
+        error.title = 'Unauthorized request.'
+        next(error);
+    }
+    const updatedCollection = await collection.update({ title });
+    return res.json(updatedCollection);
+}));
+
+// CREATE a new collection
+router.post('/', validateCollection, asyncHandler(async (req, res, next) => {
+    const { title, userId } = req.body;
+    const collection = await Collection.create({ title, userId });
+    return res.json(collection);
+}));
