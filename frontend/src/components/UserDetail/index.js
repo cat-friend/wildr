@@ -8,17 +8,17 @@ import * as userActions from "../../store/users";
 const UserDetailPage = () => {
     const { userId } = useParams();
     const dispatch = useDispatch();
-    const sessionUser = useSelector(state => state.session.user);
-    const user  = useSelector(state => state.user);
-    const userIcon = user?.UserIcon
-
-    // const [collections, setCollections] = useState(useSelector(state => state.session.collections));
-    // const [photostream, setPhotostream] = useState(useSelector(state => state.photostream));
-
-
     useEffect(() => {
         dispatch(userActions.getOneUser(userId));
     }, [userId, dispatch]);
+    const sessionUser = useSelector(state => state.session.user);
+    const user = useSelector(state => state.user);
+    const userIcon = user?.UserIcon
+    const collections = useSelector(state => Object.values(state.collections));
+    // const [photostream, setPhotostream] = useState(useSelector(state => state.photostream));
+    console.log("collections", collections);
+
+
 
     let profileContent;
 
@@ -48,12 +48,12 @@ const UserDetailPage = () => {
 
                     <div>
                         <h2>
-                        Collections
+                            Collections
                         </h2>
                     </div>
                     <div><h2>
                         Photostream
-                        </h2>
+                    </h2>
                     </div>
                 </div>
             </div>
