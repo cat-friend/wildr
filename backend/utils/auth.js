@@ -69,6 +69,7 @@ const checkPermissions = (item, currUserId, next) => {
         error.title = 'UNAUTHORIZED';
         next(error)
     }
+    return true;
 }
 
 const checkExistence = (model, pk, next) => {
@@ -79,6 +80,7 @@ const checkExistence = (model, pk, next) => {
         error.title = 'Cannot find resource.'
         next(error);
     }
+    return true;
 }
 
 const checkImageCollectionExistence = (model, collectionId, imageId, next) => {
@@ -94,5 +96,6 @@ const checkImageCollectionExistence = (model, collectionId, imageId, next) => {
         error.title = 'Cannot find resource.'
         next(error);
     }
+    return true;
 }
 module.exports = { setTokenCookie, restoreUser, requireAuth, checkPermissions, checkExistence, checkImageCollectionExistence };
