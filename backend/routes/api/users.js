@@ -78,26 +78,17 @@ router.get('/:userId(\\d+)/images', asyncHandler(async (req, res, next) => {
 
 // User pages - gets profile info (description, username)
 router.get('/:userId(\\d+)', asyncHandler(async (req, res, next) => {
-    const user = await User.findByPk(req.params.userId, { include: [UserIcon] });
-    // const user = await User.findByPk(req.params.userId, { include: [UserIcon, Image, Album] });
-    if (req.params.userId < 1 || !user) {
-        const error = new Error('The page does not exist.');
-        error.status = 404;
-        error.title = 'Resource does not exist.'
-        next(error);
-    }
+    const { userId } = req.params;
+    const user = await User.findByPk(userId, { include: [UserIcon] });
+    checkExistence(User, userId, next);
     return res.json(user);
 }));
 
 // Editing description / userId
 router.put('/:userId(\\d+)', validateProfile, asyncHandler(async (req, res) => {
-    if (req.params.userId < 1) {
-        const error = new Error('The page does not exist.');
-        error.status = 404;
-        error.title = 'Resource does not exist.'
-        next(error);
-    }
-    const currUser = await User.findByPk(req.params.userId);
+    const { userId } = req.params;
+    checkExistence(User, userId, next);
+    const currUser = await User.findByPk(userId);
     const { description, userIconId } = req.body;
     const updatedUser = await currUser.update({ description, userIconId });
     return res.json(updatedUser);
