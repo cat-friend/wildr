@@ -3,8 +3,8 @@ const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
-const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
-const { User, Profile, UserIcon, Image } = require('../../db/models');
+const { setTokenCookie, requireAuth, restoreUser, checkExistence } = require('../../utils/auth');
+const { User, Profile, UserIcon, Image, ImageCollection, Collection } = require('../../db/models');
 
 const router = express.Router();
 
@@ -60,23 +60,37 @@ router.post(
         });
     })
 );
+// User pages - gets user's collections
+router.get('/:userId(\\d+)/collections', asyncHandler(async (req, res, next) => {
+    const { userId } = req.params;
+    checkExistence(User, userId, next);
+    const collections = await Collection.findAll({ where: { userId } });
+    return res.json(collections);
+}));
 
-// User pages
+// User pages - gets user's images
+router.get('/:userId(\\d+)/images', asyncHandler(async (req, res, next) => {
+    const { userId } = req.params;
+    checkExistence(User, userId, next);
+    const images = await Image.findAll({ where: { userId } });
+    return res.json(images);
+}));
 
-router.get('/:userId', asyncHandler(async (req, res) => {
-    if (req.params.userId < 1) {
+// User pages - gets profile info (description, username)
+router.get('/:userId(\\d+)', asyncHandler(async (req, res, next) => {
+    const user = await User.findByPk(req.params.userId, { include: [UserIcon] });
+    // const user = await User.findByPk(req.params.userId, { include: [UserIcon, Image, Album] });
+    if (req.params.userId < 1 || !user) {
         const error = new Error('The page does not exist.');
         error.status = 404;
         error.title = 'Resource does not exist.'
         next(error);
     }
-    const user = await User.findByPk(req.params.userId, { include: [UserIcon] });
-    // const user = await User.findByPk(req.params.userId, { include: [UserIcon, Image, Album] });
     return res.json(user);
 }));
 
 // Editing description / userId
-router.put('/:userId', validateProfile, asyncHandler(async (req, res) => {
+router.put('/:userId(\\d+)', validateProfile, asyncHandler(async (req, res) => {
     if (req.params.userId < 1) {
         const error = new Error('The page does not exist.');
         error.status = 404;
