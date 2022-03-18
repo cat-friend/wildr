@@ -40,7 +40,15 @@ router.delete('/:collectionId(\\d+)/:imageId(\\d+)'), asyncHandler(async (req, r
     checkExistence(Collection, collectionId, next);
     checkImageCollectionExistence(ImageCollection, collectionId, imageId, next);
     checkPermissions(collection, userId, next);
+    const delCollection = await ImageCollection.findOne({
+        where: {
+            collectionId,
+            imageId
+        }
+    });
+    return res.json(delCollection);
 });
+
 
 // READ a collection
 router.get('/:collectionId(\\d+)'), asyncHandler(async (req, res, next) => {
