@@ -63,4 +63,21 @@ const requireAuth = [
     },
 ];
 
-module.exports = { setTokenCookie, restoreUser, requireAuth };
+const checkPermissions = (item, currUserId, next) => {
+    if (item.userId !== currUserId) {
+        const err = new Error('You are not authorized to perform this operation.');
+        err.status = 403;
+        throw err;
+    }
+}
+
+const checkExistence = (model, pk, next) => {
+    const item = model.byByPk(pk);
+    if (!item) {
+        const error = new Error('Cannot find the requested collection.');
+        error.status = 404;
+        error.title = 'Cannot find resource.'
+        next(error);
+    }
+}
+module.exports = { setTokenCookie, restoreUser, requireAuth, checkPermissions, checkExistence };
