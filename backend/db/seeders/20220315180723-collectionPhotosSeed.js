@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('CollectionPhotos', [
+    return queryInterface.bulkInsert('ImageCollections', [
       {
         collectionId: 1,
         photoId: 8
@@ -180,7 +180,7 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('CollectionPhotos');
+    return queryInterface.dropTable('ImageCollections');
 
   }
 };

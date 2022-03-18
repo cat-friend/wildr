@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     Collection.belongsTo(models.User, { foreignKey: 'userId' });
 
     const columnMapping = {
-      through: 'CollectionPhoto',
+      through: 'ImageCollection',
       otherKey: 'imageId',
       foreignKey: 'collectionId',
       onDelete: 'cascade'
