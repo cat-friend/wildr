@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router();
 const asyncHandler = require('express-async-handler');
 
-const { checkExistence, checkPermissions, checkImageCollectionExistence } = require('../../utils/auth');
+const { checkExistence, checkPermissions, checkImageCollectionExistence, restoreUser } = require('../../utils/auth');
 const { Collection, Image, ImageCollection } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -59,7 +59,7 @@ router.get('/:collectionId(\\d+)'), asyncHandler(async (req, res, next) => {
 });
 
 // UPDATE a collection
-router.put('/collectionId(\\d+)', validateCollection, asyncHandler(async (req, res, next) => {
+router.put('/:collectionId(\\d+)', validateCollection, asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
     const { title, userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
@@ -68,6 +68,17 @@ router.put('/collectionId(\\d+)', validateCollection, asyncHandler(async (req, r
     const updatedCollection = await collection.update({ title });
     return res.json(updatedCollection);
 }));
+
+// DELETE a collection
+router.delete('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
+    const collectionId = req.params.collectionId;
+    const { userId } = req.body;
+    const collection = await Collection.findByPk(collectionId);
+    checkExistence(Collection, collectionId, next);
+    checkPermissions(collection, userId, next);
+    const delCollection = await collection.destroy();
+    return restoreUser.json(delCollection);
+}))
 
 // CREATE a new collection
 router.post('/', validateCollection, asyncHandler(async (req, res, next) => {
