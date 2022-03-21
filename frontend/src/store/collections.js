@@ -37,6 +37,7 @@ export const loadCollections = (userId) => async (dispatch) => {
     if (response.ok) {
         dispatch(load(collections))
     }
+    console.log("collections from BE", collections);
     return collections;
 }
 
