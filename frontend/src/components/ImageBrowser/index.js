@@ -14,7 +14,7 @@ const ImageBrowser = () => {
     });
 
     return (
-        <div className='image-browser'><h2>Image Browser</h2>
+        <div className='browser'><h2>Image Browser</h2>
             <div className='images'>
                 {images.map((image) => {
                     return (

@@ -4,21 +4,20 @@ import { useParams } from "react-router-dom";
 import { NavLink, Redirect, } from "react-router-dom";
 import EditProfileFormModal from "../UserPageModal";
 import * as userActions from "../../store/users";
-import * as collectionActions from "../../store/collections";
+import CollectionsBrowser from "../CollectionsBrowser";
+
 
 const UserDetailPage = () => {
     const { userId } = useParams();
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(userActions.getOneUser(userId));
-        dispatch(collectionActions.loadCollections(userId));
     }, [userId, dispatch]);
     const sessionUser = useSelector(state => state.session.user);
     const user = useSelector(state => state.user);
     const userIcon = user?.UserIcon
     const collections = useSelector(state => Object.values(state.collections));
     // const [photostream, setPhotostream] = useState(useSelector(state => state.photostream));
-    console.log("collections", collections);
 
 
 
@@ -47,12 +46,7 @@ const UserDetailPage = () => {
                     <div>{user?.description}</div>
                 </div>
                 <div className="details">
-
-                    <div>
-                        <h2>
-                            Collections
-                        </h2>
-                    </div>
+                    <CollectionsBrowser />
                     <div><h2>
                         Photostream
                     </h2>
