@@ -34,7 +34,6 @@ const addImageToCollection = image => ({
 export const loadCollections = (userId) => async (dispatch) => {
     const response = await csrfFetch(`/api/users/${userId}/collections`);
     const collections = await response.json();
-    console.log("collections from BE", collections);
     if (response.ok) {
         dispatch(load(collections))
     }
@@ -109,7 +108,10 @@ export const deleteCollection = (payload) => async (dispatch) => {
 const collectionsReducer = (state = {}, action) => {
     switch (action.type) {
         case COLLECTIONS_LOAD: {
-            const newState = { ...action.collections };
+            const newState = {};
+            action.collections.forEach((ele, i) => {
+                newState[ele.id] = ele;
+            })
             return newState;
         }
         case COLLECTIONS_ADD: {
