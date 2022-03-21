@@ -3,6 +3,8 @@ import { csrfFetch } from "./csrf";
 const COLLECTIONS_LOAD = 'wildr/collections/LOAD'
 const COLLECTIONS_ADD = 'wildr/collections/ADD'
 const COLLECTIONS_DELETE_ONE = 'wildr/collections/DELETE_ONE'
+const COLLECTIONS_DELETE_IMAGE = 'wildr/collections/DELETE_IMAGE'
+const COLLECTIONS_ADD_IMAGE = 'wildr/collections/ADD_IMAGE'
 
 const load = collections => ({
     type: COLLECTIONS_LOAD,
@@ -19,12 +21,23 @@ const deleteOneCollection = collection => ({
     collection
 })
 
+const deleteOneImageFromCollection = imageId => ({
+    type: COLLECTIONS_DELETE_IMAGE,
+    imageId
+});
+
+const addImageToCollection = image => ({
+    type: COLLECTIONS_ADD_IMAGE,
+    image
+});
+
 export const loadCollections = (userId) => async (dispatch) => {
     const response = await csrfFetch(`/api/users/${userId}/collections`);
     const collections = response.json();
     if (response.ok) {
         dispatch(load(collections))
     }
+    console.log("collections from BE", collections);
     return collections;
 }
 
@@ -61,21 +74,19 @@ export const editCollection = (payload) => async (dispatch) => {
 export const addToCollection = (payload) => async (dispatch) => {
     const response = await csrfFetch(`/api/collections/${payload.collectionId}`,
         { method: 'POST', body: JSON.stringify(payload) });
-    const collection = await response.json();
+    const image = await response.json();
     if (response.ok) {
-        dispatch(loadOneCollection(payload.collectionId))
-        return;
+        dispatch(addImageToCollection(image));
     }
-    return collection;
+    return image;
 };
 
 export const deleteFromCollection = (payload) => async (dispatch) => {
-    const response = await csrfFetch(`/api/collections/${payload.collectionId}`,
+    const response = await csrfFetch(`/api/collections/${payload.collectionId}/${payload.imageId}`,
         { method: 'DELETE', body: JSON.stringify(payload) });
     const collection = await response.json();
     if (response.ok) {
-        dispatch(loadOneCollection(payload.collectionId))
-        return;
+        dispatch(deleteOneImageFromCollection(payload.imageId));
     }
     return collection;
 };
@@ -109,6 +120,16 @@ const collectionsReducer = (state = {}, action) => {
         case COLLECTIONS_DELETE_ONE: {
             const newState = { ...state };
             delete newState[action.collections.id];
+        }
+        case COLLECTIONS_ADD_IMAGE: {
+            const newState = { ...state };
+            newState[action.image.id] = action.image;
+            return newState;
+        }
+        case COLLECTIONS_DELETE_IMAGE: {
+            const newState = { ...state };
+            delete newState[action.imageId];
+            return newState;
         }
         default: return state;
     }
