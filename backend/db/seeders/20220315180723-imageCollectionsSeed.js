@@ -5,175 +5,175 @@ module.exports = {
     return queryInterface.bulkInsert('ImageCollections', [
       {
         collectionId: 1,
-        photoId: 8
+        imageId: 8
       },
       {
         collectionId: 1,
-        photoId: 16
+        imageId: 16
       },
       {
         collectionId: 2,
-        photoId: 8
+        imageId: 8
       },
       {
         collectionId: 2,
-        photoId: 16
+        imageId: 16
       },
       {
         collectionId: 2,
-        photoId: 7
+        imageId: 7
       },
       {
         collectionId: 2,
-        photoId: 9
+        imageId: 9
       },
       {
         collectionId: 2,
-        photoId: 10
+        imageId: 10
       },
       {
         collectionId: 2,
-        photoId: 11
+        imageId: 11
       },
       {
         collectionId: 2,
-        photoId: 13
+        imageId: 13
       },
       {
         collectionId: 2,
-        photoId: 14
+        imageId: 14
       },
       {
         collectionId: 2,
-        photoId: 15
+        imageId: 15
       },
       {
         collectionId: 2,
-        photoId: 17
+        imageId: 17
       },
       {
         collectionId: 2,
-        photoId: 18
+        imageId: 18
       },
       {
         collectionId: 2,
-        photoId: 19
+        imageId: 19
       },
       {
         collectionId: 2,
-        photoId: 20
+        imageId: 20
       },
       {
         collectionId: 2,
-        photoId: 21
+        imageId: 21
       },
       {
         collectionId: 2,
-        photoId: 22
+        imageId: 22
       },
       {
         collectionId: 2,
-        photoId: 23
+        imageId: 23
       },
       {
         collectionId: 2,
-        photoId: 24
+        imageId: 24
       },
       {
         collectionId: 3,
-        photoId: 2
+        imageId: 2
       },
       {
         collectionId: 3,
-        photoId: 3
+        imageId: 3
       },
       {
         collectionId: 3,
-        photoId: 4
+        imageId: 4
       },
       {
         collectionId: 4,
-        photoId: 23
+        imageId: 23
       },
       {
         collectionId: 4,
-        photoId: 24
+        imageId: 24
       },
       {
         collectionId: 5,
-        photoId: 17
+        imageId: 17
       },
       {
         collectionId: 5,
-        photoId: 18
+        imageId: 18
       },
       {
         collectionId: 5,
-        photoId: 22
+        imageId: 22
       },
       {
         collectionId: 6,
-        photoId: 2
+        imageId: 2
       },
       {
         collectionId: 6,
-        photoId: 3
+        imageId: 3
       },
       {
         collectionId: 6,
-        photoId: 4
+        imageId: 4
       },
       {
         collectionId: 6,
-        photoId: 5
+        imageId: 5
       },
       {
         collectionId: 7,
-        photoId: 5
+        imageId: 5
       },
       {
         collectionId: 7,
-        photoId: 9
+        imageId: 9
       },
       {
         collectionId: 7,
-        photoId: 12
+        imageId: 12
       },
       {
         collectionId: 8,
-        photoId: 1
+        imageId: 1
       },
       {
         collectionId: 8,
-        photoId: 2
+        imageId: 2
       },
       {
         collectionId: 8,
-        photoId: 5
+        imageId: 5
       },
       {
         collectionId: 8,
-        photoId: 6
+        imageId: 6
       },
       {
         collectionId: 9,
-        photoId: 2
+        imageId: 2
       },
       {
         collectionId: 9,
-        photoId: 8
+        imageId: 8
       },
       {
         collectionId: 9,
-        photoId: 3
+        imageId: 3
       },
       {
         collectionId: 9,
-        photoId: 17
+        imageId: 17
       },
       {
         collectionId: 9,
-        photoId: 23
+        imageId: 23
       },
 
     ])

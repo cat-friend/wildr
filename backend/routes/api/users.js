@@ -4,7 +4,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const { setTokenCookie, requireAuth, restoreUser, checkExistence } = require('../../utils/auth');
-const { User, Profile, UserIcon, Image, Collection } = require('../../db/models');
+const { User, Profile, UserIcon, Image, Collection, ImageCollection } = require('../../db/models');
 
 const router = express.Router();
 
@@ -64,7 +64,7 @@ router.post(
 router.get('/:userId(\\d+)/collections', asyncHandler(async (req, res, next) => {
     const { userId } = req.params;
     checkExistence(User, userId, next);
-    const collections = await Collection.findAll({ where: { userId } });
+    const collections = await Collection.findAll({ where: { userId }});
     return res.json(collections);
 }));
 

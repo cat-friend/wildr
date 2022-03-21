@@ -11,7 +11,7 @@ module.exports = {
       collectionId: {
         type: Sequelize.INTEGER
       },
-      photoId: {
+      imageId: {
         type: Sequelize.INTEGER
       },
       createdAt: {

@@ -4,12 +4,14 @@ import { useParams } from "react-router-dom";
 import { NavLink, Redirect, } from "react-router-dom";
 import EditProfileFormModal from "../UserPageModal";
 import * as userActions from "../../store/users";
+import * as collectionActions from "../../store/collections";
 
 const UserDetailPage = () => {
     const { userId } = useParams();
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(userActions.getOneUser(userId));
+        dispatch(collectionActions.loadCollections(userId));
     }, [userId, dispatch]);
     const sessionUser = useSelector(state => state.session.user);
     const user = useSelector(state => state.user);

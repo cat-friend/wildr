@@ -33,11 +33,11 @@ const addImageToCollection = image => ({
 
 export const loadCollections = (userId) => async (dispatch) => {
     const response = await csrfFetch(`/api/users/${userId}/collections`);
-    const collections = response.json();
+    const collections = await response.json();
+    console.log("collections from BE", collections);
     if (response.ok) {
         dispatch(load(collections))
     }
-    console.log("collections from BE", collections);
     return collections;
 }
 
