@@ -85,8 +85,7 @@ export const deleteFromCollection = (payload) => async (dispatch) => {
         { method: 'DELETE', body: JSON.stringify(payload) });
     const collection = await response.json();
     if (response.ok) {
-        dispatch(deleteOneImageFromCollection(payload.imageId))
-        return;
+        dispatch(deleteOneImageFromCollection(payload.imageId));
     }
     return collection;
 };
@@ -122,8 +121,13 @@ const collectionsReducer = (state = {}, action) => {
             delete newState[action.collections.id];
         }
         case COLLECTIONS_ADD_IMAGE: {
-            const newState = {...state};
+            const newState = { ...state };
             newState[action.image.id] = action.image;
+            return newState;
+        }
+        case COLLECTIONS_DELETE_IMAGE: {
+            const newState = { ...state };
+            delete newState[action.imageId];
             return newState;
         }
         default: return state;
