@@ -36,8 +36,9 @@ router.post('/:collectionId(\\d+)'), asyncHandler(async (req, res, next) => {
         error.title = 'UNAUTHORIZED';
         next(error);
     }
-    const newImageInCollection = await ImageCollection.create({ imageId, collectionId });
-    return res.json(newImageInCollection);
+    await ImageCollection.create({ imageId, collectionId });
+    const image = Image.findByPk(imageId);
+    return res.json(image);
 });
 
 // DELETE from a collection
