@@ -55,14 +55,24 @@ function CollectionsBrowser() {
         <h2>
             Collections
         </h2>
-        {isUser && (<div><h2>newCollection</h2><h2><NavLink to="#" onClick={(e) => handleSubmitBulkDelete()}>Delete selected</NavLink></h2></div>)
+        {isUser &&
+            (<div>
+                <h2>newCollection</h2><h2><NavLink to="#" onClick={(e) => handleSubmitBulkDelete(e)}>Delete selected</NavLink></h2></div>)
         }
         <div className="collections">
             {collections.map((ele, i) => {
                 return (
                     <div className="collection-badge" key={`${i}`}>
+                        {isUser && collectionsArray.push(ele.id) && (<input
+                            type="checkbox"
+                            id={`mode-checkbox-${index}`}
+                            key={`mode-checkbox-${index}`}
+                            name={ele}
+                            checked={checked[index]}
+                            onChange={() => handleCheckboxOnChange(index)}
+                        />
+                        )}
                         <NavLink to={`/collections/${ele.id}`}>{ele.title}</NavLink>
-                        {isUser && collectionsArray.push(ele.id) && (<><h2>edit?</h2><div>checkbox</div></>)}
                     </div>
                 )
             })
