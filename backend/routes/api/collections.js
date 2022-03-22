@@ -67,7 +67,7 @@ router.get('/:collectionId(\\d+)'), asyncHandler(async (req, res, next) => {
     const collection = await Collection.findByPk(collectionId);
     checkExistence(Collection, collectionId, next);
     const images = await ImageCollection.findAll({ where: { collectionId }, include: [Image] });
-    return res.json({ collection, images });
+     return res.json({ collection, images });
 });
 
 // UPDATE a collection

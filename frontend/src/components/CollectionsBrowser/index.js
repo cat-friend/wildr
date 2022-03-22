@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom';
 function CollectionsBrowser() {
     const { userId } = useParams();
     const dispatch = useDispatch();
+    const [errors, setErrors] = useState([]);
     useEffect(() => {
         dispatch(collectionActions.loadCollections(userId));
     }, [userId, dispatch]);
@@ -26,7 +27,8 @@ function CollectionsBrowser() {
             return false;
         });
     }
-    const handleDeleteSubmit = (e) => {
+
+    const handleSubmitBulkDelete = (e) => {
         e.preventDefault();
         checkedCollections = collectionsArray.filter((ele, i) => {
             if (updatedCheckedState[i]) {
@@ -34,9 +36,18 @@ function CollectionsBrowser() {
             };
             return false;
         });
-        const payload = {
-            collections: checkedCollections,
-            
+        // loop through checkedColelctions and delete each one
+        for (let i = 0; i < checkedCollections.length; i++) {
+            const payload = {
+                collectionId: checkedCollections[i].id,
+                userId
+            }
+            dispatch(collectionActions.deleteCollection(payload))
+                .then(() => { return },
+                    async (response) => {
+                        const data = await response.json();
+                        if (data && data.errors) setErrors(data.errors);
+                    });
         }
     }
 
@@ -44,20 +55,20 @@ function CollectionsBrowser() {
         <h2>
             Collections
         </h2>
-        {isUser && (<div><h2>newCollection</h2><h2>Delete selected</h2></div>)}
+        {isUser && (<div><h2>newCollection</h2><h2><NavLink to="#" onClick={(e) => handleSubmitBulkDelete()}>Delete selected</NavLink></h2></div>)
+        }
         <div className="collections">
             {collections.map((ele, i) => {
-                collectionsArray.push(ele.id);
                 return (
                     <div className="collection-badge" key={`${i}`}>
                         <NavLink to={`/collections/${ele.id}`}>{ele.title}</NavLink>
-                        {isUser && (<><h2>edit?</h2><div>checkbox</div></>)}
+                        {isUser && collectionsArray.push(ele.id) && (<><h2>edit?</h2><div>checkbox</div></>)}
                     </div>
                 )
             })
             }
         </div>
-    </div>)
+    </div >)
 }
 
 export default CollectionsBrowser;
