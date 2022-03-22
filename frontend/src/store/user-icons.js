@@ -18,7 +18,6 @@ export const getAllUserIcons = () => async (dispatch) => {
 }
 
 const iconReducer = (state = {}, action) => {
-    console.log("action.icons", action)
     switch (action.type) {
         case LOAD: {
             const allIcons = {};
