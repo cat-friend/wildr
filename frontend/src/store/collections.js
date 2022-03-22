@@ -11,6 +11,7 @@ const load = collections => ({
     collections
 })
 
+
 const addOneCollection = collection => ({
     type: COLLECTIONS_ADD,
     collection
@@ -44,7 +45,7 @@ export const loadOneCollection = (collectionId) => async (dispatch) => {
     const response = await csrfFetch(`/api/collections/${collectionId}`);
     const collection = response.json();
     if (response.ok) {
-        dispatch(addOneCollection(collection));
+        dispatch(load(collection));
     }
     return collection
 }

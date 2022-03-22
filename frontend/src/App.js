@@ -8,6 +8,7 @@ import ImageBrowser from "./components/ImageBrowser";
 import ImageDetailPage from "./components/ImageDetail";
 import Splash from "./components/Splash";
 import UserDetailPage from "./components/UserDetail";
+import CollectionsDetail from "./components/CollectionsDetail";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/images/:imageId"><ImageDetailPage /></Route>
           <Route path="/images"><ImageBrowser /></Route>
           <Route path="/users/:userId"><UserDetailPage /></Route>
+          <Route path="/collections/:collectionId"><CollectionsDetail /></Route>
         </Switch>)
       }
     </div>

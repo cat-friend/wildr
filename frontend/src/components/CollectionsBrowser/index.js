@@ -15,11 +15,11 @@ function CollectionsBrowser() {
     const currId = useSelector(state => state.session.user.id);
     const isUser = Boolean(currId === +userId);
     const [collectionsIsCheckedArray, setCollectionsIsCheckedArray] = useState(new Array(collections?.length).fill(false));
-    const collectionsArray = [];
+    const collectionsArray = []; //  this holds the ids of collections that the user has
     let checkedCollections
     const handleCheckboxOnChange = (index) => {
         const updatedCheckedState = collectionsIsCheckedArray.map((ele, i) => index === i ? !ele : ele)
-        setChecked(updatedCheckedState)
+        setCollectionsIsCheckedArray(updatedCheckedState)
         checkedCollections = collectionsArray.filter((ele, i) => {
             if (updatedCheckedState[i]) {
                 return true
@@ -31,12 +31,12 @@ function CollectionsBrowser() {
     const handleSubmitBulkDelete = (e) => {
         e.preventDefault();
         checkedCollections = collectionsArray.filter((ele, i) => {
-            if (updatedCheckedState[i]) {
+            if (collectionsIsCheckedArray[i]) {
                 return true
             };
             return false;
         });
-        // loop through checkedColelctions and delete each one
+        // loop through checkedCollections and delete each one
         for (let i = 0; i < checkedCollections.length; i++) {
             const payload = {
                 collectionId: checkedCollections[i].id,
@@ -65,11 +65,11 @@ function CollectionsBrowser() {
                     <div className="collection-badge" key={`${i}`}>
                         {isUser && collectionsArray.push(ele.id) && (<input
                             type="checkbox"
-                            id={`mode-checkbox-${index}`}
-                            key={`mode-checkbox-${index}`}
+                            id={`collection-checkbox-${i}`}
+                            key={`collection-checkbox-${i}`}
                             name={ele}
-                            checked={checked[index]}
-                            onChange={() => handleCheckboxOnChange(index)}
+                            checked={collectionsIsCheckedArray[i]}
+                            onChange={() => handleCheckboxOnChange(i)}
                         />
                         )}
                         <NavLink to={`/collections/${ele.id}`}>{ele.title}</NavLink>
