@@ -98,3 +98,5 @@ router.post('/', validateCollection, asyncHandler(async (req, res, next) => {
     const collection = await Collection.create({ title, userId });
     return res.json(collection);
 }));
+
+module.exports = router;

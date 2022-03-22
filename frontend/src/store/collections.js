@@ -123,6 +123,7 @@ const collectionsReducer = (state = {}, action) => {
         case COLLECTIONS_DELETE_ONE: {
             const newState = { ...state };
             delete newState[action.collections.id];
+            return newState;
         }
         case COLLECTIONS_ADD_IMAGE: {
             const newState = { ...state };

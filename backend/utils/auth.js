@@ -74,6 +74,7 @@ const checkPermissions = (item, currUserId, next) => {
 
 const checkExistence = async (model, pk, next) => {
     const item = await model.findByPk(pk);
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ITEM", item);
     if (!item) {
         const error = new Error(`Cannot find the requested resource within ${model}.`);
         error.status = 404;

@@ -3,6 +3,7 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const imagesRouter = require('./images.js');
 const userIconsRouter = require('./usericons.js');
+const collectionsRouter = require('./collections.js')
 
 router.use('/session', sessionRouter);
 
@@ -14,5 +15,6 @@ router.post('/test', (req, res) => {
 
 router.use('/images', imagesRouter);
 router.use('/usericons', userIconsRouter);
+router.use('/collections', collectionsRouter);
 
 module.exports = router;
