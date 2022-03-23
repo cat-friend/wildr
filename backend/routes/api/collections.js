@@ -66,7 +66,7 @@ router.get('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
     checkExistence(Collection, collectionId, next);
     const collection = await Collection.findByPk(collectionId, { include: [Image] });
-    return res.json({ collection });
+    return res.json(collection);
 }));
 
 // UPDATE a collection
@@ -76,7 +76,8 @@ router.put('/:collectionId(\\d+)', validateCollection, asyncHandler(async (req, 
     const collection = await Collection.findByPk(collectionId);
     checkExistence(Collection, collectionId, next);
     checkPermissions(collection, userId, next);
-    const updatedCollection = await collection.update({ title });
+    await collection.update({ title });
+    const updatedCollection = await Collection.findByPk(collectionId, { include: [Image] });
     return res.json(updatedCollection);
 }));
 

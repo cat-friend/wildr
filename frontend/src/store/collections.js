@@ -72,7 +72,7 @@ export const editCollection = (payload) => async (dispatch) => {
         { method: 'PUT', body: JSON.stringify(payload) });
     const collection = await response.json();
     if (response.ok) {
-        dispatch(addOneCollection(collection));
+        dispatch(loadOne(collection));
     }
     return collection;
 };
@@ -122,9 +122,9 @@ const collectionsReducer = (state = {}, action) => {
             return newState;
         }
         case COLLECTIONS_LOAD_ONE: {
-            const newState = { ...action.collection.collection };
+            const newState = { ...action.collection };
             newState.images = {};
-            action.collection.collection.Images.forEach((ele) => {
+            action.collection.Images.forEach((ele) => {
                 newState.images[ele.id] = ele;
             });
             delete newState.Images;
@@ -132,7 +132,7 @@ const collectionsReducer = (state = {}, action) => {
         }
         case COLLECTIONS_ADD: {
             const newState = { ...state };
-            newState[action.collections.id] = action.collections.id;
+            newState[action.collection.id] = action.collection;
             return newState;
         }
         case COLLECTIONS_DELETE_ONE: {

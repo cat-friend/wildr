@@ -6,14 +6,14 @@ function CollectionsImageBrowser({ images, isOwner }) {
         return (
             <div className='browser'><h2>Images</h2>
                 <div className='images'>
-                    {images.map((image) => {
-                        return (<>
+                    {images.map((image, i) => {
+                        return (<div key={i}>
                             <NavLink to={`/images/${image.id}`} key={image.id}><img src={image.url} key={image.id} alt={image.title} className="thumbnails" /></NavLink>
                             {isOwner &&
                                 (<div>
                                     Remove
                                 </div>)}
-                        </>
+                        </div>
                         )
                     })}
                 </div>

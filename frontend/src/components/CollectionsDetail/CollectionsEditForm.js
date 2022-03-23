@@ -17,16 +17,19 @@ function CollectionsEditForm({ collection, setShowEdit }) {
             collectionId: collection.id
         }
         return dispatch(collectionActions.editCollection(payload))
-            .then(() => {
-                setShowSuccess(true);
-                setTimeout(() => {
-                    setShowSuccess(false);
-                    setShowEdit(false);
-                }, 750);
-            }, async (response) => {
-                const data = await response.json();
-                if (data && data.errors) setErrors(data.errors);
-            })
+            .then(
+                (data) => {
+                    if (data && data.errors) {
+                        setErrors(data.errors);
+                        return;
+                    };
+                    setShowSuccess(true);
+                    setTimeout(() => {
+                        setShowSuccess(false);
+                        setShowEdit(false);
+                    }, 750);
+
+                })
     }
 
     return (
