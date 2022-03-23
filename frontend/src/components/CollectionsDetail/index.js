@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import * as collectionActions from "../../store/collections"
 import { getOneUser } from "../../store/users"
 import CollectionsImageBrowser from "./CollectionsImageBrowser";
+import CollectionEditModal from "../CollectionsEditModal";
+import CollectionsEditForm from "./CollectionsEditForm";
 
 function CollectionsDetail() {
     const { collectionId } = useParams();
@@ -11,6 +13,7 @@ function CollectionsDetail() {
     const user = useSelector(state => state.user);
     const collection = useSelector(state => state.collections);
     const userIdFromCollection = collection?.userId;
+    const [showEdit, setShowEdit] = useState(false);
     useEffect(() => {
         dispatch(collectionActions.loadOneCollection(collectionId));
         if (userIdFromCollection > 0) dispatch(getOneUser(userIdFromCollection));
@@ -23,12 +26,15 @@ function CollectionsDetail() {
     return (
         <div>
             <div>
-                <h1>{`${collection.title}`}</h1>
-                <h2><NavLink to={`/users/${userIdFromCollection}`}>{`${collectionOwner?.username}`}</NavLink></h2>
-                {isOwner && (<><h2>EDIT</h2> <h2>DELETE</h2></>)}
+                {!showEdit && (<h1>{`${collection.title}`}</h1>)}
+                {showEdit && <CollectionsEditForm collection={collection} setShowEdit={setShowEdit}/>}
+                <h2><NavLink to={`/users/${userIdFromCollection}`}>{`${collectionOwner?.username}`}</NavLink>'s Collection</h2>
+                {isOwner && (<>
+                    <h2>DELETE</h2>
+                </>)}
             </div>
-            <CollectionsImageBrowser images={images} />
-        </div>
+            <CollectionsImageBrowser images={images} isOwner={isOwner} />
+        </div >
     )
 }
 
