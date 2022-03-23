@@ -1,6 +1,11 @@
 import { NavLink } from "react-router-dom";
+import CollectionsRemoveImage from "./CollectionsRemoveImage";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function CollectionsImageBrowser({ images, isOwner }) {
+    const { collectionId } = useParams();
+    const userId = useSelector(state => state.user.id)
 
     if (images) {
         return (
@@ -10,9 +15,7 @@ function CollectionsImageBrowser({ images, isOwner }) {
                         return (<div key={i}>
                             <NavLink to={`/images/${image.id}`} key={image.id}><img src={image.url} key={image.id} alt={image.title} className="thumbnails" /></NavLink>
                             {isOwner &&
-                                (<div>
-                                    Remove
-                                </div>)}
+                                <CollectionsRemoveImage imageId={image.id} collectionId={collectionId} userId={userId} />}
                         </div>
                         )
                     })}

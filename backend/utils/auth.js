@@ -67,9 +67,8 @@ const checkPermissions = (item, currUserId, next) => {
         const error = new Error('You are not authorized to perform this operation.');
         error.status = 403;
         error.title = 'UNAUTHORIZED';
-        next(error)
+        return next(error)
     }
-    return true;
 }
 
 const checkExistence = async (model, pk, next) => {
@@ -78,9 +77,8 @@ const checkExistence = async (model, pk, next) => {
         const error = new Error(`Cannot find the requested resource within ${model}.`);
         error.status = 404;
         error.title = 'Cannot find resource.'
-        next(error);
+        return next(error);
     }
-    return true;
 }
 
 const checkImageCollectionExistence = async (model, collectionId, imageId, next) => {
@@ -94,8 +92,7 @@ const checkImageCollectionExistence = async (model, collectionId, imageId, next)
         const error = new Error(`Cannot find the requested resource within ${model}.`);
         error.status = 404;
         error.title = 'Cannot find resource.'
-        next(error);
+        return next(error);
     }
-    return true;
 }
 module.exports = { setTokenCookie, restoreUser, requireAuth, checkPermissions, checkExistence, checkImageCollectionExistence };

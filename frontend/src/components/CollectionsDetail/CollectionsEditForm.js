@@ -12,24 +12,21 @@ function CollectionsEditForm({ collection, setShowEdit }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         const payload = {
-            userId,
+            userId: 2,
             title,
             collectionId: collection.id
         }
         return dispatch(collectionActions.editCollection(payload))
-            .then(
-                (data) => {
-                    if (data && data.errors) {
-                        setErrors(data.errors);
-                        return;
-                    };
-                    setShowSuccess(true);
-                    setTimeout(() => {
-                        setShowSuccess(false);
-                        setShowEdit(false);
-                    }, 750);
-
-                })
+            .then(() => {
+                setShowSuccess(true);
+                setTimeout(() => {
+                    setShowSuccess(false);
+                    setShowEdit(false);
+                }, 750);
+            }, async (response) => {
+                const data = await response.json();
+                if (data && data.errors) setErrors(data.errors);
+            })
     }
 
     return (
