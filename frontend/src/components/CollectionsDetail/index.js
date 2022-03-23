@@ -4,7 +4,6 @@ import { NavLink, useParams } from "react-router-dom";
 import * as collectionActions from "../../store/collections"
 import { getOneUser } from "../../store/users"
 import CollectionsImageBrowser from "./CollectionsImageBrowser";
-import CollectionEditModal from "../CollectionsEditModal";
 import CollectionsEditForm from "./CollectionsEditForm";
 
 function CollectionsDetail() {
@@ -23,15 +22,22 @@ function CollectionsDetail() {
     const collectionOwner = useSelector(state => state.user);
     const isOwner = Boolean(currUserId === userIdFromCollection);
 
+    const editClick = (e) => {
+        e.preventDefault();
+        setShowEdit(true);
+    }
+
     return (
         <div>
             <div>
                 {!showEdit && (<h1>{`${collection.title}`}</h1>)}
-                {showEdit && <CollectionsEditForm collection={collection} setShowEdit={setShowEdit}/>}
+                {showEdit && <CollectionsEditForm collection={collection} setShowEdit={setShowEdit} />}
                 <h2><NavLink to={`/users/${userIdFromCollection}`}>{`${collectionOwner?.username}`}</NavLink>'s Collection</h2>
-                {isOwner && (<>
-                    <h2>DELETE</h2>
-                </>)}
+                {isOwner &&
+                    (<>
+                        {!showEdit && <h2><NavLink to="#" onClick={(e) => editClick(e)}>EDIT</NavLink></h2>}
+                        <h2>DELETE</h2>
+                    </>)}
             </div>
             <CollectionsImageBrowser images={images} isOwner={isOwner} />
         </div >
