@@ -66,6 +66,7 @@ router.get('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
     checkExistence(Collection, collectionId, next);
     const collection = await Collection.findByPk(collectionId, { include: [Image] });
+    console.log("@@@@@@@@@@@@@@@@@@@@ collection", collection);
     return res.json({ collection });
 }));
 

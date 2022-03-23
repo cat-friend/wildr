@@ -1,6 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 const COLLECTIONS_LOAD = 'wildr/collections/LOAD'
+const COLLECTIONS_LOAD_ONE = 'wildr/collections/LOAD_ONE'
 const COLLECTIONS_ADD = 'wildr/collections/ADD'
 const COLLECTIONS_DELETE_ONE = 'wildr/collections/DELETE_ONE'
 const COLLECTIONS_DELETE_IMAGE = 'wildr/collections/DELETE_IMAGE'
@@ -9,6 +10,11 @@ const COLLECTIONS_ADD_IMAGE = 'wildr/collections/ADD_IMAGE'
 const load = collections => ({
     type: COLLECTIONS_LOAD,
     collections
+});
+
+const loadOne = collection => ({
+    type: COLLECTIONS_LOAD_ONE,
+    collection
 })
 
 
@@ -43,9 +49,9 @@ export const loadCollections = (userId) => async (dispatch) => {
 
 export const loadOneCollection = (collectionId) => async (dispatch) => {
     const response = await csrfFetch(`/api/collections/${collectionId}`);
-    const collection = response.json();
+    const collection = await response.json();
     if (response.ok) {
-        dispatch(load(collection));
+        dispatch(loadOne(collection));
     }
     return collection
 }
@@ -113,6 +119,15 @@ const collectionsReducer = (state = {}, action) => {
             action.collections.forEach((ele, i) => {
                 newState[ele.id] = ele;
             })
+            return newState;
+        }
+        case COLLECTIONS_LOAD_ONE: {
+            const newState = { ...action.collection.collection };
+            newState.images = {};
+            action.collection.collection.Images.forEach((ele) => {
+                newState.images[ele.id] = ele;
+            });
+            delete newState.Images;
             return newState;
         }
         case COLLECTIONS_ADD: {
