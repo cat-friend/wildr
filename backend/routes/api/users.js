@@ -85,7 +85,7 @@ router.get('/:userId(\\d+)', asyncHandler(async (req, res, next) => {
 }));
 
 // Editing description / userId
-router.put('/:userId(\\d+)', validateProfile, asyncHandler(async (req, res) => {
+router.put('/:userId(\\d+)', validateProfile, asyncHandler(async (req, res, next) => {
     const { userId } = req.params;
     checkExistence(User, userId, next);
     const currUser = await User.findByPk(userId);

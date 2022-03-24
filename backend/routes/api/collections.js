@@ -30,10 +30,11 @@ router.post('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
     checkExistence(Image, imageId);
     checkPermissions(collection, userId);
     const isAlreadyAdded = checkImageCollectionExistence(ImageCollection, collectionId, imageId);
-    if (isAlreadyAdded) {
-        const error = new Error('Image was previously added to this collection.');
+    if (!isAlreadyAdded) {
+        const error = new Error('Duplicate');
         error.status = 403;
         error.title = 'UNAUTHORIZED';
+        error.errors=['Image was previously added to this collection.']
         next(error);
     }
     else {
