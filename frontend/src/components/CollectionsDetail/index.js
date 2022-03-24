@@ -11,6 +11,9 @@ function CollectionsDetail() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
     const collection = useSelector(state => state.collections);
+    const images = useSelector(state => {
+        if (state.collections.images) return Object.values(state.collections?.images)
+    });
     const userIdFromCollection = collection?.userId;
     const [showEdit, setShowEdit] = useState(false);
     useEffect(() => {
@@ -18,7 +21,6 @@ function CollectionsDetail() {
         if (userIdFromCollection > 0) dispatch(getOneUser(userIdFromCollection));
     }, [dispatch, collectionId, userIdFromCollection]);
     const currUserId = useSelector(state => state.session.user.id);
-    const images = Object.entries(collection).length > 0 ? Object.values(collection?.images) : undefined;
     const collectionOwner = useSelector(state => state.user);
     const isOwner = Boolean(currUserId === userIdFromCollection);
 

@@ -7,71 +7,19 @@ import { NavLink } from 'react-router-dom';
 function CollectionsBrowser() {
     const { userId } = useParams();
     const dispatch = useDispatch();
-    const [errors, setErrors] = useState([]);
     useEffect(() => {
         dispatch(collectionActions.loadCollections(userId));
     }, [userId, dispatch]);
     const collections = useSelector(state => Object.values(state.collections));
-    const currId = useSelector(state => state.session.user.id);
-    const isUser = Boolean(currId === +userId);
-    const [collectionsIsCheckedArray, setCollectionsIsCheckedArray] = useState(new Array(collections?.length).fill(false));
-    const collectionsArray = []; //  this holds the ids of collections that the user has
-    let checkedCollections
-    const handleCheckboxOnChange = (index) => {
-        const updatedCheckedState = collectionsIsCheckedArray.map((ele, i) => index === i ? !ele : ele)
-        setCollectionsIsCheckedArray(updatedCheckedState)
-        checkedCollections = collectionsArray.filter((ele, i) => {
-            if (updatedCheckedState[i]) {
-                return true
-            };
-            return false;
-        });
-    }
-
-    const handleSubmitBulkDelete = (e) => {
-        e.preventDefault();
-        checkedCollections = collectionsArray.filter((ele, i) => {
-            if (collectionsIsCheckedArray[i]) {
-                return true
-            };
-            return false;
-        });
-        // loop through checkedCollections and delete each one
-        for (let i = 0; i < checkedCollections.length; i++) {
-            const payload = {
-                collectionId: checkedCollections[i].id,
-                userId
-            }
-            dispatch(collectionActions.deleteCollection(payload))
-                .then(() => { return },
-                    async (response) => {
-                        const data = await response.json();
-                        if (data && data.errors) setErrors(data.errors);
-                    });
-        }
-    }
 
     return (<div>
         <h2>
             Collections
         </h2>
-        {isUser &&
-            (<div>
-                <h2>newCollection</h2><h2><NavLink to="#" onClick={(e) => handleSubmitBulkDelete(e)}>Delete selected</NavLink></h2></div>)
-        }
         <div className="collections">
             {collections.map((ele, i) => {
                 return (
                     <div className="collection-badge" key={`${i}`}>
-                        {isUser && collectionsArray.push(ele.id) && (<input
-                            type="checkbox"
-                            id={`collection-checkbox-${i}`}
-                            key={`collection-checkbox-${i}`}
-                            name={ele}
-                            checked={collectionsIsCheckedArray[i]}
-                            onChange={() => handleCheckboxOnChange(i)}
-                        />
-                        )}
                         <NavLink to={`/collections/${ele.id}`}>{ele.title}</NavLink>
                     </div>
                 )
