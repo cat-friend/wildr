@@ -84,6 +84,7 @@ export const addToCollection = (payload) => async (dispatch) => {
     if (response.ok) {
         dispatch(addImageToCollection(image));
     }
+    console.log("response", response);
     return image;
 };
 

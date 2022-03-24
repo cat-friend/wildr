@@ -65,7 +65,6 @@ const ImageDetailPage = () => {
                         <div>{image?.description}</div>
                     </div>
                     <div className="buttons">
-                        <AddToCollection imageId={imageId} />
                         {sessionUser.id === userId &&
                             <><CRUDImageFormModal modalData={modalData} /></>}
                     </div>
@@ -73,7 +72,7 @@ const ImageDetailPage = () => {
             </>);
         }
     }
-    return (imageDetailContent);
+    return (<>{imageDetailContent} <AddToCollection imageId={imageId} /></>);
 
 }
 

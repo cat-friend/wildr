@@ -22,6 +22,8 @@ const validateImage = [
 
     handleValidationErrors
 ];
+
+
 // getting one image
 router.get('/:imageId', asyncHandler(async (req, res, next) => {
     const image = await Image.findByPk(req.params.imageId)

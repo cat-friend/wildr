@@ -62,26 +62,30 @@ const requireAuth = [
     },
 ];
 
-const checkPermissions = (item, currUserId) => {
+const checkPermissions = (item, currUserId, next) => {
     if (item.userId !== currUserId) {
-        const error = new Error('You are not authorized to perform this operation.');
+        const error = new Error('UNAUTHORIZED');
         error.status = 403;
         error.title = 'UNAUTHORIZED';
-        throw error;
+        error.errors = ["You are not authorized to perform this operation."]
+        return next(error);
     }
+    return
 }
 
-const checkExistence = async (model, pk) => {
+const checkExistence = async (model, pk, next) => {
     const item = await model.findByPk(pk);
     if (!item) {
-        const error = new Error(`Cannot find the requested resource within ${model}.`);
+        const error = new Error();
         error.status = 404;
+        error.errors = [`Cannot find the requested resource.`]
         error.title = 'Cannot find resource.'
-        throw error;
+        return next(error);
     }
+    return
 }
 
-const checkImageCollectionExistence = async (model, collectionId, imageId) => {
+const checkImageCollectionExistence = async (model, collectionId, imageId, next) => {
     const item = await model.findOne({
         where: {
             collectionId,
@@ -89,10 +93,12 @@ const checkImageCollectionExistence = async (model, collectionId, imageId) => {
         }
     });
     if (!item) {
-        const error = new Error(`Cannot find the requested resource within ${model}.`);
+        const error = new Error("Resource not found.");
         error.status = 404;
+        error.errors = [`Cannot find the requested resource.`]
         error.title = 'Cannot find resource.'
-        throw error;
+        return next(error);
     }
+    return
 }
 module.exports = { setTokenCookie, restoreUser, requireAuth, checkPermissions, checkExistence, checkImageCollectionExistence };

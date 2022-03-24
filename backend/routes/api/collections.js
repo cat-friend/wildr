@@ -22,9 +22,9 @@ const validateCollection = [
 ];
 
 // POST an image to a collection
-router.post('/:collectionId(\\d+)', asyncHandler(async (req, res) => {
+router.post('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
-    const { imageId } = req.body;
+    const { imageId, userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
     checkExistence(Collection, collectionId);
     checkExistence(Image, imageId);
@@ -36,21 +36,23 @@ router.post('/:collectionId(\\d+)', asyncHandler(async (req, res) => {
         error.title = 'UNAUTHORIZED';
         next(error);
     }
-    await ImageCollection.create({ imageId, collectionId });
-    const image = Image.findByPk(imageId);
-    return res.json(image);
+    else {
+        await ImageCollection.create({ imageId, collectionId });
+        const image = Image.findByPk(imageId);
+        return res.json(image);
+    }
 }));
 
 // DELETE from a collection
-router.delete('/:collectionId(\\d+)/:imageId(\\d+)', asyncHandler(async (req, res) => {
+router.delete('/:collectionId(\\d+)/:imageId(\\d+)', asyncHandler(async (req, res, next) => {
     const imageId = req.params.imageId;
     const collectionId = req.params.collectionId;
     const { userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
-    checkExistence(Image, imageId);
-    checkExistence(Collection, collectionId);
-    checkImageCollectionExistence(ImageCollection, collectionId, imageId);
-    checkPermissions(collection, userId);
+    checkExistence(Image, imageId, next);
+    checkExistence(Collection, collectionId, next);
+    checkImageCollectionExistence(ImageCollection, collectionId, imageId, next);
+    checkPermissions(collection, userId, next);
     const delCollection = await ImageCollection.findOne({
         where: {
             collectionId,
@@ -62,32 +64,32 @@ router.delete('/:collectionId(\\d+)/:imageId(\\d+)', asyncHandler(async (req, re
 
 
 // READ a collection
-router.get('/:collectionId(\\d+)', asyncHandler(async (req, res) => {
+router.get('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
-    checkExistence(Collection, collectionId);
+    checkExistence(Collection, collectionId, next);
     const collection = await Collection.findByPk(collectionId, { include: [Image] });
     return res.json(collection);
 }));
 
 // UPDATE a collection
-router.put('/:collectionId(\\d+)', validateCollection, asyncHandler(async (req, res) => {
+router.put('/:collectionId(\\d+)', validateCollection, asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
     const { title, userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
-    checkExistence(Collection, collectionId);
-    checkPermissions(collection, userId);
+    checkExistence(Collection, collectionId, next);
+    checkPermissions(collection, userId, next);
     await collection.update({ title });
     const updatedCollection = await Collection.findByPk(collectionId, { include: [Image] });
     return res.json(updatedCollection);
 }));
 
 // DELETE a collection
-router.delete('/:collectionId(\\d+)', asyncHandler(async (req, res) => {
+router.delete('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
     const { userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
     checkExistence(Collection, collectionId, next);
-    checkPermissions(collection, userId);
+    checkPermissions(collection, userId, next);
     const delCollection = await collection.destroy();
     return res.json(delCollection);
 }));

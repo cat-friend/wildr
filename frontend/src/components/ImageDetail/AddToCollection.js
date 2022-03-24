@@ -24,7 +24,7 @@ function AddToCollection({ imageId }) {
             userId,
             imageId
         }
-        // add image to collection -- need imageId, userId
+        console.log("payload", payload)
         return dispatch(collectionActions.addToCollection(payload))
             .then(() => {
                 setShowSuccess(true);
@@ -40,28 +40,27 @@ function AddToCollection({ imageId }) {
     let selectionOptions;
     if (Object.values(collections)) {
         selectionOptions = Object.values(collections).map((collection) => {
-            console.log("mapping collection", collection);
             return {
                 value: collection.id,
-                title: collection.title
+                text: collection.title
             }
         });
     }
-
-    return selectionOptions ? (showAddToCollection ? <form onSubmit={(e) => handleSubmit(e)}>
-        <select
-            name="collection"
-            id="adding-to-collection"
-            onChange={(e) => setCollection(e.target.value)}
-            value={collection}
-        >
-            {selectionOptions.map((ele, i) => {
-                return <option key={i} value={ele.id}>{`${ele.title}`}</option>
-            })}
-        </select>
-        <button type="submit">Add</button>
-        <button type="button" onClick={() => setShowAddToCollection(false)}>Cancel</button>
-    </form> :
+    return selectionOptions ? (showAddToCollection ?
+        <form onSubmit={(e) => handleSubmit(e)}>
+            <select
+                name="collection"
+                id="adding-to-collection"
+                onChange={(e) => setCollection(e.target.value)}
+                value={collection}
+            >
+                {selectionOptions.map((ele, i) => {
+                    return <option key={i} value={ele.value}>{`${ele.text}`}</option>
+                })}
+            </select>
+            <button type="submit">Add</button>
+            <button type="button" onClick={() => setShowAddToCollection(false)}>Cancel</button>
+        </form> :
         <>
             <NavLink to="#" onClick={(e) => {
                 e.preventDefault();
