@@ -16,7 +16,6 @@ function AddToCollection({ imageId }) {
     }, [dispatch, userId]);
     const collections = useSelector(state => (state.collections));
 
-
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
