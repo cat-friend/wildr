@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { NavLink, Redirect, } from "react-router-dom";
 import * as imageActions from "../../store/images";
 import CRUDImageFormModal from "../CRUDImageModal";
+import AddToCollection from "./AddToCollection";
 
 const ImageDetailPage = () => {
     const { imageId } = useParams();
@@ -64,6 +65,7 @@ const ImageDetailPage = () => {
                         <div>{image?.description}</div>
                     </div>
                     <div className="buttons">
+                        <AddToCollection imageId={imageId} />
                         {sessionUser.id === userId &&
                             <><CRUDImageFormModal modalData={modalData} /></>}
                     </div>

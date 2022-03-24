@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * as collectionActions from "../../store/collection";
+import { NavLink } from 'react-router-dom';
+import * as collectionActions from "../../store/collections";
 
 
 function AddToCollection({ imageId }) {
-    const userId = useSelector(state => state.session.user);
+    const userId = useSelector(state => state.session.user.id);
     const [collection, setCollection] = useState("");
     const [showAddToCollection, setShowAddToCollection] = useState(false);
     const [errors, setErrors] = useState([]);
@@ -22,12 +23,15 @@ function AddToCollection({ imageId }) {
 
     let selectionOptions;
     if (Object.values(collections)) {
+        console.log("obj vals col", Object.values(collections));
         selectionOptions = Object.values(collections).map((collection) => {
+            console.log("mapping collection", collection);
             return {
                 value: collection.id,
-                text: collections.title
+                title: collection.title
             }
         });
+        console.log("sel options", selectionOptions);
     }
 
     return selectionOptions ? (showAddToCollection ? <form onSubmit={(e) => handleSubmit(e)}>
@@ -38,10 +42,11 @@ function AddToCollection({ imageId }) {
             value={collection}
         >
             {selectionOptions.map((ele, i) => {
-                <option key={i} value={ele.id}>{`${ele.title}`}</option>
+                return <option key={i} value={ele.id}>{`${ele.title}`}</option>
             })}
         </select>
         <button type="submit">Add</button>
+        <button type="button" onClick={() => setShowAddToCollection(false)}>Cancel</button>
     </form> :
         <>
             <NavLink to="#" onClick={(e) => {

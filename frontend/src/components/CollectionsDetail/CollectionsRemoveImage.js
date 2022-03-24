@@ -1,9 +1,13 @@
 import * as collectionActions from "../../store/collections";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
+import { useState } from "react";
 
 function CollectionsRemoveImage({ collectionId, userId, imageId }) {
     const dispatch = useDispatch();
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [showEdit, setShowEdit] = useState(false);
+    const [errors, setErrors] = useState([]);
 
     const removeImage = (e) => {
         e.preventDefault();
@@ -12,7 +16,7 @@ function CollectionsRemoveImage({ collectionId, userId, imageId }) {
             imageId,
             userId
         }
-        return dispatch(collectionActions.removeImage(payload))
+        return dispatch(collectionActions.deleteFromCollection(payload))
             .then(() => {
                 setShowSuccess(true);
                 setTimeout(() => {
