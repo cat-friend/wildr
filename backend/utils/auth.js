@@ -71,7 +71,7 @@ const checkPermissions = (item, currUserId) => {
     }
 }
 
-const checkExistence = async (model, pk, next) => {
+const checkExistence = async (model, pk) => {
     const item = await model.findByPk(pk);
     if (!item) {
         const error = new Error(`Cannot find the requested resource within ${model}.`);
@@ -81,7 +81,7 @@ const checkExistence = async (model, pk, next) => {
     }
 }
 
-const checkImageCollectionExistence = async (model, collectionId, imageId, next) => {
+const checkImageCollectionExistence = async (model, collectionId, imageId) => {
     const item = await model.findOne({
         where: {
             collectionId,

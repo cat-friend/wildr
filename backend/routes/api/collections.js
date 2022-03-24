@@ -22,14 +22,14 @@ const validateCollection = [
 ];
 
 // POST an image to a collection
-router.post('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
+router.post('/:collectionId(\\d+)', asyncHandler(async (req, res) => {
     const collectionId = req.params.collectionId;
     const { imageId } = req.body;
     const collection = await Collection.findByPk(collectionId);
-    checkExistence(Collection, collectionId, next);
-    checkExistence(Image, imageId, next);
-    checkPermissions(collection, userId, next);
-    const isAlreadyAdded = checkImageCollectionExistence(ImageCollection, collectionId, imageId, next);
+    checkExistence(Collection, collectionId);
+    checkExistence(Image, imageId);
+    checkPermissions(collection, userId);
+    const isAlreadyAdded = checkImageCollectionExistence(ImageCollection, collectionId, imageId);
     if (isAlreadyAdded) {
         const error = new Error('Image was previously added to this collection.');
         error.status = 403;
@@ -42,15 +42,15 @@ router.post('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
 }));
 
 // DELETE from a collection
-router.delete('/:collectionId(\\d+)/:imageId(\\d+)', asyncHandler(async (req, res, next) => {
+router.delete('/:collectionId(\\d+)/:imageId(\\d+)', asyncHandler(async (req, res) => {
     const imageId = req.params.imageId;
     const collectionId = req.params.collectionId;
     const { userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
-    checkExistence(Image, imageId, next);
-    checkExistence(Collection, collectionId, next);
-    checkImageCollectionExistence(ImageCollection, collectionId, imageId, next);
-    checkPermissions(collection, userId, next);
+    checkExistence(Image, imageId);
+    checkExistence(Collection, collectionId);
+    checkImageCollectionExistence(ImageCollection, collectionId, imageId);
+    checkPermissions(collection, userId);
     const delCollection = await ImageCollection.findOne({
         where: {
             collectionId,
@@ -62,38 +62,38 @@ router.delete('/:collectionId(\\d+)/:imageId(\\d+)', asyncHandler(async (req, re
 
 
 // READ a collection
-router.get('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
+router.get('/:collectionId(\\d+)', asyncHandler(async (req, res) => {
     const collectionId = req.params.collectionId;
-    checkExistence(Collection, collectionId, next);
+    checkExistence(Collection, collectionId);
     const collection = await Collection.findByPk(collectionId, { include: [Image] });
     return res.json(collection);
 }));
 
 // UPDATE a collection
-router.put('/:collectionId(\\d+)', validateCollection, asyncHandler(async (req, res, next) => {
+router.put('/:collectionId(\\d+)', validateCollection, asyncHandler(async (req, res) => {
     const collectionId = req.params.collectionId;
     const { title, userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
-    checkExistence(Collection, collectionId, next);
-    checkPermissions(collection, userId, next);
+    checkExistence(Collection, collectionId);
+    checkPermissions(collection, userId);
     await collection.update({ title });
     const updatedCollection = await Collection.findByPk(collectionId, { include: [Image] });
     return res.json(updatedCollection);
 }));
 
 // DELETE a collection
-router.delete('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
+router.delete('/:collectionId(\\d+)', asyncHandler(async (req, res) => {
     const collectionId = req.params.collectionId;
     const { userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
-    // checkExistence(Collection, collectionId, next);
+    checkExistence(Collection, collectionId, next);
     checkPermissions(collection, userId);
     const delCollection = await collection.destroy();
     return res.json(delCollection);
 }));
 
 // CREATE a new collection
-router.post('/', validateCollection, asyncHandler(async (req, res, next) => {
+router.post('/', validateCollection, asyncHandler(async (req, res) => {
     const { title, userId } = req.body;
     const collection = await Collection.create({ title, userId });
     return res.json(collection);
