@@ -86,8 +86,8 @@ router.delete('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
     const { userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
-    checkExistence(Collection, collectionId, next);
-    checkPermissions(collection, userId, next);
+    // checkExistence(Collection, collectionId, next);
+    checkPermissions(collection, userId);
     const delCollection = await collection.destroy();
     return res.json(delCollection);
 }));

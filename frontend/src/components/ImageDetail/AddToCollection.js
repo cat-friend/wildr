@@ -9,6 +9,7 @@ function AddToCollection({ imageId }) {
     const [collection, setCollection] = useState("");
     const [showAddToCollection, setShowAddToCollection] = useState(false);
     const [errors, setErrors] = useState([]);
+    const [showSuccess, setShowSuccess] = useState(false);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(collectionActions.loadCollections(userId));
@@ -18,12 +19,26 @@ function AddToCollection({ imageId }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const payload = {
+            collectionId: collection,
+            userId,
+            imageId
+        }
         // add image to collection -- need imageId, userId
+        return dispatch(collectionActions.addToCollection(payload))
+            .then(() => {
+                setShowSuccess(true);
+                setTimeout(() => {
+                    setShowSuccess(false);
+                }, 750);
+            }, async (response) => {
+                const data = await response.json();
+                if (data && data.errors) setErrors(data.errors);
+            })
     }
 
     let selectionOptions;
     if (Object.values(collections)) {
-        console.log("obj vals col", Object.values(collections));
         selectionOptions = Object.values(collections).map((collection) => {
             console.log("mapping collection", collection);
             return {
@@ -31,7 +46,6 @@ function AddToCollection({ imageId }) {
                 title: collection.title
             }
         });
-        console.log("sel options", selectionOptions);
     }
 
     return selectionOptions ? (showAddToCollection ? <form onSubmit={(e) => handleSubmit(e)}>
