@@ -6,7 +6,7 @@ import * as collectionActions from "../../store/collections";
 
 function AddToCollection({ imageId }) {
     const userId = useSelector(state => state.session.user.id);
-    const [collection, setCollection] = useState("");
+    const [collection, setCollection] = useState(undefined);
     const [showAddToCollection, setShowAddToCollection] = useState(false);
     const [errors, setErrors] = useState([]);
     const [showSuccess, setShowSuccess] = useState(false);
@@ -19,6 +19,11 @@ function AddToCollection({ imageId }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setErrors([]);
+        if (!collection) {
+            setErrors(["Please choose a collection."])
+            return;
+        }
         const payload = {
             collectionId: collection,
             userId,
@@ -30,6 +35,7 @@ function AddToCollection({ imageId }) {
                 setShowSuccess(true);
                 setTimeout(() => {
                     setShowSuccess(false);
+                    setShowAddToCollection(false);
                 }, 750);
             }, async (response) => {
                 const data = await response.json();
@@ -47,20 +53,25 @@ function AddToCollection({ imageId }) {
         });
     }
     return selectionOptions ? (showAddToCollection ?
-        <form onSubmit={(e) => handleSubmit(e)}>
-            <select
-                name="collection"
-                id="adding-to-collection"
-                onChange={(e) => setCollection(e.target.value)}
-                value={collection}
-            >
-                {selectionOptions.map((ele, i) => {
-                    return <option key={i} value={ele.value}>{`${ele.text}`}</option>
-                })}
-            </select>
-            <button type="submit">Add</button>
-            <button type="button" onClick={() => setShowAddToCollection(false)}>Cancel</button>
-        </form> :
+        <div><ul className="error-list">
+            {errors.map((error, i) => <li key={i} className="errors">{error}</li>)}
+        </ul>
+            {showSuccess && <h2>Successfully added!</h2>}
+            <form onSubmit={(e) => handleSubmit(e)}>
+                <select
+                    name="collection"
+                    id="adding-to-collection"
+                    onChange={(e) => setCollection(e.target.value)}
+                    value={collection}
+                >
+                    <option value={null}>--Choose a collection--</option>
+                    {selectionOptions.map((ele, i) => {
+                        return <option key={i} value={ele.value}>{`${ele.text}`}</option>
+                    })}
+                </select>
+                <button type="submit">Add</button>
+                <button type="button" onClick={() => setShowAddToCollection(false)}>Cancel</button>
+            </form></div> :
         <>
             <NavLink to="#" onClick={(e) => {
                 e.preventDefault();

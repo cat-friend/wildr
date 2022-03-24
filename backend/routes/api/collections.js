@@ -26,22 +26,20 @@ router.post('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
     const { imageId, userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
-    checkExistence(Collection, collectionId);
-    checkExistence(Image, imageId);
-    checkPermissions(collection, userId);
+    checkExistence(Collection, collectionId, next);
+    checkExistence(Image, imageId, next);
+    checkPermissions(collection, userId, next);
     const isAlreadyAdded = checkImageCollectionExistence(ImageCollection, collectionId, imageId);
-    if (!isAlreadyAdded) {
+    if (isAlreadyAdded) {
         const error = new Error('Duplicate');
         error.status = 403;
         error.title = 'UNAUTHORIZED';
         error.errors=['Image was previously added to this collection.']
         next(error);
     }
-    else {
-        await ImageCollection.create({ imageId, collectionId });
-        const image = Image.findByPk(imageId);
-        return res.json(image);
-    }
+    await ImageCollection.create({ imageId, collectionId });
+    const image = Image.findByPk(imageId);
+    return res.json(image);
 }));
 
 // DELETE from a collection

@@ -85,7 +85,7 @@ const checkExistence = async (model, pk, next) => {
     return
 }
 
-const checkImageCollectionExistence = async (model, collectionId, imageId, next) => {
+const checkImageCollectionExistence = async (model, collectionId, imageId) => {
     const item = await model.findOne({
         where: {
             collectionId,
@@ -93,12 +93,8 @@ const checkImageCollectionExistence = async (model, collectionId, imageId, next)
         }
     });
     if (item) {
-        const error = new Error("Resource not found.");
-        error.status = 404;
-        error.errors = [`Cannot find the requested resource.`]
-        error.title = 'Cannot find resource.'
-        return next(error);
+        return true;
     }
-    return true;
+    return false;
 }
 module.exports = { setTokenCookie, restoreUser, requireAuth, checkPermissions, checkExistence, checkImageCollectionExistence };
