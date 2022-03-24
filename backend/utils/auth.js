@@ -92,13 +92,13 @@ const checkImageCollectionExistence = async (model, collectionId, imageId, next)
             imageId
         }
     });
-    if (!item) {
+    if (item) {
         const error = new Error("Resource not found.");
         error.status = 404;
         error.errors = [`Cannot find the requested resource.`]
         error.title = 'Cannot find resource.'
         return next(error);
     }
-    return
+    return true;
 }
 module.exports = { setTokenCookie, restoreUser, requireAuth, checkPermissions, checkExistence, checkImageCollectionExistence };
