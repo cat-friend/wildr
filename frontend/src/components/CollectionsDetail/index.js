@@ -5,6 +5,7 @@ import * as collectionActions from "../../store/collections"
 import { getOneUser } from "../../store/users"
 import CollectionsImageBrowser from "./CollectionsImageBrowser";
 import CollectionsEditForm from "./CollectionsEditForm";
+import CollectionDeleteModal from "../CollectionDeleteModal";
 
 function CollectionsDetail() {
     const { collectionId } = useParams();
@@ -34,7 +35,7 @@ function CollectionsDetail() {
                 {isOwner &&
                     (<>
                         {!showEdit && <h2><NavLink to="#" onClick={(e) => editClick(e)}>EDIT</NavLink></h2>}
-                        <h2>DELETE</h2>
+                        <CollectionDeleteModal collection={collection} />
                     </>)}
             </div>
             <CollectionsImageBrowser isOwner={isOwner} />

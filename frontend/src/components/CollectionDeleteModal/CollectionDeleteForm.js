@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import * as collectionActions from "../../store/collection";
+import * as collectionActions from "../../store/collections";
 
 function CollectionDeleteForm({ setShowModal, collection }) {
     const dispatch = useDispatch();
@@ -15,10 +15,10 @@ function CollectionDeleteForm({ setShowModal, collection }) {
     const submitDelete = () => {
         setErrors([]);
         const payload = {
-            curr_user_id: currUserId,
+            curr_user_id: 10,
             collectionId: collectionId
         }
-        return dispatch(collectionActions.deleteClan(payload))
+        return dispatch(collectionActions.deleteCollection(payload))
             .then(
                 (response) => {
                     if (response.errors) {
@@ -26,10 +26,9 @@ function CollectionDeleteForm({ setShowModal, collection }) {
                         return
                     }
                     else {
-                        setSuccess("Success!");
+                        setShowSuccess(true);
                         setTimeout(() => {
                             setShowModal(false);
-                            dispatch(collectionActions.deleteCollection(collection))
                             history.push(`/users/${currUserId}/collections`)
                         }, 750);
                         return;
