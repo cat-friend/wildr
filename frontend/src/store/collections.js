@@ -148,7 +148,7 @@ const collectionsReducer = (state = {}, action) => {
         }
         case COLLECTIONS_DELETE_IMAGE: {
             const newState = { ...state };
-            delete newState[action.imageId];
+            delete newState.images[action.imageId];
             return newState;
         }
         default: return state;

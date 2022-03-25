@@ -26,15 +26,15 @@ router.post('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
     const { imageId, userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
-    checkExistence(Collection, collectionId, next);
-    checkExistence(Image, imageId, next);
-    checkPermissions(collection, userId, next);
-    const isAlreadyAdded = checkImageCollectionExistence(ImageCollection, collectionId, imageId);
+    await checkExistence(Collection, collectionId, next);
+    await checkExistence(Image, imageId, next);
+    await checkPermissions(collection, userId, next);
+    const isAlreadyAdded = await checkImageCollectionExistence(ImageCollection, collectionId, imageId);
     if (isAlreadyAdded) {
         const error = new Error('Duplicate');
         error.status = 403;
         error.title = 'UNAUTHORIZED';
-        error.errors=['Image was previously added to this collection.']
+        error.errors = ['Image was previously added to this collection.']
         next(error);
     }
     await ImageCollection.create({ imageId, collectionId });
@@ -48,24 +48,32 @@ router.delete('/:collectionId(\\d+)/:imageId(\\d+)', asyncHandler(async (req, re
     const collectionId = req.params.collectionId;
     const { userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
-    checkExistence(Image, imageId, next);
-    checkExistence(Collection, collectionId, next);
-    checkImageCollectionExistence(ImageCollection, collectionId, imageId, next);
-    checkPermissions(collection, userId, next);
-    const delCollection = await ImageCollection.findOne({
+    await checkExistence(Image, imageId, next);
+    await checkExistence(Collection, collectionId, next);
+    await checkPermissions(collection, userId, next);
+    const isImageInCollection = await checkImageCollectionExistence(ImageCollection, collectionId, imageId);
+    if (!isImageInCollection) {
+        const error = new Error('Not found');
+        error.status = 404;
+        error.title = 'Not found';
+        error.errors = ['Image is not currently in the collection.']
+        next(error);
+    }
+    const imageInCollection = await ImageCollection.findOne({
         where: {
             collectionId,
             imageId
         }
     });
-    return res.json(delCollection);
+    const delImageInCollection = await imageInCollection.destroy();
+    return res.json(delImageInCollection);
 }));
 
 
 // READ a collection
 router.get('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
-    checkExistence(Collection, collectionId, next);
+    await checkExistence(Collection, collectionId, next);
     const collection = await Collection.findByPk(collectionId, { include: [Image] });
     return res.json(collection);
 }));
@@ -75,8 +83,8 @@ router.put('/:collectionId(\\d+)', validateCollection, asyncHandler(async (req, 
     const collectionId = req.params.collectionId;
     const { title, userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
-    checkExistence(Collection, collectionId, next);
-    checkPermissions(collection, userId, next);
+    await checkExistence(Collection, collectionId, next);
+    await checkPermissions(collection, userId, next);
     await collection.update({ title });
     const updatedCollection = await Collection.findByPk(collectionId, { include: [Image] });
     return res.json(updatedCollection);
@@ -87,8 +95,8 @@ router.delete('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
     const { userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
-    checkExistence(Collection, collectionId, next);
-    checkPermissions(collection, userId, next);
+    await checkExistence(Collection, collectionId, next);
+    await checkPermissions(collection, userId, next);
     const delCollection = await collection.destroy();
     return res.json(delCollection);
 }));

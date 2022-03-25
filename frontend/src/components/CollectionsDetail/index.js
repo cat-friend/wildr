@@ -9,11 +9,7 @@ import CollectionsEditForm from "./CollectionsEditForm";
 function CollectionsDetail() {
     const { collectionId } = useParams();
     const dispatch = useDispatch();
-    const user = useSelector(state => state.user);
     const collection = useSelector(state => state.collections);
-    const images = useSelector(state => {
-        if (state.collections.images) return Object.values(state.collections?.images)
-    });
     const userIdFromCollection = collection?.userId;
     const [showEdit, setShowEdit] = useState(false);
     useEffect(() => {
@@ -41,7 +37,7 @@ function CollectionsDetail() {
                         <h2>DELETE</h2>
                     </>)}
             </div>
-            <CollectionsImageBrowser images={images} isOwner={isOwner} />
+            <CollectionsImageBrowser isOwner={isOwner} />
         </div >
     )
 }

@@ -17,20 +17,18 @@ function CollectionsRemoveImage({ collectionId, userId, imageId }) {
             userId
         }
         return dispatch(collectionActions.deleteFromCollection(payload))
-            .then(() => {
-                setShowSuccess(true);
-                setTimeout(() => {
-                    setShowSuccess(false);
-                    setShowEdit(false);
-                }, 750);
-            }, async (response) => {
+            .then(() => { }, async (response) => {
                 const data = await response.json();
                 if (data && data.errors) setErrors(data.errors);
             })
     }
 
-    return (
+    return (<>
+        <ul className="error-list">
+            {errors.map((error, i) => <li key={i} className="errors">{error}</li>)}
+        </ul>
         <NavLink to="#" onClick={(e) => removeImage(e)}>Remove</NavLink>
+    </>
     )
 }
 export default CollectionsRemoveImage;
