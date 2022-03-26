@@ -176,11 +176,11 @@ footer {
 
 .footer {
     box-sizing: border-box;
-    background-color: var(--body-background);
+    background-color: white;
     display: flex;
     justify-content: space-around;
     margin-top: 2%;
-    position: relative;
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
