@@ -24,7 +24,7 @@ const Navigation = ({ isRestored }) => {
         modalData.imageId = -1;
         sessionLinks = (
             <>
-                <h2>Welcome, {sessionUser.username}!</h2>
+                <h2><NavLink to={`/users/${sessionUser.id}`}>Welcome, {sessionUser.username}!</NavLink></h2>
                 <div>
                     <NavLink className="navlink" to="/images">Browse Images</NavLink>
                 </div>
