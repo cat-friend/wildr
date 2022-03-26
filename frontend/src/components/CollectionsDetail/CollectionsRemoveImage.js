@@ -11,7 +11,7 @@ function CollectionsRemoveImage({ collectionId, userId, imageId }) {
         e.preventDefault();
         const payload = {
             collectionId,
-            imageId: 10,
+            imageId,
             userId
         }
         return dispatch(collectionActions.deleteFromCollection(payload))

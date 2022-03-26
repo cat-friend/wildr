@@ -15,8 +15,8 @@ function CollectionDeleteForm({ setShowModal, collection }) {
     const submitDelete = () => {
         setErrors([]);
         const payload = {
-            curr_user_id: 10,
-            collectionId: collectionId
+            currUserId,
+            collectionId
         }
         return dispatch(collectionActions.deleteCollection(payload))
             .then(() => {
