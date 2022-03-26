@@ -21,25 +21,35 @@ const validateCollection = [
     handleValidationErrors
 ];
 
+
 // POST an image to a collection
 router.post('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
     const { imageId, userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
-    await checkExistence(Collection, collectionId, next);
-    await checkExistence(Image, imageId, next);
-    await checkPermissions(collection, userId, next);
-    const isAlreadyAdded = await checkImageCollectionExistence(ImageCollection, collectionId, imageId);
-    if (isAlreadyAdded) {
-        const error = new Error('Duplicate');
-        error.status = 403;
-        error.title = 'UNAUTHORIZED';
-        error.errors = ['Image was previously added to this collection.']
-        next(error);
+    const collectionExists = await checkExistence(Collection, collectionId, next);
+    if (collectionExists) {
+        const imageExists = await checkExistence(Image, imageId, next);
+        if (imageExists) {
+            const isPermitted = checkPermissions(collection, userId, next);
+            if (isPermitted) {
+                const isAlreadyAdded = await checkImageCollectionExistence(ImageCollection, collectionId, imageId);
+                if (isAlreadyAdded) {
+                    const error = new Error('Duplicate');
+                    error.status = 403;
+                    error.title = 'UNAUTHORIZED';
+                    error.errors = ['Image was previously added to this collection.']
+                    next(error);
+                }
+                else {
+                    await ImageCollection.create({ imageId, collectionId });
+                    const image = Image.findByPk(imageId);
+                    return res.json(image);
+                }
+            }
+        }
     }
-    await ImageCollection.create({ imageId, collectionId });
-    const image = Image.findByPk(imageId);
-    return res.json(image);
+
 }));
 
 // DELETE from a collection
@@ -47,11 +57,21 @@ router.delete('/:collectionId(\\d+)/:imageId(\\d+)', asyncHandler(async (req, re
     const imageId = req.params.imageId;
     const collectionId = req.params.collectionId;
     const { userId } = req.body;
-    const collection = await Collection.findByPk(collectionId);
-    await checkExistence(Image, imageId, next);
-    await checkExistence(Collection, collectionId, next);
-    await checkPermissions(collection, userId, next);
     const isImageInCollection = await checkImageCollectionExistence(ImageCollection, collectionId, imageId);
+    const collection = await Collection.findByPk(collectionId);
+    if (isImageInCollection) {
+        const isPermitted = checkPermissions(collection, userId, next);
+        if (isPermitted) {
+            const imageInCollection = await ImageCollection.findOne({
+                where: {
+                    collectionId,
+                    imageId
+                }
+            });
+            const delImageInCollection = await imageInCollection.destroy();
+            return res.json(delImageInCollection);
+        }
+    }
     if (!isImageInCollection) {
         const error = new Error('Not found');
         error.status = 404;
@@ -59,14 +79,6 @@ router.delete('/:collectionId(\\d+)/:imageId(\\d+)', asyncHandler(async (req, re
         error.errors = ['Image is not currently in the collection.']
         next(error);
     }
-    const imageInCollection = await ImageCollection.findOne({
-        where: {
-            collectionId,
-            imageId
-        }
-    });
-    const delImageInCollection = await imageInCollection.destroy();
-    return res.json(delImageInCollection);
 }));
 
 
@@ -83,11 +95,15 @@ router.put('/:collectionId(\\d+)', validateCollection, asyncHandler(async (req, 
     const collectionId = req.params.collectionId;
     const { title, userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
-    await checkExistence(Collection, collectionId, next);
-    await checkPermissions(collection, userId, next);
-    await collection.update({ title });
-    const updatedCollection = await Collection.findByPk(collectionId, { include: [Image] });
-    return res.json(updatedCollection);
+    const exists = await checkExistence(Collection, collectionId, next);
+    if (exists) {
+        const isPermitted = checkPermissions(collection, userId, next);
+        if (isPermitted) {
+            await collection.update({ title });
+            const updatedCollection = await Collection.findByPk(collectionId, { include: [Image] });
+            return res.json(updatedCollection);
+        }
+    }
 }));
 
 // DELETE a collection
@@ -95,10 +111,14 @@ router.delete('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
     const { userId } = req.body;
     const collection = await Collection.findByPk(collectionId);
-    await checkExistence(Collection, collectionId, next);
-    await checkPermissions(collection, userId, next);
-    const delCollection = await collection.destroy();
-    return res.json(delCollection);
+    const exists = await checkExistence(Collection, collectionId, next);
+    if (exists) {
+        const isPermitted = checkPermissions(collection, userId, next);
+        if (isPermitted) {
+            await collection.destroy();
+            return res.json(collection);
+        }
+    }
 }));
 
 // CREATE a new collection

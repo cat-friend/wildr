@@ -19,20 +19,16 @@ function CollectionDeleteForm({ setShowModal, collection }) {
             collectionId: collectionId
         }
         return dispatch(collectionActions.deleteCollection(payload))
-            .then(
-                (response) => {
-                    if (response.errors) {
-                        setErrors(response.errors)
-                        return
-                    }
-                    else {
-                        setShowSuccess(true);
-                        setTimeout(() => {
-                            setShowModal(false);
-                            history.push(`/users/${currUserId}/collections`)
-                        }, 750);
-                        return;
-                    }
+            .then(() => {
+                setShowSuccess(true);
+                setTimeout(() => {
+                    setShowModal(false);
+                    history.push(`/users/${currUserId}/collections`)
+                }, 750);
+            },
+                async (response) => {
+                    const data = await response.json();
+                    if (data && data.errors) setErrors(data.errors);
                 }
             );
     };

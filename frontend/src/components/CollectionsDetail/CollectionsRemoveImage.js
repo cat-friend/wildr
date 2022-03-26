@@ -5,15 +5,13 @@ import { useState } from "react";
 
 function CollectionsRemoveImage({ collectionId, userId, imageId }) {
     const dispatch = useDispatch();
-    const [showSuccess, setShowSuccess] = useState(false);
-    const [showEdit, setShowEdit] = useState(false);
     const [errors, setErrors] = useState([]);
 
     const removeImage = (e) => {
         e.preventDefault();
         const payload = {
             collectionId,
-            imageId,
+            imageId: 10,
             userId
         }
         return dispatch(collectionActions.deleteFromCollection(payload))

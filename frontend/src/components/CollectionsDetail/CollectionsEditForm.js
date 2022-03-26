@@ -12,7 +12,7 @@ function CollectionsEditForm({ collection, setShowEdit }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         const payload = {
-            userId,
+            userId: 2,
             title,
             collectionId: collection.id
         }
