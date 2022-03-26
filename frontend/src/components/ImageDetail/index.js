@@ -1,21 +1,24 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { NavLink, Redirect, } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import * as imageActions from "../../store/images";
 import CRUDImageFormModal from "../CRUDImageModal";
 import AddToCollection from "./AddToCollection";
+import { getOneUser } from "../../store/users"
 
 const ImageDetailPage = () => {
     const { imageId } = useParams();
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-
+    const image = useSelector(state => state.images[imageId]);
+    const userId = image?.userId;
     useEffect(() => {
         dispatch(imageActions.getOneImage(imageId));
-    }, [imageId, dispatch]);
+        if (userId) dispatch(getOneUser(userId));
+    }, [imageId, dispatch, userId]);
+    const imageUser = useSelector(state => state.user);
 
-    const image = useSelector(state => state.images[imageId]);
 
     if (!image) {
         return (
@@ -24,8 +27,6 @@ const ImageDetailPage = () => {
             </>
         )
     }
-
-    const userId = image?.userId;
     const modalData = {
         crudAction: "edit/delete",
         imageId
@@ -62,6 +63,7 @@ const ImageDetailPage = () => {
                     </div>
                     <div className="details">
                         <h2>{image?.title}</h2>
+                        {imageUser && <div><NavLink to={`/users/${userId}`}>{imageUser?.username}</NavLink></div>}
                         <div>{image?.description}</div>
                     </div>
                     <div className="buttons">
