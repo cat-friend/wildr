@@ -28,6 +28,15 @@ export const getImages = () => async (dispatch) => {
     }
 }
 
+export const getUserImages = (userId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/users/${userId}/images`);
+    if (response.ok) {
+        const images = await response.json();
+        dispatch(load(images));
+        return images;
+    }
+}
+
 export const getOneImage = (id) => async (dispatch) => {
     const response = await csrfFetch(`/api/images/${id}`);
     const image = await response.json();

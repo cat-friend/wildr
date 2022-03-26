@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { NavLink, Redirect, } from "react-router-dom";
 import EditProfileFormModal from "../UserPageModal";
 import * as userActions from "../../store/users";
+import { getUserImages } from "../../store/images";
 import CollectionsBrowser from "../CollectionsBrowser";
 
 
@@ -12,12 +13,12 @@ const UserDetailPage = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(userActions.getOneUser(userId));
+        dispatch(getUserImages(userId));
     }, [userId, dispatch]);
     const sessionUser = useSelector(state => state.session.user);
     const user = useSelector(state => state.user);
     const userIcon = user?.UserIcon
-    const collections = useSelector(state => Object.values(state.collections));
-    // const [photostream, setPhotostream] = useState(useSelector(state => state.photostream));
+    const images = useSelector(state => { if (state.images) return Object.values(state.images) })
 
 
 
@@ -47,9 +48,17 @@ const UserDetailPage = () => {
                 </div>
                 <div className="details">
                     <CollectionsBrowser />
-                    <div><h2>
-                        Photostream
-                    </h2>
+                    <div className='browser'>
+                        <h2>
+                            Images
+                        </h2>
+                        <div className='images'>
+                            {images.map((image) => {
+                                return (
+                                    <NavLink to={`/images/${image.id}`} key={image.id}><img src={image.url} key={image.id} alt={image.title} className="thumbnails" /></NavLink>
+                                )
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>
