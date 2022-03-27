@@ -33,7 +33,7 @@ function CRUDImageFormModal({ modalData }) {
                 <NavLink onClick={() => {
                     setEditModal(true);
                     setAction(EDIT);
-                }} to="#" className="crud-link">Edit</NavLink>
+                }} to="#">Edit</NavLink>
                 {
                     editModal && (
                         <Modal onClose={() => setEditModal(false)}>
@@ -44,7 +44,7 @@ function CRUDImageFormModal({ modalData }) {
                 <NavLink onClick={() => {
                     setDelModal(true);
                     setAction(DELETE);
-                }} to="#" className="crud-link">Delete</NavLink>
+                }} to="#">Delete</NavLink>
                 {
                     delModal && (
                         <Modal onClose={() => setDelModal(false)}>
@@ -61,7 +61,7 @@ function CRUDImageFormModal({ modalData }) {
                 <NavLink onClick={() => {
                     setCreateModal(true);
                     setAction(CREATE);
-                }} to="#" className="crud-link">Upload Image</NavLink>
+                }} to="#">Upload Image</NavLink>
                 {
                     createModal && (
                         <Modal onClose={() => setCreateModal(false)}>

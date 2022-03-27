@@ -64,16 +64,8 @@ a {
 
 .navlink {
     color: black;
-    padding: 5px;
-    border: 2px solid black;
 }
 
-.crud-link {
-    background-color: white;
-    border: 2px solid var(--link-color);
-    margin-right: 10px;
-    padding: 5px;
-}
 
 a:hover {
     text-decoration: underline;

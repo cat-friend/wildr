@@ -75,7 +75,6 @@ const ImageDetailPage = () => {
         }
     }
     return (<>{imageDetailContent} <AddToCollection imageId={imageId} /></>);
-
 }
 
 export default ImageDetailPage;
