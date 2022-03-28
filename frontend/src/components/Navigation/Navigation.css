@@ -2,13 +2,22 @@ nav {
     position: absolute;
     top: 0;
     left: 0;
-    height: 70px;
     width: 100%;
     background-color: white;
     display: flex;
     justify-content: space-around;
     align-items: center;
     text-align: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 500px) {
+    nav h2 {
+        font-size: 14px;
+    }
+    nav img {
+        width: 40px;
+    }
 }
 
 
@@ -18,12 +27,12 @@ div.logo {
     height: 100%;
 }
 
-.nav-items > img {
+.nav-items>img {
     vertical-align: middle;
     align-self: center;
 }
 
-div.logo > h1 {
+div.logo>h1 {
     font-size: 40px;
     margin: 0;
     padding: 0;

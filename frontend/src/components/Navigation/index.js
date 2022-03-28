@@ -24,9 +24,9 @@ const Navigation = ({ isRestored }) => {
         modalData.imageId = -1;
         sessionLinks = (
             <>
-                <h2><NavLink to={`/users/${sessionUser.id}`}>Welcome, {sessionUser.username}!</NavLink></h2>
+                <h2><NavLink to={`/users/${sessionUser.id}`}>Hi, {sessionUser.username}!</NavLink></h2>
                 <div>
-                    <NavLink className="navlink" to="/images">Browse Images</NavLink>
+                    <NavLink className="navlink" to="/images">Browse</NavLink>
                 </div>
                 <div>
                     <CRUDImageFormModal modalData={modalData} />
@@ -41,7 +41,7 @@ const Navigation = ({ isRestored }) => {
         sessionLinks = (
             <>
                 <div>
-                    <NavLink className="navlink" to="/images">Browse Images</NavLink>
+                    <NavLink className="navlink" to="/images">Browse</NavLink>
                 </div>
                 <div><LoginFormModal /></div>
                 <div><RegisterFormModal /></div>
@@ -49,14 +49,14 @@ const Navigation = ({ isRestored }) => {
         );
     }
     return (
-        <nav>
+        <>
             <div className='logo title'>
                 <NavLink to="/" className="nav-items">
                     <img src='/logo.png' alt="logo for Wildr" />
                 </NavLink>
             </div>
             {isRestored && sessionLinks}
-        </nav >
+        </>
     );
 }
 
