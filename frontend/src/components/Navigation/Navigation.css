@@ -8,6 +8,7 @@ nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    text-align: center;
 }
 
 
@@ -19,6 +20,7 @@ div.logo {
 
 .nav-items > img {
     vertical-align: middle;
+    align-self: center;
 }
 
 div.logo > h1 {

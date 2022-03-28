@@ -53,7 +53,6 @@ const Navigation = ({ isRestored }) => {
             <div className='logo title'>
                 <NavLink to="/" className="nav-items">
                     <img src='/logo.png' alt="logo for Wildr" />
-                    Wildr
                 </NavLink>
             </div>
             {isRestored && sessionLinks}
