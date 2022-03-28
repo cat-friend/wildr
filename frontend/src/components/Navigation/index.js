@@ -15,9 +15,9 @@ const Navigation = ({ isRestored }) => {
     const modalData = {};
     const logout = (e) => {
         e.preventDefault();
-        return dispatch(sessionActions.logout()).then(() => {
-            window.location="/"
-        })
+        dispatch(sessionActions.logout());
+        window.location = "/"
+
     };
 
     if (sessionUser) {

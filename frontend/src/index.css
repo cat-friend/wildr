@@ -188,13 +188,11 @@ button {
 button.dark-button {
     background-color: white;
     border: var(--button-border-dark) 2px solid;
-    margin-top: 20px;
 }
 
 button.light-button {
     background-color: white;
     border: var(--button-border-light) 2px solid;
-    margin-top: 20px;
 }
 
 button:hover {

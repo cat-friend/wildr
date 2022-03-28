@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import CollectionDeleteForm from './CollectionDeleteForm';
 
-function CollectionDeleteModal({collection}) {
+function CollectionDeleteModal({ collection }) {
     const [showModal, setShowModal] = useState(false);
     return (
         <>
-            <div className="button-div">
-                <button type="button" onClick={() => setShowModal(true)}>
-                    DELETE
-                </button>
-            </div>
+            <button
+                type="button"
+                onClick={() => setShowModal(true)}
+                className="light-button">
+                DELETE
+            </button>
             {
                 showModal &&
                 (<Modal onClose={() => setShowModal(false)}>

@@ -33,10 +33,13 @@ function CollectionsDetail() {
                 {showEdit && <CollectionsEditForm collection={collection} setShowEdit={setShowEdit} />}
                 <h2><NavLink to={`/users/${userIdFromCollection}`}>{`${collectionOwner?.username}`}</NavLink>'s Collection</h2>
                 {isOwner &&
-                    (<>
-                        {!showEdit && <h2><NavLink to="#" onClick={(e) => editClick(e)}>EDIT</NavLink></h2>}
-                        <CollectionDeleteModal collection={collection} />
-                    </>)}
+                    !showEdit && (<div className="button-div">
+                        <button
+                            className="dark-button"
+                            type="button"
+                            onClick={(e) => editClick(e)}>Edit</button>
+                        <CollectionDeleteModal collection={collection} /></div>
+                    )}
             </div>
             <CollectionsImageBrowser isOwner={isOwner} />
         </div >
