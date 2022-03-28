@@ -79,13 +79,10 @@ a:hover {
     margin: 30px;
 }
 
-.modal-image {
-    justify-content: center;
-    display: flex;
 
-}
-.modal-image > img {
-    max-width: 80%;
+.preview-image {
+    width: 100%;
+    max-width: 400px;
 }
 
 input, textarea {
@@ -164,8 +161,6 @@ input:focus, textarea:focus {
     object-fit: contain;
 }
 
-
-
 ul.error-list {
     list-style-type: none;
     margin: 0;
@@ -177,24 +172,30 @@ ul.error-list {
     margin: 0;
 }
 
+.button-div {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
 button {
     border-radius: 5px;
     font-family: var(--body-font-family);
     font-weight: 300;
     font-style: normal;
+    padding: 5px;
 }
 
 button.dark-button {
     background-color: white;
     border: var(--button-border-dark) 2px solid;
-    width: 100%;
     margin-top: 20px;
 }
 
 button.light-button {
     background-color: white;
     border: var(--button-border-light) 2px solid;
-    width: 100%;
     margin-top: 20px;
 }
 

@@ -121,7 +121,7 @@ function CRUDImageForm({ formData }) {
         case "Edit": {
             modalContent = (<><h1>Edit {currImage.title}</h1>
                 <h2>Preview</h2>
-                <div className="modal-image"><img src={url} /></div>
+                <div className="modal-image"><img src={url} className="preview-image" /></div>
                 <form onSubmit={() => submitEdit()}>
                     <div><label htmlFor="title">Title:</label></div>
                     <input
@@ -141,8 +141,8 @@ function CRUDImageForm({ formData }) {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="(Optional)" />
-                    <button type="submit" className="dark-button">Submit</button>
-                    <button onClick={(e) => window.location.reload(true)} type="button" className="light-button">Cancel</button>
+                    <div className="button-div"><button type="submit" className="dark-button">Submit</button><button onClick={(e) => window.location.reload(true)} type="button" className="light-button">Cancel</button></div>
+
                 </form></>
             )
             break;
@@ -160,26 +160,26 @@ function CRUDImageForm({ formData }) {
                 <h2>Preview</h2>
                 <div className="modal-image"><img src={url} alt={title} /></div>
                 <form onSubmit={submitCreate}>
-                    <label htmlFor="title">Title:</label>
+                    <div><label htmlFor="title">Title:</label></div>
                     <input
                         id="title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         required />
-                    <label htmlFor="url">Image URL:</label>
+                    <div><label htmlFor="url">Image URL:</label></div>
                     <input
                         id="url"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                         required />
-                    <label htmlFor="description">Description:</label>
+                    <div><label htmlFor="description">Description:</label></div>
                     <textarea
                         id="description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="(Optional)" />
-                    <button type="submit" className="dark-button">Submit</button>
-                    <button onClick={(e) => window.location.reload(true)} type="button" className="light-button">Cancel</button>
+                    <div className="button-div"><button type="submit" className="dark-button">Submit</button>
+                    <button onClick={(e) => window.location.reload(true)} type="button" className="light-button">Cancel</button></div>
                 </form>
             </>)
             break;
