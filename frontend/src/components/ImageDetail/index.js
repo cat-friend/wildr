@@ -35,7 +35,7 @@ const ImageDetailPage = () => {
     let imageDetailContent;
 
     if (!sessionUser) {
-        imageDetailContent = (<>
+        return (<>
             <h1>You are not authorized to view this page</h1>
             <h2>Please register or log in.</h2>
         </>
