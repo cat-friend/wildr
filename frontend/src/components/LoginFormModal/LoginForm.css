@@ -1,5 +1,4 @@
 div.login-form {
-    /* margin: 0, auto, 0, auto; */
     width: fit-content;
     box-sizing: border-box;
     border: var(--button-border-dark) 2px solid;
