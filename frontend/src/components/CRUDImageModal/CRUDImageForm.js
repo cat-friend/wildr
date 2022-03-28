@@ -122,20 +122,20 @@ function CRUDImageForm({ formData }) {
             modalContent = (<><h1>Edit {currImage.title}</h1>
                 <h2>Preview</h2>
                 <div className="modal-image"><img src={url} /></div>
-                <form onSubmit={submitEdit}>
-                    <label htmlFor="title">Title:</label>
+                <form onSubmit={() => submitEdit()}>
+                    <div><label htmlFor="title">Title:</label></div>
                     <input
                         id="title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         required />
-                    <label htmlFor="url">Image URL:</label>
+                    <div><label htmlFor="url">Image URL:</label></div>
                     <input
                         id="url"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                         required />
-                    <label htmlFor="description">Description:</label>
+                    <div><label htmlFor="description">Description:</label></div>
                     <textarea
                         id="description"
                         value={description}
@@ -158,7 +158,7 @@ function CRUDImageForm({ formData }) {
         case "Upload Image": {
             modalContent = (<><h1>Upload New Image</h1>
                 <h2>Preview</h2>
-                <div className="modal-image"><img src={url} alt={title}/></div>
+                <div className="modal-image"><img src={url} alt={title} /></div>
                 <form onSubmit={submitCreate}>
                     <label htmlFor="title">Title:</label>
                     <input
