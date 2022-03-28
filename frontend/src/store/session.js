@@ -57,7 +57,6 @@ export const signup = (payload) => async (dispatch) => {
             body: JSON.stringify({ username, email, password })
         });
     const user = await response.json();
-    console.log("user", user);
     if (response.ok) {
         dispatch(setLogin(user.user));
     }
