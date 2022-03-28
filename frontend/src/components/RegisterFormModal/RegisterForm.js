@@ -25,7 +25,11 @@ function RegisterForm() {
         return dispatch(sessionActions.login(payload))
             .catch(async (response) => {
                 const data = await response.json();
-                if (data && data.errors) setErrors(data.errors);
+                if (data && data.errors) {
+                    setPassword("");
+                    setConfirmPw("");
+                    setErrors(data.errors);
+                };
             });
     }
 
@@ -46,10 +50,11 @@ function RegisterForm() {
 
     return (
         <div className="login-form">
+            <h1>Register a New Account</h1>
             <ul className="error-list">
                 {errors.map((error, i) => <li key={i} className="errors">{error}</li>)}
             </ul>
-            <form onSubmit={onSubmit} className="login-form">
+            <form onSubmit={(e) => onSubmit(e)} className="login-form">
                 <input
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -65,6 +70,7 @@ function RegisterForm() {
                     placeholder="Email"
                     required
                     type="email"
+                    className="login-form"
                 >
                 </input>
                 <input
@@ -72,6 +78,7 @@ function RegisterForm() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
                     required
+                    className="login-form"
                     type="password">
                 </input>
                 <input
@@ -79,10 +86,13 @@ function RegisterForm() {
                     onChange={(e) => setConfirmPw(e.target.value)}
                     placeholder="Confirm password"
                     required
+                    className="login-form"
                     type="password">
                 </input>
-                <button type="submit" className="light-button">Sign up!</button>
-                <button type="button" className="dark-button" onClick={demoUser}>Demo User</button>
+                <div className="button-div">
+                    <button type="submit" className="light-button">Sign up!</button>
+                    <button type="button" className="dark-button" onClick={() => demoUser()}>Demo User</button>
+                </div>
             </form>
         </div>)
 }

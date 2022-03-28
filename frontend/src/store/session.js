@@ -56,11 +56,12 @@ export const signup = (payload) => async (dispatch) => {
             method: 'POST',
             body: JSON.stringify({ username, email, password })
         });
+    const user = await response.json();
+    console.log("user", user);
     if (response.ok) {
-        const user = await response.json();
         dispatch(setLogin(user.user));
-        return response;
     }
+    return user;
 }
 
 const initialState = { user: null };
