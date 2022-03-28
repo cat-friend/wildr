@@ -41,7 +41,7 @@ const UserDetailPage = () => {
                             <><EditProfileFormModal /></>}
                     </div>
                     <div>
-                        <img src={userIcon?.url} alt={`User icon for ${user?.username}`} className="image-detail" />
+                        <img src={userIcon?.url} alt={`User icon for ${user?.username}`} className="user-icon" />
                     </div>
                     <h3>Description</h3>
                     <div>{user?.description}</div>

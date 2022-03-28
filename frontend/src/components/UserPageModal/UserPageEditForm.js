@@ -104,7 +104,7 @@ function EditProfileForm({ setShowModal }) {
                 <div className="profile-body">
                     <div>
                         <h3>User Icon:</h3>
-                        <img src={iconUrl} alt="A cute user icon" className="image-detail" />
+                        <img src={iconUrl} alt="A cute user icon" className="user-icon" />
                     </div>
                     <div>
                         <h3>Description:</h3>

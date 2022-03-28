@@ -141,9 +141,7 @@ input:focus, textarea:focus {
 }
 
 .browser {
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%
+    min-width: 100%
 }
 
 .details-container div {
@@ -213,8 +211,10 @@ button:active {
 .icon-preview {
     width: 25px;
     height: 25px;
+    margin: .5rem;
 }
 
 #icons-array {
     display: flex;
+    flex-wrap: wrap;
 }
