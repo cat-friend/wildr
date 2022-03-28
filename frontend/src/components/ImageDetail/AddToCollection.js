@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
 import * as collectionActions from "../../store/collections";
-
+import "./AddToCollection.css"
 
 function AddToCollection({ imageId }) {
     const userId = useSelector(state => state.session.user.id);
@@ -68,9 +68,9 @@ function AddToCollection({ imageId }) {
                         return <option key={i} value={ele.value}>{`${ele.text}`}</option>
                     })}
                 </select>
-                <button type="submit">Add</button>
-                <button type="button" onClick={() => setShowAddToCollection(false)}>Cancel</button>
-            </form></div> :
+                <button type="submit" className="dark-button collection">Add</button>
+                <button type="button" className="light-button collection" onClick={() => setShowAddToCollection(false)}>Cancel</button>
+            </form ></div > :
         <>
             <NavLink to="#" onClick={(e) => {
                 e.preventDefault();
