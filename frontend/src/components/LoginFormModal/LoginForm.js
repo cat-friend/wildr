@@ -9,8 +9,7 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  const demoUser = async (e) => {
-    e.preventDefault();
+  const demoUser = async () => {
     const payload = {
       credential: "demo@user.io",
       password: "password01"
