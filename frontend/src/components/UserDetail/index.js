@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { NavLink, Redirect, } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import EditProfileFormModal from "../UserPageModal";
 import * as userActions from "../../store/users";
 import { getUserImages } from "../../store/images";
