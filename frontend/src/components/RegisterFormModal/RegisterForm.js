@@ -16,8 +16,7 @@ function RegisterForm() {
     if (sessionUser) return (
         <Redirect to="/" />
     );
-    const demoUser = async (e) => {
-        e.preventDefault();
+    const demoUser = async () => {
         const payload = {
             credential: "demo@user.io",
             password: "password01"
