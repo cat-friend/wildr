@@ -28,7 +28,6 @@ function AddToCollection({ imageId }) {
             userId,
             imageId
         }
-        console.log("payload", payload)
         return dispatch(collectionActions.addToCollection(payload))
             .then(() => {
                 setShowSuccess(true);
