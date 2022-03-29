@@ -21,7 +21,6 @@ const validateCollection = [
     handleValidationErrors
 ];
 
-
 // POST an image to a collection
 router.post('/:collectionId(\\d+)', asyncHandler(async (req, res, next) => {
     const collectionId = req.params.collectionId;
