@@ -11,19 +11,38 @@ function CollectionsDetail() {
     const { collectionId } = useParams();
     const dispatch = useDispatch();
     const collection = useSelector(state => state.collections);
+    let doesCollectionExist;
     const userIdFromCollection = collection?.userId;
     const [showEdit, setShowEdit] = useState(false);
     useEffect(() => {
-        dispatch(collectionActions.loadOneCollection(collectionId));
+        dispatch(collectionActions.loadOneCollection(collectionId)).then(
+            () => {
+                doesCollectionExist = true;
+            },
+            async (response) => {
+                const data = await response.json();
+                if (data && data.errors) {
+                    doesCollectionExist = false;
+                }
+            }
+        );
         if (userIdFromCollection > 0) dispatch(getOneUser(userIdFromCollection));
     }, [dispatch, collectionId, userIdFromCollection]);
     const currUserId = useSelector(state => state.session.user.id);
     const collectionOwner = useSelector(state => state.user);
     const isOwner = Boolean(currUserId === userIdFromCollection);
-
     const editClick = (e) => {
         e.preventDefault();
         setShowEdit(true);
+    }
+
+    if (!doesCollectionExist) {
+        return (
+            <><h1>Collection Not Found.</h1>
+                <NavLink to="/">Return home</NavLink>
+            </>
+
+        )
     }
 
     return (
