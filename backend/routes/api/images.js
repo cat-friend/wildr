@@ -1,8 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const asyncHandler = require('express-async-handler');
-
-const { setTokenCookie, restoreUser } = require('../../utils/auth');
+const { checkExistence, checkPermissions, checkImageCollectionExistence, restoreUser } = require('../../utils/auth');
 const { User, Image } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -19,7 +18,6 @@ const validateImage = [
         .isURL()
         .withMessage("Please provide a source URL for your image."),
     check(''),
-
     handleValidationErrors
 ];
 
@@ -61,7 +59,7 @@ router.post('/', validateImage, asyncHandler(async (req, res, next) => {
 }));
 
 
-// // deleting an image
+// deleting an image
 router.delete('/:imageId(\\d+)', asyncHandler(async (req, res, next) => {
     const { imageId, userId } = req.body;
     const id = req.params.imageId;
