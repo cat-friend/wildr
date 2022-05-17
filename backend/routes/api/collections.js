@@ -8,7 +8,6 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 // error handling middleware
-
 const validateCollection = [
     check('title')
         .exists({ checkFalsy: true })

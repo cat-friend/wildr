@@ -53,7 +53,7 @@ router.put('/:imageId(\\d+)', validateImage, asyncHandler(async (req, res, next)
 }));
 
 
-// // Posting an image
+// Posting an image
 router.post('/', validateImage, asyncHandler(async (req, res, next) => {
     const { title, url, description, userId } = req.body;
     const image = await Image.create({ title, url, description, userId });
