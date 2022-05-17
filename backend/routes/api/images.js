@@ -38,16 +38,16 @@ router.get('/', asyncHandler(async (req, res, next) => {
 
 // updating an image
 router.put('/:imageId(\\d+)', validateImage, asyncHandler(async (req, res, next) => {
-    const { imageId, title, url, description, userId} = req.body;
+    const { imageId, title, url, description, userId } = req.body;
+    const imageExists = await checkExistence(Image, imageId, next);
     const currImage = await Image.findByPk(imageId);
-    if (currImage.userId !== userId) {
-        const error = new Error('Unauthorized');
-        error.status = 403;
-        error.title = 'Unauthorized request.'
-        next(error);
+    if (imageExists) {
+        const isPermitted = checkPermissions(currImage, userId, next);
+        if (isPermitted) {
+            const updatedImage = await currImage.update({ title, url, description, userId });
+            return res.json(updatedImage);
+        }
     }
-    const updatedImage = await currImage.update({ title, url, description, userId });
-    return res.json(updatedImage);
 }));
 
 
@@ -64,19 +64,13 @@ router.delete('/:imageId(\\d+)', asyncHandler(async (req, res, next) => {
     const { imageId, userId } = req.body;
     const id = req.params.imageId;
     const currImage = await Image.findByPk(id);
-    if (!currImage) {
-        const error = new Error('Cannot find the requested image.');
-        error.status = 404;
-        error.title = 'Cannot find resource.'
-        next(error);
+    const exists = await checkExistence(Image, imageId, next);
+    if (exists) {
+        const isPermitted = checkPermissions(currImage, userId, next);
+        if (isPermitted) {
+            await currImage.destroy();
+            return res.json(currImage);
+        }
     }
-    if (currImage.userId !== userId) {
-        const error = new Error("You are not authorized to perform this action");
-        error.status = 403;
-        error.title = 'UNAUTHORIZED'
-        next(error);
-    }
-    const delImage = await currImage.destroy();
-    return res.json(currImage);
 }));
 module.exports = router;
